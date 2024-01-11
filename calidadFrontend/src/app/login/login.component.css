@@ -1,0 +1,52 @@
+*{
+  background-color: #005ba2;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+}
+.contenedor{
+  margin-top: 5%;
+  margin-block-end: 20%;
+}
+img{
+  height: 70%;
+  width: 70%;
+}
+.icono{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.formulario{
+  margin-left: 5%;
+}
+.btn{
+  background-color: white;
+  color: black;
+  font-weight: bold;
+}
+.btn:hover{
+  background-color: #005ba2;
+  color: white;
+  border-color: white;
+}
+
+/* Estilos para dispositivos móviles */
+@media only screen and (max-width: 767px) {
+  .contenedor{
+    margin-top: 30%;
+    margin-block-end: 60%;
+  }
+  .formulario{
+    padding: 0 10%;
+    margin-left: 0;
+  }
+  img{
+    height: 80%;
+    width: 80%;
+  }
+}
