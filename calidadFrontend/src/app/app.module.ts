@@ -13,6 +13,9 @@ import { RegisMaquinasComponent } from './regis-maquinas/regis-maquinas.componen
 import { RegisPartesComponent } from './regis-partes/regis-partes.component';
 import { TablaCalidadComponent } from './tabla-calidad/tabla-calidad.component';
 import { VistaEmpleadoComponent } from './vista-empleado/vista-empleado.component';
+import { MisRegistrosComponent } from './mis-registros/mis-registros.component';
+import { HeaderMovilComponent } from './header-movil/header-movil.component';
+import { FormularioMovilComponent } from './formulario-movil/formulario-movil.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,10 @@ import { VistaEmpleadoComponent } from './vista-empleado/vista-empleado.componen
     RegisMaquinasComponent,
     RegisPartesComponent,
     TablaCalidadComponent,
-    VistaEmpleadoComponent
+    VistaEmpleadoComponent,
+    MisRegistrosComponent,
+    HeaderMovilComponent,
+    FormularioMovilComponent
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { VistaAdminComponent } from './vista-admin/vista-admin.component';
@@ -10,6 +10,9 @@ import { RegisMaquinasComponent } from './regis-maquinas/regis-maquinas.componen
 import { RegisPartesComponent } from './regis-partes/regis-partes.component';
 import { TablaCalidadComponent } from './tabla-calidad/tabla-calidad.component';
 import { VistaEmpleadoComponent } from './vista-empleado/vista-empleado.component';
+import { MisRegistrosComponent } from './mis-registros/mis-registros.component';
+import { HeaderMovilComponent } from './header-movil/header-movil.component';
+import { FormularioMovilComponent } from './formulario-movil/formulario-movil.component';
 
 const routes: Routes = [
   {path:'header',component:HeaderComponent},
@@ -23,6 +26,9 @@ const routes: Routes = [
   {path:'partes',component:RegisPartesComponent},
   {path:'tabla',component:TablaCalidadComponent},
   {path:'vistaempleados',component:VistaEmpleadoComponent},
+  {path:'misregistros',component:MisRegistrosComponent},
+  {path:'headermovil',component:HeaderMovilComponent},
+  {path:'formulario',component:FormularioMovilComponent},
 ];
 
 @NgModule({

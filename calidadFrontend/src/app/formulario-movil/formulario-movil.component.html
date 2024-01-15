@@ -1,0 +1,113 @@
+<body>
+  <section class="header">
+    <app-header-movil></app-header-movil>
+  </section>
+  <section class="contenedor">
+    <section class="formulario">
+      <form class="row">
+        <div class="row g-3">
+          <div class="col">
+            <label for="Turno" class="form-label" style="font-weight: bold;">Turno</label>
+            <div class="input-group">
+              <select class="form-select" id="Turno" aria-label="Default select example" required>
+                <option selected disabled>Seleccionar</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+              </select>
+            </div>
+          </div>
+          <div class="col">
+            <label for="Fecha" class="form-label" style="font-weight: bold;">Fecha</label>
+            <input type="date" class="form-control" id="Fecha" value="" required>
+          </div>
+          <div class="col">
+            <label for="Semana" class="form-label" style="font-weight: bold;">Semana</label>
+            <input type="text" class="form-control" id="Semana" value="2" disabled>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label for="Departamento" class="form-label" style="font-weight: bold;">Departamento</label>
+            <div class="input-group">
+              <select class="form-select" id="Departamento" aria-label="Default select example" required>
+                <option selected disabled>Seleccionar</option>
+                <option value="Activo">OEM Maintenance</option>
+                <option value="Inactivo">Assemble Aftermarket Modules</option>
+              </select>
+            </div>
+          </div>
+          <div class="col">
+            <label for="NoDepto" class="form-label" style="font-weight: bold;">No Depto</label>
+            <input type="text" class="form-control" id="NoDepto" value="2" disabled>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label for="Maquina" class="form-label" style="font-weight: bold;">Maquina</label>
+            <select class="form-select" id="Maquina" aria-label="Default select example" required>
+              <option selected disabled>Seleccionar</option>
+              <option value="Activo">OEM Maintenance</option>
+              <option value="Inactivo">Assemble Aftermarket Modules</option>
+            </select>
+          </div>
+          <div class="col">
+            <label for="CodMq" class="form-label" style="font-weight: bold;">Código Mq</label>
+            <div class="input-group">
+              <input type="text" class="form-control" id="CodMq" value="AT105042" disabled>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label for="Subensamble" class="form-label" style="font-weight: bold;">Subensamble</label>
+            <select class="form-select" id="Subensamble" aria-label="Default select example" required>
+              <option selected disabled>Seleccionar</option>
+              <option value="Activo">OEM Maintenance</option>
+              <option value="Inactivo">Assemble Aftermarket Modules</option>
+            </select>
+          </div>
+          <div class="col">
+            <label for="NoParte" class="form-label" style="font-weight: bold;">No Parte</label>
+            <div class="input-group">
+              <input type="text" class="form-control" id="NoParte" value="AT105042" disabled>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label for="inspec" class="form-label" style="font-weight: bold;">Pza Inspc</label>
+            <input type="number" class="form-control" id="inspec" value="" required>
+          </div>
+          <div class="col">
+            <label for="inspec" class="form-label" style="font-weight: bold;">Pza Recha</label>
+            <input type="number" class="form-control" id="inspec" value="" required>
+          </div>
+          <div class="col">
+            <label for="inspec" class="form-label" style="font-weight: bold;">Pza Retra</label>
+            <input type="number" class="form-control" id="inspec" value="" required>
+          </div>
+          <div class="col">
+            <label for="inspec" class="form-label" style="font-weight: bold;">Total Recha</label>
+            <input type="number" class="form-control" id="inspec" value="" required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <label for="Defecto" class="form-label" style="font-weight: bold;">Tipo de Defecto</label>
+            <select class="form-select" id="Defecto" aria-label="Default select example" required>
+              <option selected disabled>Seleccionar</option>
+              <option value="Ninguno">Ninguno</option>
+              <option value="Inactivo">Assemble Aftermarket Modules</option>
+            </select>
+          </div>
+          <div class="col-6" id="ver">
+            <button class="btn btn-success" type="button" id="btn">Ver Registros</button>
+          </div>
+        </div>
+        <div class="row" id="botones">
+            <button class="btn btn-primary" type="submit">Agregar</button>
+        </div>
+      </form>
+    </section>
+  </section>
+</body>
