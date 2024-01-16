@@ -22,11 +22,11 @@
           </tr>
         </thead>
         <tbody class="table-group-divider">
-          <tr>
-            <td>AT105HR02</td>
-            <td>HORNO 2 SECO WARWICK MESH BELT 411-98-B</td>
-            <td>AT105042</td>
-            <td>105</td>
+          <tr *ngFor="let maquina of maquinas">
+            <td>{{maquina.codigo}}</td>
+            <td>{{maquina.nombre}}</td>
+            <td>{{maquina.codproceso}}</td>
+            <td>{{maquina.departamento}}</td>
             <td>
               <svg class="editar" data-bs-toggle="modal" data-bs-target="#staticBackdrop2" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
                 <title>Editar</title><path fill="#eab308" d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h8.925l-2 2H5v14h14v-6.95l2-2V19q0 .825-.587 1.413T19 21zm4-6v-4.25l9.175-9.175q.3-.3.675-.45t.75-.15q.4 0 .763.15t.662.45L22.425 3q.275.3.425.663T23 4.4q0 .375-.137.738t-.438.662L13.25 15zM21.025 4.4l-1.4-1.4zM11 13h1.4l5.8-5.8l-.7-.7l-.725-.7L11 11.575zm6.5-6.5l-.725-.7zl.7.7z"/></svg>
@@ -46,25 +46,25 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form class="row">
+        <form class="row" (ngSubmit)="submit(form.value)" #form="ngForm">
           <div class="col-md-6">
             <label for="validationDefaultCodMq" class="form-label" style="font-weight: bold;">Código Interno u Operación</label>
-            <input type="text" class="form-control" id="validationDefaultCodMq" value="AT105HR02" required>
+            <input [(ngModel)]="crearMq.codigo" name="codigo" type="text" class="form-control" id="validationDefaultCodMq" required>
           </div>
           <div class="col-md-6">
             <label for="validationDefaultNombre" class="form-label" style="font-weight: bold;">Nombre Máquina</label>
-            <input type="text" class="form-control" id="validationDefaulNombre" value="HORNO 2 SECO WARWICK MESH BELT 411-98-B" required>
+            <input [(ngModel)]="crearMq.nombre" name="nombre" type="text" class="form-control" id="validationDefaulNombre" required>
           </div>
           <div class="col-md-6">
             <label for="validationDefaultCodProc" class="form-label" style="font-weight: bold;">Código Interno de Proceso</label>
             <div class="input-group">
-              <input type="text" class="form-control" id="validationDefaultCodProc" value="AT105042" required>
+              <input [(ngModel)]="crearMq.codproceso" name="codproceso" type="text" class="form-control" id="validationDefaultCodProc" required>
             </div>
           </div>
           <div class="col-md-6">
             <label for="validationDefaultTipo" class="form-label" style="font-weight: bold;">Departamento</label>
             <div class="input-group">
-              <select class="form-select" id="validationDefaultTipo" aria-label="Default select example" required>
+              <select [(ngModel)]="crearMq.departamento" name="departamento" class="form-select" id="validationDefaultTipo" aria-label="Default select example" required>
                 <option selected disabled>Seleccionar</option>
                 <option value="Activo">OEM Maintenance</option>
                 <option value="Inactivo">Assemble Aftermarket Modules</option>

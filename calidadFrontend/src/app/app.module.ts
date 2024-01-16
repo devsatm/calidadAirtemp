@@ -16,6 +16,8 @@ import { VistaEmpleadoComponent } from './vista-empleado/vista-empleado.componen
 import { MisRegistrosComponent } from './mis-registros/mis-registros.component';
 import { HeaderMovilComponent } from './header-movil/header-movil.component';
 import { FormularioMovilComponent } from './formulario-movil/formulario-movil.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,11 @@ import { FormularioMovilComponent } from './formulario-movil/formulario-movil.co
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    //NgbModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
