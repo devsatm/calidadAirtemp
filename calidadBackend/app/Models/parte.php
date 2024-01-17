@@ -15,6 +15,6 @@ class parte extends Model
       'descripcion',
       'tipo',
       'cliente',
-      'maquina'
+      'departamento'
     ];
 }

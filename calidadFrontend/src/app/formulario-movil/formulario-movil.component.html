@@ -18,11 +18,11 @@
           </div>
           <div class="col">
             <label for="Fecha" class="form-label" style="font-weight: bold;">Fecha</label>
-            <input type="date" class="form-control" id="Fecha" value="" required>
+            <input type="date" class="form-control" id="Fecha" required>
           </div>
           <div class="col">
             <label for="Semana" class="form-label" style="font-weight: bold;">Semana</label>
-            <input type="text" class="form-control" id="Semana" value="2" disabled>
+            <input type="text" class="form-control" id="Semana" disabled>
           </div>
         </div>
         <div class="row">
@@ -38,7 +38,7 @@
           </div>
           <div class="col">
             <label for="NoDepto" class="form-label" style="font-weight: bold;">No Depto</label>
-            <input type="text" class="form-control" id="NoDepto" value="2" disabled>
+            <input type="text" class="form-control" id="NoDepto" disabled>
           </div>
         </div>
         <div class="row">
@@ -53,7 +53,7 @@
           <div class="col">
             <label for="CodMq" class="form-label" style="font-weight: bold;">Código Mq</label>
             <div class="input-group">
-              <input type="text" class="form-control" id="CodMq" value="AT105042" disabled>
+              <input type="text" class="form-control" id="CodMq" disabled>
             </div>
           </div>
         </div>
@@ -69,29 +69,40 @@
           <div class="col">
             <label for="NoParte" class="form-label" style="font-weight: bold;">No Parte</label>
             <div class="input-group">
-              <input type="text" class="form-control" id="NoParte" value="AT105042" disabled>
+              <input type="text" class="form-control" id="NoParte" disabled>
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col">
             <label for="inspec" class="form-label" style="font-weight: bold;">Pza Inspc</label>
-            <input type="number" class="form-control" id="inspec" value="" required>
+            <input type="number" class="form-control" id="inspec" value="0" required>
           </div>
-          <div class="col">
+          <!--<div class="col">
             <label for="inspec" class="form-label" style="font-weight: bold;">Pza Recha</label>
-            <input type="number" class="form-control" id="inspec" value="" required>
-          </div>
+            <input type="number" class="form-control" id="inspec" required>
+          </div>-->
+            <div class="col">
+                <label for="inspec" class="form-label" style="font-weight: bold;">Pza Recha</label>
+                <input type="number" class="form-control" id="inspec" value="0" required>
+            </div>
           <div class="col">
             <label for="inspec" class="form-label" style="font-weight: bold;">Pza Retra</label>
-            <input type="number" class="form-control" id="inspec" value="" required>
+            <input type="number" class="form-control" id="inspec" value="0" required>
           </div>
           <div class="col">
-            <label for="inspec" class="form-label" style="font-weight: bold;">Total Recha</label>
-            <input type="number" class="form-control" id="inspec" value="" required>
+            <form #miFormulario="ngForm">
+              <label for="inspec" class="form-label" style="font-weight: bold;">Total Recha</label>
+              <input type="number" class="form-control" id="inspec" required name="valorInput" [(ngModel)]="valorInput">
+            </form>
           </div>
         </div>
-        <div class="row">
+        <!--<div class="row">
+          <div class="col-12">
+            <button (click)="imprimirValorEnConsola()" [disabled]="valorInput === null || valorInput <= 0" class="btn btn-danger">Defectos</button>
+          </div>
+        </div>-->
+        <!--<div class="row">
           <div class="col-6">
             <label for="Defecto" class="form-label" style="font-weight: bold;">Tipo de Defecto</label>
             <select class="form-select" id="Defecto" aria-label="Default select example" required>
@@ -103,11 +114,36 @@
           <div class="col-6" id="ver">
             <button class="btn btn-success" type="button" id="btn">Ver Registros</button>
           </div>
-        </div>
+        </div>-->
         <div class="row" id="botones">
-            <button class="btn btn-primary" type="submit">Agregar</button>
+            <div class="registrar">
+              <button class="btn btn-primary" type="submit" [disabled]="valorInput != 0">
+                Registrar</button>
+            </div>
+            <div class="registrar">
+              <button class="btn btn-primary" type="submit" [disabled]="valorInput === null || valorInput <= 0" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                Defectos</button>
+            </div>
         </div>
       </form>
     </section>
   </section>
 </body>
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Defectos</h1>
+        <!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Understood</button>
+      </div>
+    </div>
+  </div>
+</div>

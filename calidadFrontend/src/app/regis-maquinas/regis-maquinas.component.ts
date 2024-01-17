@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MaquinaService } from '../services/maquina.service';
-import { Maquina } from '../interfaces/shared';
+import { Departamento, Maquina } from '../interfaces/shared';
+import { DepartamentoService } from '../services/departamento.service';
 
 @Component({
   selector: 'app-regis-maquinas',
@@ -12,8 +13,9 @@ export class RegisMaquinasComponent implements OnInit{
   maquinas:Maquina[]=[];
   crearMq!:Maquina;
   idMq:string='';
+  departamentos:Departamento[]=[];
 
-  constructor(private maquinaS:MaquinaService){}
+  constructor(private maquinaS:MaquinaService,private departamentoS:DepartamentoService){}
   ngOnInit(): void {
     this.maquinaS.getAll().subscribe((data:Maquina[])=>{
       this.maquinas=data;
@@ -25,6 +27,9 @@ export class RegisMaquinasComponent implements OnInit{
       codproceso:'',
       departamento:''
     }
+    this.departamentoS.getAll().subscribe((data:Departamento[])=>{
+      this.departamentos=data;
+    });
   }
   submit(element:Maquina){
     this.maquinaS.create(this.crearMq).subscribe(res =>{
@@ -43,8 +48,8 @@ export class RegisMaquinasComponent implements OnInit{
         nombre: '',
         codproceso: '',
         departamento: ''
-      };
-    })
+      }
+    });
   }
   submitedit(element:Maquina){
     this.maquinaS.update(this.idMq,this.crearMq).subscribe(res=>{
@@ -63,6 +68,15 @@ export class RegisMaquinasComponent implements OnInit{
     this.maquinaS.find(id).subscribe((data:Maquina)=>{
       this.crearMq=data;
     });
+  }
+  nuevo(){
+    this.crearMq = {
+      id: '',
+      codigo: '',
+      nombre: '',
+      codproceso: '',
+      departamento: ''
+    };
   }
 
 }

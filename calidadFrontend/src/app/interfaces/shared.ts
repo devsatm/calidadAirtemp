@@ -7,11 +7,18 @@ export interface Departamento{
   encargado:string;
   tipo:string;
 }
-
 export interface Maquina{
   id:string;
   codigo:string;
   nombre:string;
   codproceso:string;
   departamento:string;
+}
+export interface Parte{
+  id:string;
+  numero:string;
+  descripcion:string;
+  tipo:string;
+  cliente:string;
+  departamento:string
 }

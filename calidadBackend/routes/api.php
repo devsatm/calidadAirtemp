@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\departamentoController;
 use App\Http\Controllers\maquinaController;
+use App\Http\Controllers\parteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,4 +34,11 @@ Route::prefix('maquina')->group(function () {
     Route::delete('/{id}',[ maquinaController::class, 'delete']);
     Route::get('/{id}',[ maquinaController::class, 'get']);
     Route::put('/{id}',[ maquinaController::class, 'update']);
+});
+Route::prefix('parte')->group(function () {
+    Route::get('/',[ parteController::class, 'getAll']);
+    Route::post('/',[ parteController::class, 'create']);
+    Route::delete('/{id}',[ parteController::class, 'delete']);
+    Route::get('/{id}',[ parteController::class, 'get']);
+    Route::put('/{id}',[ parteController::class, 'update']);
 });

@@ -32,7 +32,9 @@
   grid-template-rows: repeat(3,1fr);
   grid-gap: 10%;
 }
-
+h5{
+  cursor: pointer;
+}
 @media (max-width: 600px) {
   .container-fluid{
     display: grid;

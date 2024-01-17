@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./formulario-movil.component.css']
 })
 export class FormularioMovilComponent {
+  valorInput: number=0;
 
+  imprimirValorEnConsola() {
+    console.log('Valor ingresado:', this.valorInput);
+  }
 }

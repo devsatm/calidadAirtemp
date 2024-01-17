@@ -65,5 +65,14 @@ export class RegisDepartamentosComponent implements OnInit{
       this.crearDpto=data;
     });
   }
+  nuevo(){
+    this.crearDpto = {
+      id: '',
+      numero: '',
+      nombre: '',
+      encargado: '',
+      tipo: ''
+    };
+  }
 
 }

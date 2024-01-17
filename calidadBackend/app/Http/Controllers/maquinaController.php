@@ -17,7 +17,7 @@ class maquinaController extends Controller
     public function get($id){
         $data = maquina::find($id);
         return response()->json($data, 200);
-      }
+    }
     //metodo para crear una maquina
     public function create(Request $request){
         $data['codigo'] = $request['codigo'];

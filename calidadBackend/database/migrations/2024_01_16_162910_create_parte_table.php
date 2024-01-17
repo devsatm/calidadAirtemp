@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('descripcion');
             $table->string('tipo');
             $table->string('cliente')->nullable();
-            $table->string('maquina');
+            $table->string('departamento');
             $table->timestamps();
         });
     }

@@ -6,13 +6,16 @@
 }
 #botones{
   margin-top: 1%;
-  display: flex;
+  /*display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center;*/
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
 }
-.btn{
+
+/*.btn{
   width: 30%;
-}
+}*/
 #ver{
   margin-top: 30px;
   display: flex;
