@@ -12,6 +12,9 @@ export class RegisDepartamentosComponent implements OnInit{
   crearDpto!:Departamento;
   departamentos:Departamento[]=[];
   idDepto:string='';
+  filtro: string = '';
+  mostrarMensaje: boolean = false;
+
   constructor(private departamentoS:DepartamentoService){}
 
   ngOnInit(): void {
@@ -73,6 +76,18 @@ export class RegisDepartamentosComponent implements OnInit{
       encargado: '',
       tipo: ''
     };
+  }
+  filtrarTabla() {
+    const resultados = this.departamentos.filter(departamento =>
+      departamento.numero.toLowerCase().includes(this.filtro.toLowerCase()) ||
+      departamento.nombre.toLowerCase().includes(this.filtro.toLowerCase()) ||
+      departamento.encargado.toLowerCase().includes(this.filtro.toLowerCase()) ||
+      departamento.tipo.toLowerCase().includes(this.filtro.toLowerCase())
+    );
+
+    this.mostrarMensaje = resultados.length === 0;
+
+    return resultados;
   }
 
 }

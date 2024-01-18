@@ -14,6 +14,8 @@ export class RegisMaquinasComponent implements OnInit{
   crearMq!:Maquina;
   idMq:string='';
   departamentos:Departamento[]=[];
+  filtro: string = '';
+  mostrarMensaje: boolean = false;
 
   constructor(private maquinaS:MaquinaService,private departamentoS:DepartamentoService){}
   ngOnInit(): void {
@@ -77,6 +79,18 @@ export class RegisMaquinasComponent implements OnInit{
       codproceso: '',
       departamento: ''
     };
+  }
+  filtrarTabla() {
+    const resultados = this.maquinas.filter(maquina =>
+      maquina.nombre.toLowerCase().includes(this.filtro.toLowerCase()) ||
+      maquina.codigo.toLowerCase().includes(this.filtro.toLowerCase()) ||
+      maquina.codproceso.toLowerCase().includes(this.filtro.toLowerCase()) ||
+      maquina.departamento.toLowerCase().includes(this.filtro.toLowerCase())
+    );
+
+    this.mostrarMensaje = resultados.length === 0;
+
+    return resultados;
   }
 
 }

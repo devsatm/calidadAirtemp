@@ -14,6 +14,8 @@ export class RegisPartesComponent implements OnInit{
   crearPrt!:Parte;
   idPrt:string='';
   departamentos:Departamento[]=[];
+  filtro: string = '';
+  mostrarMensaje: boolean = false;
 
   constructor(private parteS:ParteService,private departamentoS:DepartamentoService){}
 
@@ -82,6 +84,19 @@ export class RegisPartesComponent implements OnInit{
       cliente:'',
       departamento:''
     }
+  }
+  filtrarTabla() {
+    const resultados = this.partes.filter(parte =>
+      parte.numero.toLowerCase().includes(this.filtro.toLowerCase()) ||
+      parte.descripcion.toLowerCase().includes(this.filtro.toLowerCase()) ||
+      parte.tipo.toLowerCase().includes(this.filtro.toLowerCase()) ||
+      parte.cliente.toLowerCase().includes(this.filtro.toLowerCase()) ||
+      parte.departamento.toLowerCase().includes(this.filtro.toLowerCase())
+    );
+
+    this.mostrarMensaje = resultados.length === 0;
+
+    return resultados;
   }
 
 }
