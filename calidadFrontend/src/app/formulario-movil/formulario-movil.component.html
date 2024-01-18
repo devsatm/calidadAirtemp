@@ -1,0 +1,219 @@
+<body>
+  <section class="header">
+    <app-header-movil></app-header-movil>
+  </section>
+  <section class="contenedor">
+    <section class="formulario">
+      <form class="row">
+        <div class="row g-3">
+          <div class="col">
+            <label for="Turno" class="form-label" style="font-weight: bold;">Turno</label>
+            <div class="input-group">
+              <select class="form-select" id="Turno" aria-label="Default select example" required>
+                <option selected disabled>Seleccionar</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+              </select>
+            </div>
+          </div>
+          <div class="col">
+            <label for="Fecha" class="form-label" style="font-weight: bold;">Fecha</label>
+            <input type="date" class="form-control" id="Fecha" required (change)="actualizarNumeroSemana($event)">
+          </div>
+          <div class="col">
+            <label for="Semana" class="form-label" style="font-weight: bold;">Semana</label>
+            <input type="text" class="form-control" id="Semana" disabled [value]="numeroSemana">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label for="Departamento" class="form-label" style="font-weight: bold;">Departamento</label>
+            <div class="input-group">
+              <select class="form-select" id="Departamento" aria-label="Default select example" required>
+                <option selected disabled>Seleccionar</option>
+                <option value="Activo">OEM Maintenance</option>
+                <option value="Inactivo">Assemble Aftermarket Modules</option>
+              </select>
+            </div>
+          </div>
+          <div class="col">
+            <label for="NoDepto" class="form-label" style="font-weight: bold;">No Depto</label>
+            <input type="text" class="form-control" id="NoDepto" disabled>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label for="Maquina" class="form-label" style="font-weight: bold;">Maquina</label>
+            <select class="form-select" id="Maquina" aria-label="Default select example" required>
+              <option selected disabled>Seleccionar</option>
+              <option value="Activo">OEM Maintenance</option>
+              <option value="Inactivo">Assemble Aftermarket Modules</option>
+            </select>
+          </div>
+          <div class="col">
+            <label for="CodMq" class="form-label" style="font-weight: bold;">Código Mq</label>
+            <div class="input-group">
+              <input type="text" class="form-control" id="CodMq" disabled>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label for="Subensamble" class="form-label" style="font-weight: bold;">Subensamble</label>
+            <select class="form-select" id="Subensamble" aria-label="Default select example" required>
+              <option selected disabled>Seleccionar</option>
+              <option value="Activo">OEM Maintenance</option>
+              <option value="Inactivo">Assemble Aftermarket Modules</option>
+            </select>
+          </div>
+          <div class="col">
+            <label for="NoParte" class="form-label" style="font-weight: bold;">No Parte</label>
+            <div class="input-group">
+              <input type="text" class="form-control" id="NoParte" disabled>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label for="inspec" class="form-label" style="font-weight: bold;">Pza Inspc</label>
+            <input type="number" class="form-control" id="inspec" value="0" required>
+          </div>
+          <!--<div class="col">
+            <label for="inspec" class="form-label" style="font-weight: bold;">Pza Recha</label>
+            <input type="number" class="form-control" id="inspec" required>
+          </div>-->
+          <div class="col">
+            <form #rechaForm="ngForm">
+              <label for="recha" class="form-label" style="font-weight: bold;">Pza Recha</label>
+              <input type="number" class="form-control" id="recha" [(ngModel)]="rechaInput" required name="rechaInput">
+            </form>
+          </div>
+
+          <div class="col">
+            <form #retraForm="ngForm">
+              <label for="retra" class="form-label" style="font-weight: bold;">Pza Retra</label>
+              <input type="number" class="form-control" id="retra" [(ngModel)]="retraInput" required name="retraInput">
+            </form>
+          </div>
+
+          <div class="col">
+            <form #totalForm="ngForm">
+              <label for="total" class="form-label" style="font-weight: bold;">Total Recha</label>
+              <input type="number" class="form-control" id="total" required name="valorInput" [value]="valorInput" disabled>
+            </form>
+          </div>
+
+        </div>
+        <!--<div class="row">
+          <div class="col-12">
+            <button (click)="imprimirValorEnConsola()" [disabled]="valorInput === null || valorInput <= 0" class="btn btn-danger">Defectos</button>
+          </div>
+        </div>-->
+        <!--<div class="row">
+          <div class="col-6">
+            <label for="Defecto" class="form-label" style="font-weight: bold;">Tipo de Defecto</label>
+            <select class="form-select" id="Defecto" aria-label="Default select example" required>
+              <option selected disabled>Seleccionar</option>
+              <option value="Ninguno">Ninguno</option>
+              <option value="Inactivo">Assemble Aftermarket Modules</option>
+            </select>
+          </div>
+          <div class="col-6" id="ver">
+            <button class="btn btn-success" type="button" id="btn">Ver Registros</button>
+          </div>
+        </div>-->
+        <div class="row" id="botones">
+            <div class="registrar">
+              <button class="btn btn-primary" type="submit" [disabled]="valorInput != 0">
+                Registrar</button>
+            </div>
+            <div class="registrar">
+              <button (click)="valores()" class="btn btn-primary" type="submit" [disabled]="valorInput === null || valorInput <= 0" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                Defectos</button>
+            </div>
+        </div>
+      </form>
+    </section>
+  </section>
+</body>
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Defectos</h1>
+        <!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+      </div>
+      <div class="modal-body">
+        <section class="listado">
+          <section class="selector">
+            <label for="defecto" class="form-label" style="font-weight: bold;">Agregar los Defectos</label>
+            <select class="form-select" id="defecto" [(ngModel)]="defectoSeleccionado" aria-label="Default select example">
+              <option selected disabled>Seleccionar</option>
+              <option value="OEM Maintenance">OEM Maintenance</option>
+              <option value="Assemble Aftermarket Modules">Assemble Aftermarket Modules</option>
+            </select>
+          </section>
+          <section class="boton">
+            <button class="btn btn-primary" (click)="agregarDefecto()">Agregar</button>
+          </section>
+        </section>
+        <section class="tabla-defecto">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Defecto</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let defecto of listaDefectos; let i = index">
+                <td>{{defecto}}</td>
+                <td><button class="btn btn-danger" (click)="eliminarDefecto(i)">Eliminar</button></td>
+              </tr>
+              <tr *ngIf="listaDefectos.length === 0">
+                <td colspan="2">No hay defectos agregados</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </div>
+
+      <!--<div class="modal-body">
+        <section class="listado">
+          <section class="selector">
+            <label for="defecto" class="form-label" style="font-weight: bold;">Agregar los Defectos</label>
+            <select class="form-select" id="defecto" aria-label="Default select example">
+              <option selected disabled>Seleccionar</option>
+              <option value="OEM Maintenance">OEM Maintenance</option>
+              <option value="Assemble Aftermarket Modules">Assemble Aftermarket Modules</option>
+            </select>
+          </section>
+          <section class="boton">
+            <button class="btn btn-primary">Agregar</button>
+          </section>
+        </section>
+        <section class="tabla-defecto">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Defecto</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Mark</td>
+                <td>Otto</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </div>-->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Registrar</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,50 @@
+.navbar{
+  background-color: #005ba2;
+}
+
+.offcanvas{
+  /*background-color: #c7c5c5;*/
+  background-color: white;
+}
+
+.navbar-toggler{
+  background-color: #c7c5c5;
+}
+
+.offcanvas-header{
+  background-color: #005ba2;
+}
+
+.btn{
+  background-color: #b9b7b7;
+  font-weight: bold;
+  color: black;
+  height: 50px;
+}
+
+.btn:hover{
+  background-color: #005ba2;
+  color: white;
+}
+
+.botones{
+  display: grid;
+  grid-template-rows: repeat(3,1fr);
+  grid-gap: 10%;
+}
+h5{
+  cursor: pointer;
+}
+@media (max-width: 600px) {
+  .container-fluid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  img{
+    width: 100%;
+  }
+  .navbar-toggler{
+    width: 50%;
+    margin-left: 50%;
+  }
+}

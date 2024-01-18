@@ -1,0 +1,58 @@
+.contenedor{
+  margin-top: 7%;
+}
+.formulario{
+  margin: 0 5%;
+}
+#botones{
+  margin-top: 1%;
+  /*display: flex;
+  justify-content: center;
+  align-items: center;*/
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+}
+
+/*.btn{
+  width: 30%;
+}*/
+#ver{
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/*estilos para agregar los defectos*/
+.modal-header{
+  background-color: #005ba2;
+  color: white;
+}
+.tabla-defecto{
+  background-color: gray;
+  padding: 0 2%;
+  margin-top: 5%;
+}
+.listado{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.boton{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 600px) {
+  .contenedor{
+    margin-top: 15%;
+  }
+  #botones{
+    margin-top: 5%;
+  }
+  #ver{
+    margin-top: 10%;
+  }
+  #btn{
+    width: 100%;
+  }
+}
