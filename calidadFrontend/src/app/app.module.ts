@@ -18,6 +18,7 @@ import { HeaderMovilComponent } from './header-movil/header-movil.component';
 import { FormularioMovilComponent } from './formulario-movil/formulario-movil.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { RegisDefectosComponent } from './regis-defectos/regis-defectos.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { HttpClientModule } from '@angular/common/http';
     VistaEmpleadoComponent,
     MisRegistrosComponent,
     HeaderMovilComponent,
-    FormularioMovilComponent
+    FormularioMovilComponent,
+    RegisDefectosComponent
   ],
   imports: [
     BrowserModule,

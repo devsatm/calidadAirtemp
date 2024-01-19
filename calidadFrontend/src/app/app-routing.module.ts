@@ -13,6 +13,7 @@ import { VistaEmpleadoComponent } from './vista-empleado/vista-empleado.componen
 import { MisRegistrosComponent } from './mis-registros/mis-registros.component';
 import { HeaderMovilComponent } from './header-movil/header-movil.component';
 import { FormularioMovilComponent } from './formulario-movil/formulario-movil.component';
+import { RegisDefectosComponent } from './regis-defectos/regis-defectos.component';
 
 const routes: Routes = [
   {path:'header',component:HeaderComponent},
@@ -29,6 +30,7 @@ const routes: Routes = [
   {path:'misregistros',component:MisRegistrosComponent},
   {path:'headermovil',component:HeaderMovilComponent},
   {path:'formulario',component:FormularioMovilComponent},
+  {path:'defectos',component:RegisDefectosComponent},
 ];
 
 @NgModule({
