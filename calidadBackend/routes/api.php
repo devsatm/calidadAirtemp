@@ -5,6 +5,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\departamentoController;
 use App\Http\Controllers\maquinaController;
 use App\Http\Controllers\parteController;
+use App\Http\Controllers\empleadosController;
+use App\Http\Controllers\defectoController;
+use App\Http\Controllers\registrodefectoController;
+use App\Http\Controllers\registrofinalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,3 +46,32 @@ Route::prefix('parte')->group(function () {
     Route::get('/{id}',[ parteController::class, 'get']);
     Route::put('/{id}',[ parteController::class, 'update']);
 });
+Route::prefix('defecto')->group(function () {
+    Route::get('/',[ defectoController::class, 'getAll']);
+    Route::post('/',[ defectoController::class, 'create']);
+    Route::delete('/{id}',[ defectoController::class, 'delete']);
+    Route::get('/{id}',[ defectoController::class, 'get']);
+    Route::put('/{id}',[ defectoController::class, 'update']);
+});
+Route::prefix('empleados')->group(function () {
+    Route::get('/',[ empleadosController::class, 'getAll']);
+    Route::post('/',[ empleadosController::class, 'create']);
+    Route::delete('/{id}',[ empleadosController::class, 'delete']);
+    Route::get('/{id}',[ empleadosController::class, 'get']);
+    Route::put('/{id}',[ empleadosController::class, 'update']);
+});
+Route::prefix('registrodefecto')->group(function () {
+    Route::get('/',[ registrodefectoController::class, 'getAll']);
+    Route::post('/',[ registrodefectoController::class, 'create']);
+    Route::delete('/{id}',[ registrodefectoController::class, 'delete']);
+    Route::get('/{id}',[ registrodefectoController::class, 'get']);
+    Route::put('/{id}',[ registrodefectoController::class, 'update']);
+});
+Route::prefix('registrofinal')->group(function () {
+    Route::get('/',[ registrofinalController::class, 'getAll']);
+    Route::post('/',[ registrofinalController::class, 'create']);
+    Route::delete('/{id}',[ registrofinalController::class, 'delete']);
+    Route::get('/{id}',[ registrofinalController::class, 'get']);
+    Route::put('/{id}',[ registrofinalController::class, 'update']);
+});
+

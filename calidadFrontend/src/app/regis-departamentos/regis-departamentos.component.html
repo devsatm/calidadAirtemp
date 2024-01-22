@@ -55,26 +55,27 @@
       <div class="modal-body">
         <form class="row" (ngSubmit)="submit(form.value)" #form="ngForm">
           <div class="col-md-6">
-            <label for="validationDefaultNumero" class="form-label" style="font-weight: bold;">Número</label>
-            <input [(ngModel)]="crearDpto.numero" name="numero" type="number" class="form-control" id="validationDefaultNumero" required>
+            <label for="Numero" class="form-label" style="font-weight: bold;">Número</label>
+            <input [(ngModel)]="crearDpto.numero" name="numero" type="number" class="form-control" id="Numero" required>
           </div>
           <div class="col-md-6">
-            <label for="validationDefaultNombre" class="form-label" style="font-weight: bold;">Nombre</label>
-            <input [(ngModel)]="crearDpto.nombre" name="nombre" type="text" class="form-control" id="validationDefaulNombre" required>
+            <label for="Nombre" class="form-label" style="font-weight: bold;">Nombre</label>
+            <input [(ngModel)]="crearDpto.nombre" name="nombre" type="text" class="form-control" id="Nombre" required>
           </div>
           <div class="col-md-6">
-            <label for="validationDefaultEncargado" class="form-label" style="font-weight: bold;">Encargado</label>
+            <label for="Encargado" class="form-label" style="font-weight: bold;">Encargado</label>
             <div class="input-group">
-              <input [(ngModel)]="crearDpto.encargado" name="encargado" type="text" class="form-control" id="validationDefaultEncargado">
+              <input [(ngModel)]="crearDpto.encargado" name="encargado" type="text" class="form-control" id="Encargado">
             </div>
           </div>
           <div class="col-md-6">
-            <label for="validationDefaultTipo" class="form-label" style="font-weight: bold;">Tipo</label>
+            <label for="Tipo" class="form-label" style="font-weight: bold;">Tipo</label>
             <div class="input-group">
-              <select [(ngModel)]="crearDpto.tipo" name="tipo" class="form-select" id="validationDefaultTipo" aria-label="Default select example" required>
+              <select [(ngModel)]="crearDpto.tipo" name="tipo" class="form-select" id="Tipo" aria-label="Default select example" required>
                 <option selected disabled>Seleccionar</option>
                 <option value="Común">Común</option>
                 <option value="Dedicada">Dedicada</option>
+                <option value="Común/Dedicada">Común/Dedicada</option>
               </select>
             </div>
           </div>
@@ -117,6 +118,7 @@
                 <option selected disabled>Seleccionar</option>
                 <option value="Común">Común</option>
                 <option value="Dedicada">Dedicada</option>
+                <option value="Común/Dedicada">Común/Dedicada</option>
               </select>
             </div>
           </div>
