@@ -53,7 +53,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form class="row" #form="ngForm">
+        <form class="row" (ngSubmit)="submit(form.value)" #form="ngForm">
           <div class="col-md-6">
             <label for="codmaquina" class="form-label" style="font-weight: bold;">Máquina</label>
             <select [(ngModel)]="crearDef.codigomq" name="codigomq" class="form-select" id="codmaquina" aria-label="Default select example" required>
@@ -77,10 +77,53 @@
           </div>
           <div class="col-md-6">
             <label for="Tipo" class="form-label" style="font-weight: bold;">Nombre del Defecto</label>
-            <input  type="text" class="form-control" id="tipo" required>
+            <input [(ngModel)]="crearDef.tipodefecto" name="tipodefecto" type="text" class="form-control" id="tipo" required>
           </div>
           <div class="col-12">
             <button class="btn btn-primary" [disabled]="!form.valid" type="submit">Agregar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!--MODAL PARA EDITAR EL DEFECTO-->
+<div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel2" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Registro de defectos</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="row" (ngSubmit)="submitedit(form.value)" #form="ngForm">
+          <div class="col-md-6">
+            <label for="codmaquina" class="form-label" style="font-weight: bold;">Máquina</label>
+            <select [(ngModel)]="crearDef.codigomq" name="codigomq" class="form-select" id="codmaquina" aria-label="Default select example" required>
+              <option selected disabled>Seleccionar</option>
+              <option *ngFor="let maquina of maquinas" [value]="maquina.codigo">{{maquina.nombre}}</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label for="departamento" class="form-label" style="font-weight: bold;">Departamento</label>
+            <select [(ngModel)]="crearDef.numerodp" name="numerodp" class="form-select" id="departamento" aria-label="Default select example" required>
+              <option selected disabled>Seleccionar</option>
+              <option *ngFor="let departamento of departamentos" [value]="departamento.numero">{{departamento.nombre}}</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label for="parte" class="form-label" style="font-weight: bold;">Número de Parte</label>
+            <select [(ngModel)]="crearDef.numerop" name="numerop" class="form-select" id="parte" aria-label="Default select example" required>
+              <option selected disabled>Seleccionar</option>
+              <option *ngFor="let parte of partes" [value]="parte.numero">{{parte.descripcion}}</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label for="Tipo" class="form-label" style="font-weight: bold;">Nombre del Defecto</label>
+            <input [(ngModel)]="crearDef.tipodefecto" name="tipodefecto" type="text" class="form-control" id="tipo" required>
+          </div>
+          <div class="col-12">
+            <button class="btn btn-warning" [disabled]="!form.valid" type="submit" data-bs-dismiss="modal">Editar</button>
           </div>
         </form>
       </div>

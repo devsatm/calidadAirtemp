@@ -1,5 +1,10 @@
 import { DatePipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Calidad, Departamento, Maquina, Parte } from '../interfaces/shared';
+import { CalidadService } from '../services/calidad.service';
+import { DepartamentoService } from '../services/departamento.service';
+import { MaquinaService } from '../services/maquina.service';
+import { ParteService } from '../services/parte.service';
 
 @Component({
   selector: 'app-formulario-movil',
@@ -7,7 +12,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./formulario-movil.component.css'],
   providers: [DatePipe]  // Agrega DatePipe como un proveedor
 })
-export class FormularioMovilComponent {
+export class FormularioMovilComponent  implements OnInit{
   rechaInput: number=0;
   retraInput: number=0;
   totalPzas:number=0;
@@ -15,11 +20,64 @@ export class FormularioMovilComponent {
   defectoSeleccionado: string = '';
   listaDefectos: string[] = [];
   numeroSemana: number=0;
+  //Para guardar los valores de los registros
+  crearRegis!:Calidad;
+  departamentos:Departamento[]=[];
+  maquinas:Maquina[]=[];
+  partes:Parte[]=[];
+  //para saber los valores seleccionados
+  numeroDeptoSeleccionado: number | null = null; // variable para almacenar el número de departamento seleccionado
+  codigoMaquinaSeleccionado: string='';
+  numParteSeleccionado: string = '';
+  //id del registro recien creado
+  idCalidad:string='';
 
-  /*imprimirValorEnConsola() {
-    console.log('Valor ingresado:', this.valorInput);
-  }*/
-  constructor(private datePipe: DatePipe){}
+  constructor(private datePipe: DatePipe, private calidadS:CalidadService, private departamentoS:DepartamentoService,
+    private maquinaS:MaquinaService, private parteS:ParteService){}
+  ngOnInit(): void {
+    this.crearRegis={
+      id:'',
+      empleado:'',
+      semana:null,
+      fecha:'',
+      turno:'',
+      numerodp:'',
+      codigomq:'',
+      numerop:'',
+      pzainspc:null,
+      pzarecha:this.rechaInput,
+      pzaretra:this.retraInput,
+      totalrecha:this.totalPzas
+    };
+    this.departamentoS.getAll().subscribe((data:Departamento[])=>{
+      this.departamentos=data;
+    });
+  }
+  actualizarNoDepto() {
+    // Busca el objeto departamento correspondiente al número seleccionado
+    const departamentoSeleccionado = this.departamentos.find(depto => depto.numero === this.crearRegis.numerodp);
+    // Convierte el valor a número antes de asignarlo
+    this.numeroDeptoSeleccionado = departamentoSeleccionado ? parseInt(departamentoSeleccionado.numero, 10) : null;
+    this.maquinaS.getList(this.numeroDeptoSeleccionado).subscribe((data:Maquina[])=>{
+      this.maquinas=data;
+    });
+    this.parteS.getList(this.numeroDeptoSeleccionado).subscribe((data:Parte[])=>{
+      this.partes=data;
+    });
+    this.codigoMaquinaSeleccionado='';
+    this.numParteSeleccionado='';
+  }
+  actualizarCodMq(){
+    // Busca el objeto de máquina correspondiente al código seleccionado
+    const maquinaSeleccionada = this.maquinas.find(maquina => maquina.codigo === this.crearRegis.codigomq);
+    // Actualiza el valor en el campo "Código Mq"
+    this.codigoMaquinaSeleccionado = maquinaSeleccionada ? maquinaSeleccionada.codigo : '';
+  }
+  actualizarNumPt(){
+    const parteSeleccionada = this.partes.find(parte => parte.numero === this.crearRegis.numerop);
+    this.numParteSeleccionado = parteSeleccionada ? parteSeleccionada.numero : '';
+  }
+
 
   obtenerNumeroSemana(fecha: Date): number {
     const formattedDate = this.datePipe.transform(fecha, 'yyyy-MM-dd');
@@ -50,5 +108,44 @@ export class FormularioMovilComponent {
 
   eliminarDefecto(index: number) {
     this.listaDefectos.splice(index, 1);
+  }
+  submit(element:Calidad){
+    this.calidadS.create(
+      this.crearRegis={
+        id:'',
+        empleado:'1',
+        semana:this.numeroSemana,
+        fecha:element.fecha,
+        turno:element.turno,
+        numerodp:element.numerodp,
+        codigomq:element.codigomq,
+        numerop:element.numerop,
+        pzainspc:element.pzainspc,
+        pzarecha:this.rechaInput,
+        pzaretra:this.retraInput,
+        totalrecha:this.valorInput
+      }
+    ).subscribe(res=>{
+      console.log('Registro exitosooo');
+      this.crearRegis={
+        id:'',
+        empleado:'',
+        semana:null,
+        fecha:'',
+        turno:'',
+        numerodp:'',
+        codigomq:'',
+        numerop:'',
+        pzainspc:null,
+        pzarecha:this.rechaInput,
+        pzaretra:this.retraInput,
+        totalrecha:this.totalPzas
+      };
+      this.idCalidad=res.id
+      this.numeroSemana=0;
+      this.numeroDeptoSeleccionado=null;
+      this.codigoMaquinaSeleccionado='';
+      this.numParteSeleccionado='';
+    })
   }
 }

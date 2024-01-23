@@ -18,6 +18,9 @@ class registrofinal extends Model
       'numerodp',
       'codigomq',
       'numerop',
-      'idregistrodefecto'
+      'pzainspc',
+      'pzarecha',
+      'pzaretra',
+      'totalrecha'
     ];
 }

@@ -38,3 +38,22 @@ export interface Defecto{
   numerop:string;
   tipodefecto:string;
 }
+export interface Calidad{
+  id:string;
+  empleado:string;
+  semana:number | null;
+  fecha:string;
+  turno:string;
+  numerodp:string;
+  codigomq:string;
+  numerop:string;
+  pzainspc:number | null;
+  pzarecha:number;
+  pzaretra:number;
+  totalrecha:number;
+}
+export interface Defectocalidad{
+  id:string;
+  idregistrofinal:string;
+  defecto:string;
+}

@@ -23,6 +23,12 @@ export class MaquinaService {
       catchError(this.errorHandler)
     )
   }
+  getList(id:number | null): Observable<Maquina[]>{
+    return this.httpClient.get<Maquina[]>(this.ApiUrl+'list/'+id)
+    .pipe(
+      catchError(this.errorHandler)
+    )
+  }
   find(id:string): Observable<Maquina> {
     return this.httpClient.get<Maquina>(this.ApiUrl + id)
     .pipe(

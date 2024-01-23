@@ -49,15 +49,15 @@ export class RegisDefectosComponent {
 
   submit(element:Defecto){
     this.defectosS.create(this.crearDef).subscribe(res =>{
-      console.log('Departamento agregado');
-      const newDepto={
+      console.log('Defecto agregado');
+      const newDef={
         id: res.id,
         codigomq: element.codigomq,
         numerodp: element.numerodp,
         numerop: element.numerop,
         tipodefecto: element.tipodefecto
       }
-      this.defectos.push(newDepto);
+      this.defectos.push(newDef);
       this.crearDef = {
         id:'',
         codigomq:'',
@@ -69,7 +69,7 @@ export class RegisDefectosComponent {
   }
   submitedit(element:Defecto){
     this.defectosS.update(this.idDef,this.crearDef).subscribe(res=>{
-      console.log('Departamento aditado');
+      console.log('Defecto aditado');
       // Encuentra el índice del departamento en el arreglo
     const index = this.defectos.findIndex(d => d.id === this.idDef);
 

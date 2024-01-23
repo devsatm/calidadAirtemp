@@ -27,7 +27,10 @@ class registrofinalController extends Controller
         $data['numerodp'] = $request['numerodp'];
         $data['codigomq'] = $request['codigomq'];
         $data['numerop'] = $request['numerop'];
-        $data['idregistrodefecto'] = $request['idregistrodefecto'];
+        $data['pzainspc'] = $request['pzainspc'];
+        $data['pzarecha'] = $request['pzarecha'];
+        $data['pzaretra'] = $request['pzaretra'];
+        $data['totalrecha'] = $request['totalrecha'];
         $registrof = registrofinal::create($data); // Crear el registroo y obtener el modelo
 
         $nuevoRegistroID = $registrof->id; // Obtener el ID del registro recién creado
@@ -46,7 +49,10 @@ class registrofinalController extends Controller
         $data['turno'] = $request['turno'];
         $data['numerodp'] = $request['numerodp'];
         $data['codigomq'] = $request['codigomq'];
-        $data['numerop'] = $request['numerop'];
+        $data['pzainspc'] = $request['pzainspc'];
+        $data['pzarecha'] = $request['pzarecha'];
+        $data['pzaretra'] = $request['pzaretra'];
+        $data['totalrecha'] = $request['totalrecha'];
         $data['idregistrodefecto'] = $request['idregistrodefecto'];
         registrofinal::find($id)->update($data);
         return response()->json([

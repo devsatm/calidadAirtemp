@@ -4,12 +4,12 @@
   </section>
   <section class="contenedor">
     <section class="formulario">
-      <form class="row">
+      <form class="row" (ngSubmit)="submit(form.value)" #form="ngForm">
         <div class="row g-3">
           <div class="col">
             <label for="Turno" class="form-label" style="font-weight: bold;">Turno</label>
             <div class="input-group">
-              <select class="form-select" id="Turno" aria-label="Default select example" required>
+              <select [(ngModel)]="crearRegis.turno" name="turno" class="form-select" id="Turno" aria-label="Default select example" required>
                 <option selected disabled>Seleccionar</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -18,7 +18,7 @@
           </div>
           <div class="col">
             <label for="Fecha" class="form-label" style="font-weight: bold;">Fecha</label>
-            <input type="date" class="form-control" id="Fecha" required (change)="actualizarNumeroSemana($event)">
+            <input [(ngModel)]="crearRegis.fecha" name="fecha" type="date" class="form-control" id="Fecha" required (change)="actualizarNumeroSemana($event)">
           </div>
           <div class="col">
             <label for="Semana" class="form-label" style="font-weight: bold;">Semana</label>
@@ -29,59 +29,52 @@
           <div class="col">
             <label for="Departamento" class="form-label" style="font-weight: bold;">Departamento</label>
             <div class="input-group">
-              <select class="form-select" id="Departamento" aria-label="Default select example" required>
+              <select [(ngModel)]="crearRegis.numerodp" name="numerodp" (change)="actualizarNoDepto()" class="form-select" id="Departamento" aria-label="Default select example" required>
                 <option selected disabled>Seleccionar</option>
-                <option value="Activo">OEM Maintenance</option>
-                <option value="Inactivo">Assemble Aftermarket Modules</option>
+                <option *ngFor="let departamento of departamentos" [value]="departamento.numero">{{departamento.nombre}}</option>
               </select>
             </div>
           </div>
           <div class="col">
             <label for="NoDepto" class="form-label" style="font-weight: bold;">No Depto</label>
-            <input type="text" class="form-control" id="NoDepto" disabled>
+            <input type="text" class="form-control" id="NoDepto" [value]="numeroDeptoSeleccionado" disabled>
           </div>
         </div>
         <div class="row">
           <div class="col">
             <label for="Maquina" class="form-label" style="font-weight: bold;">Maquina</label>
-            <select class="form-select" id="Maquina" aria-label="Default select example" required>
+            <select [(ngModel)]="crearRegis.codigomq" name="codigomq" (change)="actualizarCodMq()" class="form-select" id="Maquina" aria-label="Default select example" required>
               <option selected disabled>Seleccionar</option>
-              <option value="Activo">OEM Maintenance</option>
-              <option value="Inactivo">Assemble Aftermarket Modules</option>
+              <option *ngFor="let maquina of maquinas" [value]="maquina.codigo">{{maquina.nombre}}</option>
             </select>
           </div>
           <div class="col">
             <label for="CodMq" class="form-label" style="font-weight: bold;">Código Mq</label>
             <div class="input-group">
-              <input type="text" class="form-control" id="CodMq" disabled>
+              <input type="text" class="form-control" id="CodMq" [value]="codigoMaquinaSeleccionado" disabled>
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col">
             <label for="Subensamble" class="form-label" style="font-weight: bold;">Subensamble</label>
-            <select class="form-select" id="Subensamble" aria-label="Default select example" required>
+            <select [(ngModel)]="crearRegis.numerop" name="numerop" (change)="actualizarNumPt()" class="form-select" id="Subensamble" aria-label="Default select example" required>
               <option selected disabled>Seleccionar</option>
-              <option value="Activo">OEM Maintenance</option>
-              <option value="Inactivo">Assemble Aftermarket Modules</option>
+              <option *ngFor="let parte of partes" [value]="parte.numero">{{parte.descripcion}}</option>
             </select>
           </div>
           <div class="col">
             <label for="NoParte" class="form-label" style="font-weight: bold;">No Parte</label>
             <div class="input-group">
-              <input type="text" class="form-control" id="NoParte" disabled>
+              <input type="text" class="form-control" [value]="numParteSeleccionado" id="NoParte" disabled>
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col">
             <label for="inspec" class="form-label" style="font-weight: bold;">Pza Inspc</label>
-            <input type="number" class="form-control" id="inspec" value="0" required>
+            <input [(ngModel)]="crearRegis.pzainspc" name="pzainspc" type="number" class="form-control" id="inspec" required>
           </div>
-          <!--<div class="col">
-            <label for="inspec" class="form-label" style="font-weight: bold;">Pza Recha</label>
-            <input type="number" class="form-control" id="inspec" required>
-          </div>-->
           <div class="col">
             <form #rechaForm="ngForm">
               <label for="recha" class="form-label" style="font-weight: bold;">Pza Recha</label>
@@ -102,35 +95,12 @@
               <input type="number" class="form-control" id="total" required name="valorInput" [value]="valorInput" disabled>
             </form>
           </div>
-
         </div>
-        <!--<div class="row">
-          <div class="col-12">
-            <button (click)="imprimirValorEnConsola()" [disabled]="valorInput === null || valorInput <= 0" class="btn btn-danger">Defectos</button>
-          </div>
-        </div>-->
-        <!--<div class="row">
-          <div class="col-6">
-            <label for="Defecto" class="form-label" style="font-weight: bold;">Tipo de Defecto</label>
-            <select class="form-select" id="Defecto" aria-label="Default select example" required>
-              <option selected disabled>Seleccionar</option>
-              <option value="Ninguno">Ninguno</option>
-              <option value="Inactivo">Assemble Aftermarket Modules</option>
-            </select>
-          </div>
-          <div class="col-6" id="ver">
-            <button class="btn btn-success" type="button" id="btn">Ver Registros</button>
-          </div>
-        </div>-->
         <div class="row" id="botones">
-            <div class="registrar">
-              <button class="btn btn-primary" type="submit" [disabled]="valorInput != 0">
-                Registrar</button>
-            </div>
-            <div class="registrar">
-              <button (click)="valores()" class="btn btn-primary" type="submit" [disabled]="valorInput === null || valorInput <= 0" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                Defectos</button>
-            </div>
+            <button [disabled]="!form.valid" class="btn btn-primary" *ngIf="valorInput === null || valorInput <= 0" type="submit"  id="btn">
+              Registrar</button>
+            <button id="btn" (click)="valores()" class="btn btn-primary" type="submit" *ngIf="valorInput != 0" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+              Defectos</button>
         </div>
       </form>
     </section>
@@ -148,6 +118,7 @@
         <section class="listado">
           <section class="selector">
             <label for="defecto" class="form-label" style="font-weight: bold;">Agregar los Defectos</label>
+            <p>id del registro: {{idCalidad}}</p>
             <select class="form-select" id="defecto" [(ngModel)]="defectoSeleccionado" aria-label="Default select example">
               <option selected disabled>Seleccionar</option>
               <option value="OEM Maintenance">OEM Maintenance</option>

@@ -18,6 +18,11 @@ class parteController extends Controller
         $data = parte::find($id);
         return response()->json($data, 200);
     }
+    //metodo para traer las partes que pertenezcan a un departamento
+    public function getList($id){
+        $data = parte::where('departamento', $id)->get();
+        return response()->json($data, 200);
+    }
     //metodo para crear una parte
     public function create(Request $request){
         $data['numero'] = $request['numero'];

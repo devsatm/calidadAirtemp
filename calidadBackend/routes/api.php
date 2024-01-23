@@ -38,6 +38,8 @@ Route::prefix('maquina')->group(function () {
     Route::delete('/{id}',[ maquinaController::class, 'delete']);
     Route::get('/{id}',[ maquinaController::class, 'get']);
     Route::put('/{id}',[ maquinaController::class, 'update']);
+    Route::get('/list/{id}',[ maquinaController::class, 'getList']);
+
 });
 Route::prefix('parte')->group(function () {
     Route::get('/',[ parteController::class, 'getAll']);
@@ -45,6 +47,7 @@ Route::prefix('parte')->group(function () {
     Route::delete('/{id}',[ parteController::class, 'delete']);
     Route::get('/{id}',[ parteController::class, 'get']);
     Route::put('/{id}',[ parteController::class, 'update']);
+    Route::get('/list/{id}',[ parteController::class, 'getList']);
 });
 Route::prefix('defecto')->group(function () {
     Route::get('/',[ defectoController::class, 'getAll']);

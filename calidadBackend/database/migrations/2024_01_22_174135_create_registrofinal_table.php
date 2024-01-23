@@ -20,7 +20,10 @@ return new class extends Migration
             $table->string('numerodp')->nullable();
             $table->string('codigomq')->nullable();
             $table->string('numerop')->nullable();
-            $table->string('idregistrodefecto')->nullable();
+            $table->integer('pzainspc')->nullable();
+            $table->integer('pzarecha')->nullable();
+            $table->integer('pzaretra')->nullable();
+            $table->integer('totalrecha')->nullable();
             $table->timestamps();
         });
     }
