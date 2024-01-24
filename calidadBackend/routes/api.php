@@ -55,6 +55,7 @@ Route::prefix('defecto')->group(function () {
     Route::delete('/{id}',[ defectoController::class, 'delete']);
     Route::get('/{id}',[ defectoController::class, 'get']);
     Route::put('/{id}',[ defectoController::class, 'update']);
+    Route::get('/list/{id}',[ defectoController::class, 'getList']);
 });
 Route::prefix('empleados')->group(function () {
     Route::get('/',[ empleadosController::class, 'getAll']);

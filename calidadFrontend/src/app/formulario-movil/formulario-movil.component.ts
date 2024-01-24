@@ -1,10 +1,12 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Calidad, Departamento, Maquina, Parte } from '../interfaces/shared';
+import { Calidad, Defecto, Defectocalidad, Departamento, Maquina, Parte } from '../interfaces/shared';
 import { CalidadService } from '../services/calidad.service';
 import { DepartamentoService } from '../services/departamento.service';
 import { MaquinaService } from '../services/maquina.service';
 import { ParteService } from '../services/parte.service';
+import { DefectoService } from '../services/defecto.service';
+import { DefectocalidadService } from '../services/defectocalidad.service';
 
 @Component({
   selector: 'app-formulario-movil',
@@ -13,27 +15,30 @@ import { ParteService } from '../services/parte.service';
   providers: [DatePipe]  // Agrega DatePipe como un proveedor
 })
 export class FormularioMovilComponent  implements OnInit{
+  /*variables para los input de las pzas*/
   rechaInput: number=0;
   retraInput: number=0;
   totalPzas:number=0;
-  //valorInput= this.rechaInput + this.retraInput;
-  defectoSeleccionado: string = '';
-  listaDefectos: string[] = [];
   numeroSemana: number=0;
   //Para guardar los valores de los registros
   crearRegis!:Calidad;
   departamentos:Departamento[]=[];
   maquinas:Maquina[]=[];
   partes:Parte[]=[];
-  //para saber los valores seleccionados
+  listaDefectos: Defecto[] = [];
+  defectosAgregados:Defectocalidad[]=[];
+  calidad!:Calidad;
+  //variables que guardan los valores seleccionados
   numeroDeptoSeleccionado: number | null = null; // variable para almacenar el número de departamento seleccionado
   codigoMaquinaSeleccionado: string='';
   numParteSeleccionado: string = '';
+  defectoSeleccionado: string = '';
   //id del registro recien creado
   idCalidad:string='';
 
   constructor(private datePipe: DatePipe, private calidadS:CalidadService, private departamentoS:DepartamentoService,
-    private maquinaS:MaquinaService, private parteS:ParteService){}
+              private maquinaS:MaquinaService, private parteS:ParteService, private defectoS:DefectoService, private AddDefectoS:DefectocalidadService){}
+
   ngOnInit(): void {
     this.crearRegis={
       id:'',
@@ -77,8 +82,6 @@ export class FormularioMovilComponent  implements OnInit{
     const parteSeleccionada = this.partes.find(parte => parte.numero === this.crearRegis.numerop);
     this.numParteSeleccionado = parteSeleccionada ? parteSeleccionada.numero : '';
   }
-
-
   obtenerNumeroSemana(fecha: Date): number {
     const formattedDate = this.datePipe.transform(fecha, 'yyyy-MM-dd');
     const fechaConFormato = new Date(formattedDate + 'T00:00:00'); // Agrega la parte de la hora
@@ -90,26 +93,13 @@ export class FormularioMovilComponent  implements OnInit{
     const fechaSeleccionada = new Date(event.target.value);
     this.numeroSemana = this.obtenerNumeroSemana(fechaSeleccionada);
   }
-
   get valorInput(): number {
     return this.rechaInput + this.retraInput;
   }
-  valores(){
-    console.log(this.rechaInput);
-    console.log(this.retraInput);
-    console.log(this.valorInput);
-    console.log(this.numeroSemana);
-  }
-  agregarDefecto() {
-    if (this.defectoSeleccionado && !this.listaDefectos.includes(this.defectoSeleccionado)) {
-      this.listaDefectos.push(this.defectoSeleccionado);
-    }
-  }
-
-  eliminarDefecto(index: number) {
-    this.listaDefectos.splice(index, 1);
-  }
   submit(element:Calidad){
+    this.defectoS.getList(element.numerodp).subscribe((data:Defecto[])=>{
+      this.listaDefectos=data;
+    });
     this.calidadS.create(
       this.crearRegis={
         id:'',
@@ -127,6 +117,7 @@ export class FormularioMovilComponent  implements OnInit{
       }
     ).subscribe(res=>{
       console.log('Registro exitosooo');
+      this.idCalidad=res.id
       this.crearRegis={
         id:'',
         empleado:'',
@@ -141,11 +132,59 @@ export class FormularioMovilComponent  implements OnInit{
         pzaretra:this.retraInput,
         totalrecha:this.totalPzas
       };
-      this.idCalidad=res.id
       this.numeroSemana=0;
+      this.totalPzas=0;
+      this.rechaInput=0;
+      this.retraInput=0;
       this.numeroDeptoSeleccionado=null;
       this.codigoMaquinaSeleccionado='';
       this.numParteSeleccionado='';
+      /*this.calidadS.find(res.id).subscribe(response=>{
+        this.calidad=response;
+        this.defectoS.getList(response.numerodp).subscribe((data:Defecto[])=>{
+          this.listaDefectos=data;
+        });
+      });*/
+    });
+  }
+  /*aqui trabajare con los defectos*/
+  agregarDefecto() {
+    if (this.defectoSeleccionado) {
+      // Se verifica si el defecto ya existe en el arrreglo defectosAgregados
+      const defectoExistente = this.defectosAgregados.some(defecto => defecto.defecto === this.defectoSeleccionado);
+      // Si el defecto no existe se agrega
+      if (!defectoExistente) {
+        const defectoForm = {
+          id: '',
+          idregistrofinal: this.idCalidad,
+          defecto: this.defectoSeleccionado,
+        };
+        //console.log(defectoForm);
+        this.AddDefectoS.create(defectoForm).subscribe(res=>{
+          console.log('Defecto agregado');
+          const defectoAdd={
+            id:res.id,
+            idregistrofinal: this.idCalidad,
+            defecto: this.defectoSeleccionado,
+          }
+          // Se agrega el defecto solo si no existe en defectosAgregados
+          this.defectosAgregados.push(defectoAdd);
+        });
+      } else {
+        console.log('El defecto ya está en la lista.');
+      }
+    }
+  }
+
+  eliminarDefecto(id: string) {
+    this.AddDefectoS.delete(id).subscribe(res=>{
+      this.defectosAgregados = this.defectosAgregados.filter(item => item.id !== id);
+      console.log('defecto eliminado')
     })
+  }
+  /*se resetea el arreglo que contiene el listado de los defectos*/
+  resetaerDefectos(){
+    this.listaDefectos = [];
+    this.defectosAgregados = [];
   }
 }
