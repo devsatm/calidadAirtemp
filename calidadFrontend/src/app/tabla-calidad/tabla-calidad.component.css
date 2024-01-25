@@ -27,7 +27,19 @@ th {
 .ver{
   cursor: pointer;
 }
+.modal-header{
+  background-color: #005ba2;
+  color: white;
+}
+/* Quita los puntos de la lista */
+ul {
+  list-style: none;
+}
 
+/* Estilo adicional para los elementos de la lista */
+li {
+  margin-bottom: 3px; /* Espaciado entre elementos de la lista */
+}
 
 /*estilos para el buscador*/
 .group {

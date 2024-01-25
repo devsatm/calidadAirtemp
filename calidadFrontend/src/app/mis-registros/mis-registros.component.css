@@ -75,6 +75,7 @@ th {
   }
   .tabla-contenedor{
     margin-top: 5%;
+    max-height: 650px;
   }
   table, thead, tbody, th, td, tr {
     display: block;
@@ -113,11 +114,10 @@ th {
   td:nth-of-type(2):before { content: "Fecha"; }
   td:nth-of-type(3):before { content: "Departamento"; }
   td:nth-of-type(4):before { content: "Maquina"; }
-  td:nth-of-type(5):before { content: "Subensamble"; }
-  td:nth-of-type(6):before { content: "No parte"; }
-  td:nth-of-type(7):before { content: "Pza INSP"; }
-  td:nth-of-type(8):before { content: "Pza Rechazada"; }
-  td:nth-of-type(9):before { content: "Pza Retrabajo"; }
-  td:nth-of-type():before { content: "Total Pza"; }
+  td:nth-of-type(5):before { content: "No parte"; }
+  td:nth-of-type(6):before { content: "Pza INSP"; }
+  td:nth-of-type(7):before { content: "Pza Rechazada"; }
+  td:nth-of-type(8):before { content: "Pza Retrabajo"; }
+  td:nth-of-type(9):before { content: "Total Pza"; }
 }
 

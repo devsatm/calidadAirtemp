@@ -17,7 +17,18 @@ class departamentoController extends Controller
     public function get($id){
         $data = departamento::find($id);
         return response()->json($data, 200);
-      }
+    }
+    //metodo para traer por medio del numero de departamento
+    public function getByNumero($numero){
+        $data = departamento::where('numero', $numero)->first();
+
+        if ($data) {
+            return response()->json($data, 200);
+        } else {
+            return response()->json(['message' => 'Departamento no encontrado'], 404);
+        }
+    }
+
     //metodo para crear un departamento
     public function create(Request $request){
         $data['numero'] = $request['numero'];

@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Defectocalidad } from '../interfaces/shared';
+import { Registrodefecto } from '../interfaces/shared';
 import { Observable, catchError, throwError } from 'rxjs';
 
 @Injectable({
@@ -16,14 +16,20 @@ export class DefectocalidadService {
 
   constructor(private httpClient: HttpClient) { }
 
-  create(defectocalidad: any): Observable<Defectocalidad> {
-    return this.httpClient.post<Defectocalidad>(this.ApiUrl, JSON.stringify(defectocalidad), this.httpOptions)
+  create(defectocalidad: any): Observable<Registrodefecto> {
+    return this.httpClient.post<Registrodefecto>(this.ApiUrl, JSON.stringify(defectocalidad), this.httpOptions)
     .pipe(
       catchError(this.errorHandler)
     )
   }
   delete(id: string){
-    return this.httpClient.delete<Defectocalidad>(this.ApiUrl + id, this.httpOptions)
+    return this.httpClient.delete<Registrodefecto>(this.ApiUrl + id, this.httpOptions)
+    .pipe(
+      catchError(this.errorHandler)
+    )
+  }
+  getList(idregistrofinal:string):Observable<Registrodefecto[]>{
+    return this.httpClient.get<Registrodefecto[]>(this.ApiUrl+'list/'+idregistrofinal)
     .pipe(
       catchError(this.errorHandler)
     )

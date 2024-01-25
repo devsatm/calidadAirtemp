@@ -42,7 +42,7 @@
         </div>
         <div class="row">
           <div class="col">
-            <label for="Maquina" class="form-label" style="font-weight: bold;">Maquina</label>
+            <label for="Maquina" class="form-label" style="font-weight: bold;">Máquina</label>
             <select [(ngModel)]="crearRegis.codigomq" name="codigomq" (change)="actualizarCodMq()" class="form-select" id="Maquina" aria-label="Default select example" required>
               <option selected disabled>Seleccionar</option>
               <option *ngFor="let maquina of maquinas" [value]="maquina.codigo">{{maquina.nombre}}</option>
@@ -70,26 +70,26 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col">
+        <div class="row" id="piezas">
+          <div class="col-md-6">
             <label for="inspec" class="form-label" style="font-weight: bold;">Pza Inspc</label>
             <input [(ngModel)]="crearRegis.pzainspc" name="pzainspc" type="number" class="form-control" id="inspec" required>
           </div>
-          <div class="col">
+          <div class="col-md-6">
             <form #rechaForm="ngForm">
               <label for="recha" class="form-label" style="font-weight: bold;">Pza Recha</label>
               <input type="number" class="form-control" id="recha" [(ngModel)]="rechaInput" required name="rechaInput">
             </form>
           </div>
 
-          <div class="col">
+          <div class="col-md-6">
             <form #retraForm="ngForm">
               <label for="retra" class="form-label" style="font-weight: bold;">Pza Retra</label>
               <input type="number" class="form-control" id="retra" [(ngModel)]="retraInput" required name="retraInput">
             </form>
           </div>
 
-          <div class="col">
+          <div class="col-md-6">
             <form #totalForm="ngForm">
               <label for="total" class="form-label" style="font-weight: bold;">Total Recha</label>
               <input type="number" class="form-control" id="total" required name="valorInput" [value]="valorInput" disabled>
@@ -152,10 +152,10 @@
             </tbody>
           </table>
         </section>
-      </div>
-      <div class="modal-footer">
-        <!--<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
-        <button (click)="resetaerDefectos()" type="button" data-bs-dismiss="modal" class="btn btn-primary" [disabled]="defectosAgregados.length === 0">Registrar</button>
+        <div class="modal-footer">
+          <!--<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
+          <button (click)="resetaerDefectos()" type="button" data-bs-dismiss="modal" class="btn btn-primary" [disabled]="defectosAgregados.length === 0">Registrar</button>
+        </div>
       </div>
     </div>
   </div>

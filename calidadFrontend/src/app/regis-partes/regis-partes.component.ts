@@ -87,11 +87,11 @@ export class RegisPartesComponent implements OnInit{
   }
   filtrarTabla() {
     const resultados = this.partes.filter(parte =>
-      parte.numero.toLowerCase().includes(this.filtro.toLowerCase()) ||
-      parte.descripcion.toLowerCase().includes(this.filtro.toLowerCase()) ||
-      parte.tipo.toLowerCase().includes(this.filtro.toLowerCase()) ||
-      parte.cliente.toLowerCase().includes(this.filtro.toLowerCase()) ||
-      parte.departamento.toLowerCase().includes(this.filtro.toLowerCase())
+      parte.numero.toLowerCase().includes(this.filtro.toLowerCase())||
+      parte.descripcion.toLowerCase().includes(this.filtro.toLowerCase())||
+      parte.tipo.toLowerCase().includes(this.filtro.toLowerCase())||
+      //parte.cliente.toLowerCase().includes(this.filtro.toLowerCase())||
+      (parte.departamento && typeof parte.departamento === 'string' && parte.departamento.toLowerCase().includes(this.filtro.toLowerCase()))
     );
 
     this.mostrarMensaje = resultados.length === 0;

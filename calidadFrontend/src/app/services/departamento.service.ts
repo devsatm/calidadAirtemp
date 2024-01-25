@@ -29,6 +29,12 @@ export class DepartamentoService {
       catchError(this.errorHandler)
     )
   }
+  getList(numero:string):Observable<Departamento>{
+    return this.httpClient.get<Departamento>(this.ApiUrl+'numero/'+numero)
+    .pipe(
+      catchError(this.errorHandler)
+    )
+  }
 
   create(departamento: any): Observable<Departamento> {
     return this.httpClient.post<Departamento>(this.ApiUrl, JSON.stringify(departamento), this.httpOptions)

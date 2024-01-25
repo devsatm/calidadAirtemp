@@ -18,6 +18,14 @@ class registrofinalController extends Controller
         $data = registrofinal::find($id);
         return response()->json($data, 200);
     }
+    public function getList($empleado){
+        $data = registrofinal::where('empleado', $empleado)->get();
+        if ($data) {
+            return response()->json($data, 200);
+        } else {
+            return response()->json(['message' => 'Empleado no encontrado'], 404);
+        }
+    }
     //metodo para crear un registro
     public function create(Request $request){
         $data['empleado'] = $request['empleado'];

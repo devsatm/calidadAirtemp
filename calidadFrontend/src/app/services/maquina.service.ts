@@ -29,6 +29,12 @@ export class MaquinaService {
       catchError(this.errorHandler)
     )
   }
+  getByCodigo(codigo:string):Observable<Maquina>{
+    return this.httpClient.get<Maquina>(this.ApiUrl+'codigo/'+codigo)
+    .pipe(
+      catchError(this.errorHandler)
+    )
+  }
   find(id:string): Observable<Maquina> {
     return this.httpClient.get<Maquina>(this.ApiUrl + id)
     .pipe(

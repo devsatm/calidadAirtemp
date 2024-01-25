@@ -18,6 +18,10 @@ class registrodefectoController extends Controller
         $data = registrodefecto::find($id);
         return response()->json($data, 200);
     }
+    public function getList($idregistrofinal){
+        $data = registrodefecto::where('idregistrofinal', $idregistrofinal)->get();
+        return response()->json($data, 200);
+    }
     //metodo para crear un registro
     public function create(Request $request){
         $data['idregistrofinal'] = $request['idregistrofinal'];

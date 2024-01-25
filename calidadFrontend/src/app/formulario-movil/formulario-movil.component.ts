@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Calidad, Defecto, Defectocalidad, Departamento, Maquina, Parte } from '../interfaces/shared';
+import { Registrofinal, Defecto, Registrodefecto, Departamento, Maquina, Parte } from '../interfaces/shared';
 import { CalidadService } from '../services/calidad.service';
 import { DepartamentoService } from '../services/departamento.service';
 import { MaquinaService } from '../services/maquina.service';
@@ -21,13 +21,13 @@ export class FormularioMovilComponent  implements OnInit{
   totalPzas:number=0;
   numeroSemana: number=0;
   //Para guardar los valores de los registros
-  crearRegis!:Calidad;
+  crearRegis!:Registrofinal;
   departamentos:Departamento[]=[];
   maquinas:Maquina[]=[];
   partes:Parte[]=[];
   listaDefectos: Defecto[] = [];
-  defectosAgregados:Defectocalidad[]=[];
-  calidad!:Calidad;
+  defectosAgregados:Registrodefecto[]=[];
+  calidad!:Registrofinal;
   //variables que guardan los valores seleccionados
   numeroDeptoSeleccionado: number | null = null; // variable para almacenar el número de departamento seleccionado
   codigoMaquinaSeleccionado: string='';
@@ -96,7 +96,7 @@ export class FormularioMovilComponent  implements OnInit{
   get valorInput(): number {
     return this.rechaInput + this.retraInput;
   }
-  submit(element:Calidad){
+  submit(element:Registrofinal){
     this.defectoS.getList(element.numerodp).subscribe((data:Defecto[])=>{
       this.listaDefectos=data;
     });

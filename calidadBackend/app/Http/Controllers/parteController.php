@@ -23,6 +23,16 @@ class parteController extends Controller
         $data = parte::where('departamento', $id)->get();
         return response()->json($data, 200);
     }
+    //metodo para traer por medio del numero de parte
+    public function getByNumero($numero){
+        $data = parte::where('numero', $numero)->first();
+
+        if ($data) {
+            return response()->json($data, 200);
+        } else {
+            return response()->json(['message' => 'Departamento no encontrado'], 404);
+        }
+    }
     //metodo para crear una parte
     public function create(Request $request){
         $data['numero'] = $request['numero'];

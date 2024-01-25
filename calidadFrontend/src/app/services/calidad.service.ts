@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
-import { Calidad } from '../interfaces/shared';
+import { Registrofinal } from '../interfaces/shared';
 
 @Injectable({
   providedIn: 'root'
@@ -17,35 +17,41 @@ export class CalidadService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAll(): Observable<Calidad[]> {
-    return this.httpClient.get<Calidad[]>(this.ApiUrl)
+  getAll(): Observable<Registrofinal[]> {
+    return this.httpClient.get<Registrofinal[]>(this.ApiUrl)
     .pipe(
       catchError(this.errorHandler)
     )
   }
-  find(id:string): Observable<Calidad> {
-    return this.httpClient.get<Calidad>(this.ApiUrl + id)
+  find(id:string): Observable<Registrofinal> {
+    return this.httpClient.get<Registrofinal>(this.ApiUrl + id)
+    .pipe(
+      catchError(this.errorHandler)
+    )
+  }
+  getList(empleado:string):Observable<Registrofinal[]>{
+    return this.httpClient.get<Registrofinal[]>(this.ApiUrl+'list/'+empleado)
     .pipe(
       catchError(this.errorHandler)
     )
   }
 
-  create(calidad: any): Observable<Calidad> {
-    return this.httpClient.post<Calidad>(this.ApiUrl, JSON.stringify(calidad), this.httpOptions)
+  create(calidad: any): Observable<Registrofinal> {
+    return this.httpClient.post<Registrofinal>(this.ApiUrl, JSON.stringify(calidad), this.httpOptions)
     .pipe(
       catchError(this.errorHandler)
     )
   }
 
-  update(id:string, calidad: Calidad): Observable<Calidad> {
-    return this.httpClient.put<Calidad>(this.ApiUrl + id, JSON.stringify(calidad), this.httpOptions)
+  update(id:string, calidad: Registrofinal): Observable<Registrofinal> {
+    return this.httpClient.put<Registrofinal>(this.ApiUrl + id, JSON.stringify(calidad), this.httpOptions)
     .pipe(
       catchError(this.errorHandler)
     )
   }
 
   delete(id: string){
-    return this.httpClient.delete<Calidad>(this.ApiUrl + id, this.httpOptions)
+    return this.httpClient.delete<Registrofinal>(this.ApiUrl + id, this.httpOptions)
     .pipe(
       catchError(this.errorHandler)
     )

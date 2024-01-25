@@ -31,7 +31,9 @@ Route::prefix('departamento')->group(function () {
     Route::delete('/{id}',[ departamentoController::class, 'delete']);
     Route::get('/{id}',[ departamentoController::class, 'get']);
     Route::put('/{id}',[ departamentoController::class, 'update']);
+    Route::get('/numero/{numero}', [departamentoController::class, 'getByNumero']);
 });
+
 Route::prefix('maquina')->group(function () {
     Route::get('/',[ maquinaController::class, 'getAll']);
     Route::post('/',[ maquinaController::class, 'create']);
@@ -39,7 +41,7 @@ Route::prefix('maquina')->group(function () {
     Route::get('/{id}',[ maquinaController::class, 'get']);
     Route::put('/{id}',[ maquinaController::class, 'update']);
     Route::get('/list/{id}',[ maquinaController::class, 'getList']);
-
+    Route::get('/codigo/{codigo}',[ maquinaController::class, 'getByCodigo']);
 });
 Route::prefix('parte')->group(function () {
     Route::get('/',[ parteController::class, 'getAll']);
@@ -48,6 +50,7 @@ Route::prefix('parte')->group(function () {
     Route::get('/{id}',[ parteController::class, 'get']);
     Route::put('/{id}',[ parteController::class, 'update']);
     Route::get('/list/{id}',[ parteController::class, 'getList']);
+    Route::get('/numero/{numero}', [parteController::class, 'getByNumero']);
 });
 Route::prefix('defecto')->group(function () {
     Route::get('/',[ defectoController::class, 'getAll']);
@@ -70,6 +73,7 @@ Route::prefix('registrodefecto')->group(function () {
     Route::delete('/{id}',[ registrodefectoController::class, 'delete']);
     Route::get('/{id}',[ registrodefectoController::class, 'get']);
     Route::put('/{id}',[ registrodefectoController::class, 'update']);
+    Route::get('/list/{idregistrofinal}',[ registrodefectoController::class, 'getList']);
 });
 Route::prefix('registrofinal')->group(function () {
     Route::get('/',[ registrofinalController::class, 'getAll']);
@@ -77,5 +81,6 @@ Route::prefix('registrofinal')->group(function () {
     Route::delete('/{id}',[ registrofinalController::class, 'delete']);
     Route::get('/{id}',[ registrofinalController::class, 'get']);
     Route::put('/{id}',[ registrofinalController::class, 'update']);
+    Route::get('/list/{empleado}',[ registrofinalController::class, 'getList']);
 });
 

@@ -67,4 +67,11 @@
   #Semana, #NoDepto, #CodMq, #NoParte{
     font-size: 13px;
   }
+  .row .col-md-6 input{
+    width: 100%;
+  }
+  #piezas{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+  }
 }

@@ -27,6 +27,12 @@ export class ParteService {
       catchError(this.errorHandler)
     )
   }
+  getByNumero(numero:string):Observable<Parte>{
+    return this.httpClient.get<Parte>(this.ApiUrl+'numero/'+numero)
+    .pipe(
+      catchError(this.errorHandler)
+    )
+  }
   find(id:string): Observable<Parte> {
     return this.httpClient.get<Parte>(this.ApiUrl + id)
     .pipe(
