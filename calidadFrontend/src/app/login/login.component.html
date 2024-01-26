@@ -4,23 +4,25 @@
       <img src="assets/img-logo/Letras_Airtemp.png">
     </section>
     <section class="formulario">
-      <form class="row g-3">
+      <p *ngIf="error===true">DATOS INCORRECTOS</p>
+      <form class="row g-3" (ngSubmit)="submit()">
         <div class="col-md-6">
-          <label for="validationDefaultUsername" class="form-label" style="font-weight: bold; font-size: 25px; color: white;">Usuario</label>
+          <label for="Username" class="form-label" style="font-weight: bold; font-size: 25px; color: white;">Usuario</label>
           <div class="input-group">
-            <input type="text" class="form-control" id="validationDefaultUsername" aria-describedby="inputGroupPrepend1" required>
+            <input [(ngModel)]="usuario" name="usuario" type="text" class="form-control" id="Username" required>
           </div>
         </div>
         <div class="col-md-6">
-          <label for="validationDefaultPassword" class="form-label" style="font-weight: bold; font-size: 25px; color: white;">Contraseña</label>
+          <label for="Password" class="form-label" style="font-weight: bold; font-size: 25px; color: white;">Contraseña</label>
           <div class="input-group">
-            <input type="password" class="form-control" id="validationDefaultPassword" aria-describedby="inputGroupPrepend2" required>
+            <input [(ngModel)]="contrasenia" name="contrasenia" type="password" class="form-control" id="Password" required>
           </div>
         </div>
         <div class="col-12">
-          <button class="btn" type="submit" routerLink="/admin">Ingresar</button>
+          <button class="btn" type="submit">Ingresar</button>
         </div>
       </form>
+
     </section>
   </section>
 </body>

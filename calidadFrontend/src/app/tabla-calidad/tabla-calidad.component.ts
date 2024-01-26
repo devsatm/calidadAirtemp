@@ -32,6 +32,7 @@ export class TablaCalidadComponent implements OnInit{
   pzarecha:number | null=0;
   pzaretra:number | null=0;
   pzatotalrecha:number | null=0;
+  filtroBusqueda:string='';
   constructor(private registrofinalS:CalidadService, private departamentoS:DepartamentoService, private maquinaS:MaquinaService,
               private parteS:ParteService, private empleadoS:EmpleadosService, private registroFinalDefectoS:DefectocalidadService){}
 
@@ -70,5 +71,31 @@ export class TablaCalidadComponent implements OnInit{
       this.defectos=data;
     })
   }
+  filtrarRegistros(): any[] {
+    const valorBusqueda = this.filtroBusqueda.toLowerCase();
+
+    // Asegúrate de que RegistroFinal no sea null ni undefined
+    if (this.RegistroFinal) {
+      return this.RegistroFinal.filter((registro) => {
+        // Asegúrate de que registro.empleado y registro.codigomq no sean null ni undefined
+        const empleado = registro.empleado ? registro.empleado.toString().toLowerCase() : '';
+        const semana = registro.semana ? registro.semana.toString().toLowerCase() : '';
+        const numerodp = registro.numerodp ? registro.numerodp.toString().toLowerCase() : '';
+        const codigomq = registro.codigomq ? registro.codigomq.toLowerCase() : '';
+        const numerop = registro.numerop ? registro.numerop.toLowerCase() : '';
+        const pzainspc = registro.pzainspc ? registro.pzainspc.toString() : '';
+        const pzarecha = registro.pzarecha ? registro.pzarecha.toString() : '';
+        const pzaretra = registro.pzaretra ? registro.pzaretra.toString() : '';
+        const totalrecha = registro.totalrecha ? registro.totalrecha.toString() : '';
+
+        return empleado.includes(valorBusqueda) || semana.includes(valorBusqueda) || numerodp.includes(valorBusqueda) || codigomq.includes(valorBusqueda) ||
+              numerop.includes(valorBusqueda) || pzainspc.includes(valorBusqueda) || pzarecha.includes(valorBusqueda) || pzaretra.includes(valorBusqueda) ||
+              totalrecha.includes(valorBusqueda);
+      });
+    } else {
+      return [];
+    }
+  }
+
 
 }

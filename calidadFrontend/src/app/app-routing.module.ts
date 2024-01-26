@@ -17,7 +17,7 @@ import { RegisDefectosComponent } from './regis-defectos/regis-defectos.componen
 
 const routes: Routes = [
   {path:'header',component:HeaderComponent},
-  {path:'admin',component:VistaAdminComponent},
+  {path:'Administrador',component:VistaAdminComponent},
   {path:'alta',component:AltaInfoComponent},
   {path:'',component:LoginComponent},
   {path:'login',component:LoginComponent},
@@ -26,7 +26,7 @@ const routes: Routes = [
   {path:'maquinas',component:RegisMaquinasComponent},
   {path:'partes',component:RegisPartesComponent},
   {path:'tabla',component:TablaCalidadComponent},
-  {path:'vistaempleados',component:VistaEmpleadoComponent},
+  {path:'Empleado',component:VistaEmpleadoComponent},
   {path:'misregistros',component:MisRegistrosComponent},
   {path:'headermovil',component:HeaderMovilComponent},
   {path:'formulario',component:FormularioMovilComponent},

@@ -66,6 +66,7 @@ Route::prefix('empleados')->group(function () {
     Route::delete('/{id}',[ empleadosController::class, 'delete']);
     Route::get('/{id}',[ empleadosController::class, 'get']);
     Route::put('/{id}',[ empleadosController::class, 'update']);
+    Route::post('/verificar-credenciales', [empleadosController::class, 'verificarCredenciales']);
 });
 Route::prefix('registrodefecto')->group(function () {
     Route::get('/',[ registrodefectoController::class, 'getAll']);

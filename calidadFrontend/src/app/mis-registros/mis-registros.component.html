@@ -6,7 +6,7 @@
     <section class="buscador">
       <div class="group">
         <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><g><path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path></g></svg>
-        <input placeholder="Buscar" type="search" class="input" [(ngModel)]="filtro">
+        <input placeholder="Buscar" type="search" class="input" [(ngModel)]="filtroBusqueda">
       </div>
     </section>
     <section class="tabla-contenedor">
@@ -25,24 +25,24 @@
           </tr>
         </thead>
         <tbody>
-          <ng-container *ngIf="filtrarTabla().length > 0; else noResultados">
-            <tr *ngFor="let registro of registros of filtrarTabla()">
-              <td>{{registro.id}}</td>
-              <td>{{registro.fecha}}</td>
-              <td>{{registro.numerodp}}</td>
-              <td>{{registro.codigomq}}</td>
-              <td>{{registro.numerop}}</td>
-              <td>{{registro.pzainspc}}</td>
-              <td>{{registro.pzarecha}}</td>
-              <td>{{registro.pzaretra}}</td>
-              <td>{{registro.totalrecha}}</td>
-            </tr>
-          </ng-container>
-          <ng-template #noResultados>
-            <tr>
-              <td colspan="5" style="color: red; font-weight: bold;">Ningún resultado</td>
-            </tr>
-          </ng-template>
+            <ng-container *ngIf="filtrarMisregistros().length > 0; else noResultados">
+              <tr *ngFor="let registro of registros of filtrarMisregistros()">
+                <td>{{registro.id}}</td>
+                <td>{{registro.fecha}}</td>
+                <td>{{registro.numerodp}}</td>
+                <td>{{registro.codigomq}}</td>
+                <td>{{registro.numerop}}</td>
+                <td>{{registro.pzainspc}}</td>
+                <td>{{registro.pzarecha}}</td>
+                <td>{{registro.pzaretra}}</td>
+                <td>{{registro.totalrecha}}</td>
+              </tr>
+            </ng-container>
+            <ng-template #noResultados>
+              <tr>
+                <td colspan="5" style="color: red; font-weight: bold;">Ningún resultado</td>
+              </tr>
+            </ng-template>
         </tbody>
       </table>
     </section>

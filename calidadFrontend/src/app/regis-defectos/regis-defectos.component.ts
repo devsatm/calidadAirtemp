@@ -15,11 +15,11 @@ export class RegisDefectosComponent {
   crearDef!:Defecto;
   defectos:Defecto[]=[];
   idDef:string='';
-  filtro: string = '';
   mostrarMensaje: boolean = false;
   partes:Parte[]=[];
   maquinas:Maquina[]=[];
   departamentos:Departamento[]=[];
+  filtroBusqueda:string='';
 
 
   constructor(private defectosS:DefectoService, private parteS:ParteService, private maquinaS:MaquinaService,
@@ -79,7 +79,7 @@ export class RegisDefectosComponent {
     }
     })
   }
-  editDepto(id:string){
+  editDefecto(id:string){
     this.idDef=id;
     this.defectosS.find(id).subscribe((data:Defecto)=>{
       this.crearDef=data;
@@ -94,17 +94,23 @@ export class RegisDefectosComponent {
       tipodefecto:''
     };
   }
-  /*filtrarTabla() {
-    const resultados = this.departamentos.filter(departamento =>
-      departamento.numero.toLowerCase().includes(this.filtro.toLowerCase()) ||
-      departamento.nombre.toLowerCase().includes(this.filtro.toLowerCase()) ||
-      departamento.encargado.toLowerCase().includes(this.filtro.toLowerCase()) ||
-      departamento.tipo.toLowerCase().includes(this.filtro.toLowerCase())
-    );
+  filtrarDefectos(): any[] {
+    const valorBusqueda = this.filtroBusqueda.toLowerCase();
 
-    this.mostrarMensaje = resultados.length === 0;
+    // Asegúrate de que RegistroFinal no sea null ni undefined
+    if (this.defectos) {
+      return this.defectos.filter((defecto) => {
+        // Asegúrate de que registro.empleado y registro.codigomq no sean null ni undefined
+        const codigomq = defecto.codigomq ? defecto.codigomq.toString().toLowerCase() : '';
+        const numerodp = defecto.numerodp ? defecto.numerodp.toString().toLowerCase() : '';
+        const numerop = defecto.numerop ? defecto.numerop.toLowerCase() : '';
+        const tipodefecto = defecto.tipodefecto ? defecto.tipodefecto.toLowerCase() : '';
 
-    return resultados;
-  }*/
+        return numerodp.includes(valorBusqueda) || codigomq.includes(valorBusqueda) || numerop.includes(valorBusqueda) || tipodefecto.includes(valorBusqueda);
+      });
+    } else {
+      return [];
+    }
+  }
 
 }

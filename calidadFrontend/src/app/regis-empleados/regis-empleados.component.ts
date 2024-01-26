@@ -11,7 +11,7 @@ export class RegisEmpleadosComponent implements OnInit{
   crearEmp!:Empleados;
   empleados:Empleados[]=[];
   idEmp:string='';
-  filtro: string = '';
+  filtroBusqueda: string = '';
   mostrarMensaje: boolean = false;
 
   constructor(private empleadosS:EmpleadosService){}
@@ -84,17 +84,17 @@ export class RegisEmpleadosComponent implements OnInit{
       estatus:''
     };
   }
-  /*filtrarTabla() {
-    const resultados = this.departamentos.filter(departamento =>
-      departamento.numero.toLowerCase().includes(this.filtro.toLowerCase()) ||
-      departamento.nombre.toLowerCase().includes(this.filtro.toLowerCase()) ||
-      departamento.encargado.toLowerCase().includes(this.filtro.toLowerCase()) ||
-      departamento.tipo.toLowerCase().includes(this.filtro.toLowerCase())
-    );
-
-    this.mostrarMensaje = resultados.length === 0;
-
-    return resultados;
-  }*/
+  //filtro para el buscador
+  filtrarEmpleados(): any[] {
+    const valorBusqueda = this.filtroBusqueda.toLowerCase();
+    return this.empleados.filter((empleado) => {
+      return empleado.nombre.toString().toLowerCase().includes(valorBusqueda) ||
+             empleado.apellido.toLowerCase().includes(valorBusqueda) ||
+             empleado.usuario.toLowerCase().includes(valorBusqueda) ||
+             empleado.contrasenia.toLowerCase().includes(valorBusqueda)||
+             empleado.perfil.toLowerCase().includes(valorBusqueda)||
+             empleado.estatus.toLowerCase().includes(valorBusqueda);
+    });
+  }
 
 }

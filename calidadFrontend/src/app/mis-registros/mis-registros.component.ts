@@ -9,31 +9,37 @@ import { Registrofinal } from '../interfaces/shared';
 })
 export class MisRegistrosComponent implements OnInit{
   registros:Registrofinal[]=[];
-  filtro: string = '';
-  mostrarMensaje: boolean = false;
+  filtroBusqueda:string='';
+
   constructor(private registroFinalS:CalidadService){}
   ngOnInit(): void {
-    this.registroFinalS.getList('1').subscribe((data:Registrofinal[])=>{
+    this.registroFinalS.getList('2').subscribe((data:Registrofinal[])=>{
       this.registros=data;
     })
   }
-  filtrarTabla() {
-    const resultados = this.registros.filter(registro =>
-      (registro.id && typeof registro.id === 'string' && registro.id.toLowerCase().includes(this.filtro.toLowerCase())) ||
-      registro.fecha.toLowerCase().includes(this.filtro.toLowerCase()) ||
-      registro.numerodp.toLowerCase().includes(this.filtro.toLowerCase()) ||
-      registro.codigomq.toLowerCase().includes(this.filtro.toLowerCase()) ||
-      registro.numerop.toLowerCase().includes(this.filtro.toLowerCase()) ||
-      (registro.pzainspc && registro.pzainspc.toString().toLowerCase().includes(this.filtro.toLowerCase())) ||
-      registro.pzarecha.toString().toLowerCase().includes(this.filtro.toLowerCase()) ||
-      registro.pzaretra.toString().toLowerCase().includes(this.filtro.toLowerCase()) ||
-      registro.totalrecha.toString().toLowerCase().includes(this.filtro.toLowerCase())
-    );
+  filtrarMisregistros(): any[] {
+    const valorBusqueda = this.filtroBusqueda.toLowerCase();
 
-    this.mostrarMensaje = resultados.length === 0;
+    // Asegúrate de que RegistroFinal no sea null ni undefined
+    if (this.registros) {
+      return this.registros.filter((registro) => {
+        // Asegúrate de que registro.empleado y registro.codigomq no sean null ni undefined
+        const id = registro.id ? registro.id.toString().toLowerCase() : '';
+        const fecha = registro.fecha ? registro.fecha.toString().toLowerCase() : '';
+        const codigomq = registro.codigomq ? registro.codigomq.toString().toLowerCase() : '';
+        const numerodp = registro.numerodp ? registro.numerodp.toString().toLowerCase() : '';
+        const numerop = registro.numerop ? registro.numerop.toLowerCase() : '';
+        const pzainspc = registro.pzainspc ? registro.pzainspc.toString() : '';
+        const pzarecha = registro.pzarecha ? registro.pzarecha.toString() : '';
+        const pzaretra = registro.pzaretra ? registro.pzaretra.toString() : '';
+        const totalrecha = registro.totalrecha ? registro.totalrecha.toString() : '';
 
-    return resultados;
+        return id.includes(valorBusqueda) || fecha.includes(valorBusqueda) || numerodp.includes(valorBusqueda) || codigomq.includes(valorBusqueda) || numerop.includes(valorBusqueda) ||
+              pzainspc.includes(valorBusqueda) || pzarecha.includes(valorBusqueda) || pzaretra.includes(valorBusqueda) || totalrecha.includes(valorBusqueda);
+      });
+    } else {
+      return [];
+    }
   }
-
 
 }

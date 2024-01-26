@@ -37,6 +37,10 @@ export class EmpleadosService {
     )
   }
 
+  verificarCredenciales(empleados: any): Observable<Empleados> {
+    return this.httpClient.post<Empleados>(this.ApiUrl + 'verificar-credenciales', empleados, this.httpOptions);
+  }
+
   update(id:string, empleados: Empleados): Observable<Empleados> {
     return this.httpClient.put<Empleados>(this.ApiUrl + id, JSON.stringify(empleados), this.httpOptions)
     .pipe(
