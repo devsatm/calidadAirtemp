@@ -10,7 +10,7 @@ class empleadosController extends Controller
 {
     //metodo para traer todos los empleados
     public function getAll(){
-        $data = empleados::get();
+        $data = empleados::orderBy('created_at', 'desc')->get();
         return response()->json($data, 200);
     }
     //metodo para traer un empleado
@@ -58,40 +58,27 @@ class empleadosController extends Controller
             'success' => true
         ], 200);
     }
-    /*public function verificarCredenciales(Request $request)
-    {
+    public function verificarCredenciales(Request $request){
         $usuario = $request->input('usuario');
         $contrasenia = $request->input('contrasenia');
 
         $empleado = empleados::where('usuario', $usuario)
-                           ->where('contrasenia', $contrasenia)
-                           ->first();
+                       ->where('contrasenia', $contrasenia)
+                       ->first();
 
         if ($empleado) {
             // Las credenciales son válidas
-            return response()->json(['message' => 'Credenciales válidas'], 200);
+            return response()->json([
+                'message' => 'Credenciales válidas',
+                'id' => $empleado->id,
+                'perfil' => $empleado->perfil,
+                'estatus' => $empleado->estatus
+            ], 200);
         } else {
             // Credenciales inválidas
             return response()->json(['message' => 'Credenciales inválidas'], 401);
         }
-    }*/
-    public function verificarCredenciales(Request $request)
-{
-    $usuario = $request->input('usuario');
-    $contrasenia = $request->input('contrasenia');
-
-    $empleado = empleados::where('usuario', $usuario)
-                       ->where('contrasenia', $contrasenia)
-                       ->first();
-
-    if ($empleado) {
-        // Las credenciales son válidas
-        return response()->json(['message' => 'Credenciales válidas', 'empleado' => $empleado], 200);
-    } else {
-        // Credenciales inválidas
-        return response()->json(['message' => 'Credenciales inválidas'], 401);
     }
-}
 
 
 }

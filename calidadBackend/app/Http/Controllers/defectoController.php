@@ -10,7 +10,7 @@ class defectoController extends Controller
 {
     //metodo para traer todos los defectos
     public function getAll(){
-        $data = defecto::get();
+        $data = defecto::orderBy('created_at', 'desc')->get();
         return response()->json($data, 200);
     }
     //metodo para traer un defecto

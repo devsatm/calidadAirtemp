@@ -10,7 +10,7 @@ class parteController extends Controller
 {
     //metodo para traer todas las partes
     public function getAll(){
-        $data = parte::get();
+        $data = parte::orderBy('created_at', 'desc')->get();
         return response()->json($data, 200);
     }
     //metodo para traer una parte

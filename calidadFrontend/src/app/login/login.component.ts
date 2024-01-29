@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Empleados } from '../interfaces/shared';
 import { EmpleadosService } from '../services/empleados.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,46 +11,60 @@ import { EmpleadosService } from '../services/empleados.service';
 export class LoginComponent implements OnInit{
   usuario:string='';
   contrasenia:string='';
-  empleado!:Empleados;
   error:boolean=false;
-  id:string='';
-  perfil:string='';
 
-  constructor(private empleadosS:EmpleadosService){}
+  constructor(private empleadosS:EmpleadosService,private router:Router){}
 
   ngOnInit(): void {
 
   }
+  submit() {
+    if (this.usuario === '@CalidadAirtemp' && this.contrasenia === 'AdminCalidad') {
+      // Usuario y contraseña predeterminados, navegar a la página del administrador
+      this.router.navigate(['Panel/Administrador']);
+    } else {
+      const datos = { usuario: this.usuario, contrasenia: this.contrasenia };
+      this.empleadosS.verificarCredenciales(datos).subscribe(
+        res => {
+          this.error = false;
+          const id = res.id;
+          const perfil = res.perfil.toLowerCase();
+          const estatus = res.estatus;
+          if(estatus === 'Activo'){
+            this.router.navigate(['panel/',perfil, id]);
+          }else{
+            this.error = true;
+          }
+        },
+        error => {
+          console.error('Credenciales inválidas');
+          this.error = true;
+        }
+      );
+    }
+  }
+
 
   /*submit() {
     const datos = { usuario: this.usuario, contrasenia: this.contrasenia };
     this.empleadosS.verificarCredenciales(datos).subscribe(
       res => {
-        console.log('Credenciales válidas', res);
-      },
-      error => {
-        console.error('Credenciales inválidas', error);
-      }
-    );
-  }*/
-  submit() {
-    const datos = { usuario: this.usuario, contrasenia: this.contrasenia };
-    this.empleadosS.verificarCredenciales(datos).subscribe(
-      res => {
         this.error=false;
         console.log('Credenciales válidas');
-        this.empleado=res;
-        this.id=res.id;
-        this.perfil=res.perfil;
-        //console.log('RESPUESTA',this.empleado);
-        // Hacer algo con los datos del empleado
+         // Acceder a id y perfil directamente desde res
+        const id = res.id;
+        const perfil = res.perfil.toLowerCase();
+        // Hacer lo que necesites con id y perfil
+        console.log('ID:', id);
+        console.log('Perfil:', perfil);
+        this.router.navigate(['panel/',perfil, id]);
       },
       error => {
         console.error('Credenciales inválidas', error);
         this.error=true;
       }
     );
-  }
+  }*/
 
 
 

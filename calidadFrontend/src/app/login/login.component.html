@@ -4,7 +4,9 @@
       <img src="assets/img-logo/Letras_Airtemp.png">
     </section>
     <section class="formulario">
-      <p *ngIf="error===true">DATOS INCORRECTOS</p>
+      <div class="error-message" [ngClass]="{'active': error}">
+        Credenciales inválidas o inactivas
+      </div>
       <form class="row g-3" (ngSubmit)="submit()">
         <div class="col-md-6">
           <label for="Username" class="form-label" style="font-weight: bold; font-size: 25px; color: white;">Usuario</label>

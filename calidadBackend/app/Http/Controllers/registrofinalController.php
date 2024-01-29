@@ -10,7 +10,7 @@ class registrofinalController extends Controller
 {
     //metodo para traer todos los registros de calidad
     public function getAll(){
-        $data = registrofinal::get();
+        $data = registrofinal::orderBy('created_at', 'desc')->get();
         return response()->json($data, 200);
     }
     //metodo para traer un registro de calidad
@@ -18,14 +18,7 @@ class registrofinalController extends Controller
         $data = registrofinal::find($id);
         return response()->json($data, 200);
     }
-    /*public function getList($empleado){
-        $data = registrofinal::where('empleado', $empleado)->get();
-        if ($data) {
-            return response()->json($data, 200);
-        } else {
-            return response()->json(['message' => 'Empleado no encontrado'], 404);
-        }
-    }*/
+    //metodo para traer todos los registros del empleado
     public function getList($empleado){
         $data = registrofinal::where('empleado', $empleado)->orderBy('id', 'desc')->get();
 
@@ -85,4 +78,47 @@ class registrofinalController extends Controller
             'success' => true
         ], 200);
     }
+     // Método para obtener el nombre de la máquina asociada al código codigomq
+     /*public function getNombreMaquina($codigomq){
+        $registro = registrofinal::where('codigomq', $codigomq)->first();
+
+        if ($registro) {
+            // Acceder al modelo de Maquina a través de la relación
+            $maquina = $registro->maquina;
+
+            if ($maquina) {
+                // Devolver el nombre de la máquina
+                return response()->json(['nombre_maquina' => $maquina->nombre], 200);
+            } else {
+                return response()->json(['message' => 'Máquina no encontrada'], 404);
+            }
+        } else {
+            return response()->json(['message' => 'Registro no encontrado'], 404);
+        }
+    }*/
+    public function getDetallesRegistroPorId($id){
+        // Obtener el registrofinal por su ID
+        $registro = registrofinal::find($id);
+
+        if ($registro) {
+            // Acceder al modelo de Maquina y Departamento a través de las relaciones
+            $maquina = $registro->maquina;
+            $departamento = $registro->departamento;
+            $parte = $registro->parte;
+            $empleados = $registro->empleados;
+            if ($maquina && $departamento && $parte && $empleados) {
+                // Devolver el nombre de la máquina y el nombre del departamento
+                return response()->json(['nombre_departamento' => $departamento->nombre,
+                                        'nombre_maquina' => $maquina->nombre,
+                                        'subensamble' => $parte->descripcion,
+                                        'nombre'=> $empleados->nombre,
+                                        'apellido'=> $empleados->apellido], 200);
+            } else {
+                return response()->json(['message' => 'Máquina o departamento no encontrado'], 404);
+            }
+        } else {
+            return response()->json(['message' => 'Registro no encontrado'], 404);
+        }
+    }
+
 }

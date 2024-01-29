@@ -7,6 +7,7 @@ import { MaquinaService } from '../services/maquina.service';
 import { ParteService } from '../services/parte.service';
 import { DefectoService } from '../services/defecto.service';
 import { DefectocalidadService } from '../services/defectocalidad.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-formulario-movil',
@@ -15,6 +16,7 @@ import { DefectocalidadService } from '../services/defectocalidad.service';
   providers: [DatePipe]  // Agrega DatePipe como un proveedor
 })
 export class FormularioMovilComponent  implements OnInit{
+  idEmpleado:string='';
   /*variables para los input de las pzas*/
   rechaInput: number=0;
   retraInput: number=0;
@@ -37,7 +39,8 @@ export class FormularioMovilComponent  implements OnInit{
   idCalidad:string='';
 
   constructor(private datePipe: DatePipe, private calidadS:CalidadService, private departamentoS:DepartamentoService,
-              private maquinaS:MaquinaService, private parteS:ParteService, private defectoS:DefectoService, private AddDefectoS:DefectocalidadService){}
+              private maquinaS:MaquinaService, private parteS:ParteService, private defectoS:DefectoService, private AddDefectoS:DefectocalidadService,
+              private route:ActivatedRoute){}
 
   ngOnInit(): void {
     this.crearRegis={
@@ -56,6 +59,9 @@ export class FormularioMovilComponent  implements OnInit{
     };
     this.departamentoS.getAll().subscribe((data:Departamento[])=>{
       this.departamentos=data;
+    });
+    this.route.params.subscribe(params => {
+      this.idEmpleado = params['id'];
     });
   }
   actualizarNoDepto() {
@@ -103,7 +109,7 @@ export class FormularioMovilComponent  implements OnInit{
     this.calidadS.create(
       this.crearRegis={
         id:'',
-        empleado:'1',
+        empleado:this.idEmpleado,
         semana:this.numeroSemana,
         fecha:element.fecha,
         turno:element.turno,
