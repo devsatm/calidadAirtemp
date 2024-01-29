@@ -1,14 +1,14 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders } from '@angular/common/http';
+import { Defecto } from '../interfaces/shared';
 import { Observable, catchError, throwError } from 'rxjs';
-import { Departamento } from '../interfaces/shared';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DepartamentoService {
+export class DefectoService {
 
-  private readonly ApiUrl:string="http://127.0.0.1:8000/api/departamento/";
+  private readonly ApiUrl:string="http://127.0.0.1:8000/api/defecto/";
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
@@ -17,41 +17,41 @@ export class DepartamentoService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAll(): Observable<Departamento[]> {
-    return this.httpClient.get<Departamento[]>(this.ApiUrl)
+  getAll(): Observable<Defecto[]> {
+    return this.httpClient.get<Defecto[]>(this.ApiUrl)
     .pipe(
       catchError(this.errorHandler)
     )
   }
-  find(id:string): Observable<Departamento> {
-    return this.httpClient.get<Departamento>(this.ApiUrl + id)
+  getList(id:string): Observable<Defecto[]>{
+    return this.httpClient.get<Defecto[]>(this.ApiUrl+'list/'+id)
     .pipe(
       catchError(this.errorHandler)
     )
   }
-  getList(numero:string):Observable<Departamento>{
-    return this.httpClient.get<Departamento>(this.ApiUrl+'numero/'+numero)
-    .pipe(
-      catchError(this.errorHandler)
-    )
-  }
-
-  create(departamento: any): Observable<Departamento> {
-    return this.httpClient.post<Departamento>(this.ApiUrl, JSON.stringify(departamento), this.httpOptions)
+  find(id:string): Observable<Defecto> {
+    return this.httpClient.get<Defecto>(this.ApiUrl + id)
     .pipe(
       catchError(this.errorHandler)
     )
   }
 
-  update(id:string, departamento: Departamento): Observable<Departamento> {
-    return this.httpClient.put<Departamento>(this.ApiUrl + id, JSON.stringify(departamento), this.httpOptions)
+  create(defecto: any): Observable<Defecto> {
+    return this.httpClient.post<Defecto>(this.ApiUrl, JSON.stringify(defecto), this.httpOptions)
+    .pipe(
+      catchError(this.errorHandler)
+    )
+  }
+
+  update(id:string, defecto: Defecto): Observable<Defecto> {
+    return this.httpClient.put<Defecto>(this.ApiUrl + id, JSON.stringify(defecto), this.httpOptions)
     .pipe(
       catchError(this.errorHandler)
     )
   }
 
   delete(id: string){
-    return this.httpClient.delete<Departamento>(this.ApiUrl + id, this.httpOptions)
+    return this.httpClient.delete<Defecto>(this.ApiUrl + id, this.httpOptions)
     .pipe(
       catchError(this.errorHandler)
     )

@@ -18,6 +18,21 @@ class maquinaController extends Controller
         $data = maquina::find($id);
         return response()->json($data, 200);
     }
+    //metodo para traer las maquinas que pertenezcan a un departamento
+    public function getList($id){
+        $data = maquina::where('departamento', $id)->get();
+        return response()->json($data, 200);
+    }
+    //metodo para traer por medio del codigo de maquina
+    public function getByCodigo($codigo){
+        $data = maquina::where('codigo', $codigo)->first();
+
+        if ($data) {
+            return response()->json($data, 200);
+        } else {
+            return response()->json(['message' => 'Departamento no encontrado'], 404);
+        }
+    }
     //metodo para crear una maquina
     public function create(Request $request){
         $data['codigo'] = $request['codigo'];

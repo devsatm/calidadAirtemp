@@ -46,8 +46,8 @@ export class RegisDepartamentosComponent implements OnInit{
         numero: '',
         nombre: '',
         encargado: '',
-        tipo: ''
-      };
+        tipo: '',
+      }
     })
   }
   submitedit(element:Departamento){
@@ -79,7 +79,7 @@ export class RegisDepartamentosComponent implements OnInit{
   }
   filtrarTabla() {
     const resultados = this.departamentos.filter(departamento =>
-      departamento.numero.toLowerCase().includes(this.filtro.toLowerCase()) ||
+      (departamento.numero && typeof departamento.numero === 'string' && departamento.numero.toLowerCase().includes(this.filtro.toLowerCase())) ||
       departamento.nombre.toLowerCase().includes(this.filtro.toLowerCase()) ||
       departamento.encargado.toLowerCase().includes(this.filtro.toLowerCase()) ||
       departamento.tipo.toLowerCase().includes(this.filtro.toLowerCase())
@@ -89,5 +89,6 @@ export class RegisDepartamentosComponent implements OnInit{
 
     return resultados;
   }
+
 
 }

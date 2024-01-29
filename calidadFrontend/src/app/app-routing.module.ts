@@ -13,10 +13,11 @@ import { VistaEmpleadoComponent } from './vista-empleado/vista-empleado.componen
 import { MisRegistrosComponent } from './mis-registros/mis-registros.component';
 import { HeaderMovilComponent } from './header-movil/header-movil.component';
 import { FormularioMovilComponent } from './formulario-movil/formulario-movil.component';
+import { RegisDefectosComponent } from './regis-defectos/regis-defectos.component';
 
 const routes: Routes = [
   {path:'header',component:HeaderComponent},
-  {path:'admin',component:VistaAdminComponent},
+  {path:'Administrador',component:VistaAdminComponent},
   {path:'alta',component:AltaInfoComponent},
   {path:'',component:LoginComponent},
   {path:'login',component:LoginComponent},
@@ -25,10 +26,11 @@ const routes: Routes = [
   {path:'maquinas',component:RegisMaquinasComponent},
   {path:'partes',component:RegisPartesComponent},
   {path:'tabla',component:TablaCalidadComponent},
-  {path:'vistaempleados',component:VistaEmpleadoComponent},
+  {path:'Empleado',component:VistaEmpleadoComponent},
   {path:'misregistros',component:MisRegistrosComponent},
   {path:'headermovil',component:HeaderMovilComponent},
   {path:'formulario',component:FormularioMovilComponent},
+  {path:'defectos',component:RegisDefectosComponent},
 ];
 
 @NgModule({

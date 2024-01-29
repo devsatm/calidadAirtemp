@@ -78,7 +78,7 @@
           </div>
           <div class="col-md-6">
             <label for="validationDefaultCliente" class="form-label" style="font-weight: bold;">Cliente</label>
-            <input [(ngModel)]="crearPrt.cliente" name="cliente" type="text" class="form-control" id="validationDefaulCliente" required>
+            <input [(ngModel)]="crearPrt.cliente" name="cliente" type="text" class="form-control" id="validationDefaulCliente">
           </div>
           <div class="col-md-6">
             <label for="validationDefaultCodMq" class="form-label" style="font-weight: bold;">Departamento</label>
@@ -129,7 +129,7 @@
           </div>
           <div class="col-md-6">
             <label for="validationDefaultCliente" class="form-label" style="font-weight: bold;">Cliente</label>
-            <input [(ngModel)]="crearPrt.cliente" name="cliente" type="text" class="form-control" id="validationDefaulCliente" required>
+            <input [(ngModel)]="crearPrt.cliente" name="cliente" type="text" class="form-control" id="validationDefaulCliente">
           </div>
           <div class="col-md-6">
             <label for="validationDefaultCodMq" class="form-label" style="font-weight: bold;">Departamento</label>
@@ -141,7 +141,7 @@
             </div>
           </div>
           <div class="col-12">
-            <button class="btn btn-warning" [disabled]="!form.valid" type="submit">Editar</button>
+            <button class="btn btn-warning" [disabled]="!form.valid" type="submit" data-bs-dismiss="modal">Editar</button>
           </div>
         </form>
       </div>

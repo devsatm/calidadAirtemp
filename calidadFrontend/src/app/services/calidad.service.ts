@@ -1,63 +1,57 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Maquina } from '../interfaces/shared';
 import { Observable, catchError, throwError } from 'rxjs';
+import { Registrofinal } from '../interfaces/shared';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MaquinaService {
+export class CalidadService {
 
-  private readonly ApiUrl:string="http://127.0.0.1:8000/api/maquina/";
+  private readonly ApiUrl:string="http://127.0.0.1:8000/api/registrofinal/";
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
     })
- }
+  }
 
   constructor(private httpClient: HttpClient) { }
 
-  getAll(): Observable<Maquina[]> {
-    return this.httpClient.get<Maquina[]>(this.ApiUrl)
+  getAll(): Observable<Registrofinal[]> {
+    return this.httpClient.get<Registrofinal[]>(this.ApiUrl)
     .pipe(
       catchError(this.errorHandler)
     )
   }
-  getList(id:number | null): Observable<Maquina[]>{
-    return this.httpClient.get<Maquina[]>(this.ApiUrl+'list/'+id)
+  find(id:string): Observable<Registrofinal> {
+    return this.httpClient.get<Registrofinal>(this.ApiUrl + id)
     .pipe(
       catchError(this.errorHandler)
     )
   }
-  getByCodigo(codigo:string):Observable<Maquina>{
-    return this.httpClient.get<Maquina>(this.ApiUrl+'codigo/'+codigo)
-    .pipe(
-      catchError(this.errorHandler)
-    )
-  }
-  find(id:string): Observable<Maquina> {
-    return this.httpClient.get<Maquina>(this.ApiUrl + id)
+  getList(empleado:string):Observable<Registrofinal[]>{
+    return this.httpClient.get<Registrofinal[]>(this.ApiUrl+'list/'+empleado)
     .pipe(
       catchError(this.errorHandler)
     )
   }
 
-  create(maquina: any): Observable<Maquina> {
-    return this.httpClient.post<Maquina>(this.ApiUrl, JSON.stringify(maquina), this.httpOptions)
+  create(calidad: any): Observable<Registrofinal> {
+    return this.httpClient.post<Registrofinal>(this.ApiUrl, JSON.stringify(calidad), this.httpOptions)
     .pipe(
       catchError(this.errorHandler)
     )
   }
 
-  update(id:string, maquina: Maquina): Observable<Maquina> {
-    return this.httpClient.put<Maquina>(this.ApiUrl + id, JSON.stringify(maquina), this.httpOptions)
+  update(id:string, calidad: Registrofinal): Observable<Registrofinal> {
+    return this.httpClient.put<Registrofinal>(this.ApiUrl + id, JSON.stringify(calidad), this.httpOptions)
     .pipe(
       catchError(this.errorHandler)
     )
   }
 
   delete(id: string){
-    return this.httpClient.delete<Maquina>(this.ApiUrl + id, this.httpOptions)
+    return this.httpClient.delete<Registrofinal>(this.ApiUrl + id, this.httpOptions)
     .pipe(
       catchError(this.errorHandler)
     )

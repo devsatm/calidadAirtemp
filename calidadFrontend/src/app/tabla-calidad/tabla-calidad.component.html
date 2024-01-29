@@ -6,16 +6,17 @@
     <section class="buscador">
       <div class="group">
         <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><g><path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path></g></svg>
-        <input placeholder="Buscar" type="search" class="input">
+        <input placeholder="Buscar" type="search" class="input"  [(ngModel)]="filtroBusqueda">
       </div>
     </section>
     <section class="tabla-contenedor">
       <table class="table table-hover">
         <thead>
           <tr>
+            <th scope="col">Empleado</th>
             <th scope="col">Semana</th>
-            <th scope="col">No Departamento</th>
-            <th scope="col">Cod Maquina</th>
+            <th scope="col">No Depto</th>
+            <th scope="col">Cod Máquina</th>
             <th scope="col">No Parte</th>
             <th scope="col">P. Inspeccionadas</th>
             <th scope="col">P. Rechazadas</th>
@@ -25,121 +26,120 @@
           </tr>
         </thead>
         <tbody class="table-group-divider">
-          <tr>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>Mark2</td>
-            <td>ahsgh12</td>
-            <td>Mark2</td>
-            <td>ahsgh12</td>
-            <td>Otto</td>
-            <td>Activo</td>
-            <td>
-              <svg class="ver" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 48 48"><g fill="none" stroke-linejoin="round" stroke-width="4"><rect width="28" height="34" x="13" y="10" fill="#2F88FF" stroke="#000"/>
-                <title>Toda la Información</title><path stroke="#000" stroke-linecap="round" d="M35 10V4H8C7.44772 4 7 4.44772 7 5V38H13"/><path stroke="#fff" stroke-linecap="round" d="M21 22H33"/><path stroke="#fff" stroke-linecap="round" d="M21 30H33"/></g></svg>
-            </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>fat</td>
-            <td>ahsgh12</td>
-            <td>fat</td>
-            <td>ahsgh12</td>
-            <td>Activo</td>
-            <td>Editar</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>fat</td>
-            <td>ahsgh12</td>
-            <td>fat</td>
-            <td>ahsgh12</td>
-            <td>Activo</td>
-            <td>Editar</td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>fat</td>
-            <td>fat</td>
-            <td>ahsgh12</td>
-            <td>ahsgh12</td>
-            <td>Activo</td>
-            <td>Editar</td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>fat</td>
-            <td>fat</td>
-            <td>ahsgh12</td>
-            <td>ahsgh12</td>
-            <td>Activo</td>
-            <td>Editar</td>
-          </tr>
-          <tr>
-            <td>6</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>fat</td>
-            <td>ahsgh12</td>
-            <td>fat</td>
-            <td>ahsgh12</td>
-            <td>Activo</td>
-            <td>Editar</td>
-          </tr>
-          <tr>
-            <td>7</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>fat</td>
-            <td>ahsgh12</td>
-            <td>fat</td>
-            <td>ahsgh12</td>
-            <td>Activo</td>
-            <td>Editar</td>
-          </tr>
-          <tr>
-            <td>8</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>fat</td>
-            <td>ahsgh12</td>
-            <td>fat</td>
-            <td>ahsgh12</td>
-            <td>Activo</td>
-            <td>Editar</td>
-          </tr>
-          <tr>
-            <td>9</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>fat</td>
-            <td>ahsgh12</td>
-            <td>fat</td>
-            <td>ahsgh12</td>
-            <td>Activo</td>
-            <td>Editar</td>
-          </tr>
-          <tr>
-            <td>10</td>
-            <td>Jacob</td>
-            <td>fat</td>
-            <td>ahsgh12</td>
-            <td>Thornton</td>
-            <td>fat</td>
-            <td>ahsgh12</td>
-            <td>Activo</td>
-            <td>Editar</td>
-          </tr>
+          <ng-container *ngIf="filtrarRegistros().length > 0; else noResultados">
+            <tr *ngFor="let registro of RegistroFinal of filtrarRegistros()">
+              <td>{{registro.empleado}}</td>
+              <td>{{registro.semana}}</td>
+              <td>{{registro.numerodp}}</td>
+              <td>{{registro.codigomq}}</td>
+              <td>{{registro.numerop}}</td>
+              <td>{{registro.pzainspc}} pzas</td>
+              <td>{{registro.pzarecha}} pzas</td>
+              <td>{{registro.pzaretra}} pzas</td>
+              <td>{{registro.totalrecha}} pzas</td>
+              <td>
+                <svg (click)="verInfo(registro.id)" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="ver" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 48 48"><g fill="none" stroke-linejoin="round" stroke-width="4"><rect width="28" height="34" x="13" y="10" fill="#2F88FF" stroke="#000"/>
+                  <title>Toda la Información</title><path stroke="#000" stroke-linecap="round" d="M35 10V4H8C7.44772 4 7 4.44772 7 5V38H13"/><path stroke="#fff" stroke-linecap="round" d="M21 22H33"/><path stroke="#fff" stroke-linecap="round" d="M21 30H33"/></g></svg>
+              </td>
+            </tr>
+          </ng-container>
+          <ng-template #noResultados>
+            <tr>
+              <td colspan="5" style="color: red; font-weight: bold;">Ningún resultado</td>
+            </tr>
+          </ng-template>
         </tbody>
       </table>
     </section>
   </section>
 </body>
+<!-- Modal PARA VER TODA LA INFORMACIÓN-->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Datos del registro</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row g-4">
+          <div class="col-md-6">
+            <label for="InputEmpleado" class="form-label" style="font-weight: bold;">Empleado</label>
+            <input type="text" class="form-control" id="InputEmpleado" value="{{empleado}}" disabled>
+          </div>
+          <div class="col">
+            <label for="InputTurno" class="form-label" style="font-weight: bold;">Turno</label>
+            <input type="text" class="form-control" id="InputTurno" value="{{turno}}" disabled>
+          </div>
+          <div class="col">
+            <label for="InputFecha" class="form-label" style="font-weight: bold;">Fecha</label>
+            <input type="text" class="form-control" id="InputFecha" value="{{fecha}}" disabled>
+          </div>
+          <div class="col">
+            <label for="InputSemana" class="form-label" style="font-weight: bold;">Semana</label>
+            <input type="text" class="form-control" id="InputSemana" value="{{semana}}" disabled>
+          </div>
+        </div>
+        <div class="row g-2">
+          <div class="col-md-8">
+            <label for="InputDepartamento" class="form-label" style="font-weight: bold;">Departamento</label>
+            <input type="text" class="form-control" id="InputDepartamento" value="{{departamento}}" disabled>
+          </div>
+          <div class="col">
+            <label for="InputNoDepartamento" class="form-label" style="font-weight: bold;">Numero Departamento</label>
+            <input type="text" class="form-control" id="InputNoDepartamento" value="{{numdepto}}" disabled>
+          </div>
+        </div>
+        <div class="row g-2">
+          <div class="col-md-8">
+            <label for="InputMaquina" class="form-label" style="font-weight: bold;">Máquina</label>
+            <input type="text" class="form-control" id="InputMaquina" value="{{maquina}}" disabled>
+          </div>
+          <div class="col">
+            <label for="InputCodMaquina" class="form-label" style="font-weight: bold;">Codigo Máquina</label>
+            <input type="text" class="form-control" id="InputCodMaquina" value="{{codmaq}}" disabled>
+          </div>
+        </div>
+        <div class="row g-2">
+          <div class="col-md-8">
+            <label for="InputSubensamble" class="form-label" style="font-weight: bold;">Subensamble</label>
+            <input type="text" class="form-control" id="InputSubensamble" value="{{subensamble}}" disabled>
+          </div>
+          <div class="col">
+            <label for="InputNumParte" class="form-label" style="font-weight: bold;">Número de parte</label>
+            <input type="text" class="form-control" id="InputNumParte" value="{{numparte}}" disabled>
+          </div>
+        </div>
+        <div class="row g-4">
+          <div class="col">
+            <label for="InputEmpleado" class="form-label" style="font-weight: bold;">Pza Inspeccionadas</label>
+            <input type="text" class="form-control" id="InputEmpleado" value="{{pzainspec}}" disabled>
+          </div>
+          <div class="col">
+            <label for="InputTurno" class="form-label" style="font-weight: bold;">Pza Rechazadas</label>
+            <input type="text" class="form-control" id="InputTurno" value="{{pzarecha}}" disabled>
+          </div>
+          <div class="col">
+            <label for="InputFecha" class="form-label" style="font-weight: bold;">Pza Retrabajo</label>
+            <input type="text" class="form-control" id="InputFecha" value="{{pzaretra}}" disabled>
+          </div>
+          <div class="col">
+            <label for="InputSemana" class="form-label" style="font-weight: bold;">Total pza Rechazadas</label>
+            <input type="text" class="form-control" id="InputSemana" value="{{pzatotalrecha}}" disabled>
+          </div>
+        </div>
+        <div class="row">
+          <label for="InputDefectos" class="form-label" style="font-weight: bold;">Defectos:</label>
+          <ul class="form-control">
+            <li *ngFor="let defecto of defectos">
+              -{{defecto.defecto}}
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
