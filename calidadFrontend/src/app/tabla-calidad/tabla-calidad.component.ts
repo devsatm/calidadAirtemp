@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Registrodefecto, Departamento, Registrofinal} from '../interfaces/shared';
+import { Registrodefecto, Departamento, Registrofinal, DetallesRegistro} from '../interfaces/shared';
 import { CalidadService } from '../services/calidad.service';
 import { DepartamentoService } from '../services/departamento.service';
 import { MaquinaService } from '../services/maquina.service';
@@ -16,8 +16,9 @@ export class TablaCalidadComponent implements OnInit{
 
   RegistroFinal:Registrofinal[]=[];
   defectos:Registrodefecto[]=[];
+  detallesregistro!:DetallesRegistro;
   RegistroF!:Registrofinal;
-  departamento1!:Departamento;
+  //departamento1!:Departamento;
   empleado:string='';
   turno:string='';
   fecha:string='';
@@ -33,8 +34,7 @@ export class TablaCalidadComponent implements OnInit{
   pzaretra:number | null=0;
   pzatotalrecha:number | null=0;
   filtroBusqueda:string='';
-  constructor(private registrofinalS:CalidadService, private departamentoS:DepartamentoService, private maquinaS:MaquinaService,
-              private parteS:ParteService, private empleadoS:EmpleadosService, private registroFinalDefectoS:DefectocalidadService){}
+  constructor(private registrofinalS:CalidadService, private registroFinalDefectoS:DefectocalidadService){}
 
   ngOnInit(): void {
     this.registrofinalS.getAll().subscribe((data:Registrofinal[])=>{
@@ -42,34 +42,30 @@ export class TablaCalidadComponent implements OnInit{
     });
   }
   verInfo(id:string){
+    this.registrofinalS.getDetallesRegistroPorId(id).subscribe(
+      res=>{
+        this.detallesregistro=res;
+        this.departamento=res.nombre_departamento;
+        this.maquina=res.nombre_maquina;
+        this.subensamble=res.subensamble;
+        this.empleado=res.nombre +' '+res.apellido;
+    });
     this.registrofinalS.find(id).subscribe(res=>{
       this.RegistroF=res;
-      this.empleadoS.find(res.empleado).subscribe(res=>{
-        this.empleado = res.nombre +' '+ res.apellido;
-      })
-      this.turno = res.turno;
-      this.fecha = res.fecha;
-      this.semana = res.semana;
-      this.numdepto = res.numerodp;
-      this.departamentoS.getList(res.numerodp).subscribe(res=>{
-        this.departamento = res.nombre;
-      });
-      this.codmaq = res.codigomq;
-      this.maquinaS.getByCodigo(res.codigomq).subscribe(ress=>{
-        this.maquina = ress.nombre;
-      });
-      this.numparte = res.numerop;
-      this.parteS.getByNumero(res.numerop).subscribe(res=>{
-        this.subensamble = res.descripcion;
-      });
-      this.pzainspec = res.pzainspc;
-      this.pzarecha = res.pzarecha;
-      this.pzaretra = res.pzaretra;
-      this.pzatotalrecha = res.totalrecha;
+      this.turno=res.turno;
+      this.fecha=res.fecha;
+      this.semana=res.semana;
+      this.numdepto=res.numerodp;
+      this.codmaq=res.codigomq;
+      this.numparte=res.numerop;
+      this.pzainspec=res.pzainspc;
+      this.pzarecha=res.pzarecha;
+      this.pzaretra=res.pzaretra;
+      this.pzatotalrecha=res.totalrecha;
     });
     this.registroFinalDefectoS.getList(id).subscribe((data:Registrodefecto[])=>{
       this.defectos=data;
-    })
+    });
   }
   filtrarRegistros(): any[] {
     const valorBusqueda = this.filtroBusqueda.toLowerCase();

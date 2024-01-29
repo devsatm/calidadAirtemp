@@ -23,4 +23,18 @@ class registrofinal extends Model
       'pzaretra',
       'totalrecha'
     ];
+    public function empleados(){
+        return $this->belongsTo(Empleados::class, 'empleado', 'id');
+    }
+    public function departamento(){
+        return $this->belongsTo(Departamento::class, 'numerodp', 'numero');
+    }
+    public function maquina(){
+        return $this->belongsTo(Maquina::class, 'codigomq', 'codigo');
+    }
+    public function parte(){
+        return $this->belongsTo(Parte::class, 'numerop', 'numero');
+    }
+
+
 }

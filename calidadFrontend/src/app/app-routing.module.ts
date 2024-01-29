@@ -16,21 +16,21 @@ import { FormularioMovilComponent } from './formulario-movil/formulario-movil.co
 import { RegisDefectosComponent } from './regis-defectos/regis-defectos.component';
 
 const routes: Routes = [
-  {path:'header',component:HeaderComponent},
-  {path:'Administrador',component:VistaAdminComponent},
-  {path:'alta',component:AltaInfoComponent},
+  //{path:'header',component:HeaderComponent},
+  {path:'Panel/Administrador',component:VistaAdminComponent},
+  {path:'administrador/alta-informacion',component:AltaInfoComponent},
   {path:'',component:LoginComponent},
   {path:'login',component:LoginComponent},
-  {path:'empleados',component:RegisEmpleadosComponent},
-  {path:'departamentos',component:RegisDepartamentosComponent},
-  {path:'maquinas',component:RegisMaquinasComponent},
-  {path:'partes',component:RegisPartesComponent},
-  {path:'tabla',component:TablaCalidadComponent},
-  {path:'Empleado',component:VistaEmpleadoComponent},
-  {path:'misregistros',component:MisRegistrosComponent},
-  {path:'headermovil',component:HeaderMovilComponent},
-  {path:'formulario',component:FormularioMovilComponent},
-  {path:'defectos',component:RegisDefectosComponent},
+  {path:'administrador/alta-empleados',component:RegisEmpleadosComponent},
+  {path:'administrador/alta-departamentos',component:RegisDepartamentosComponent},
+  {path:'administrador/alta-maquinas',component:RegisMaquinasComponent},
+  {path:'administrador/alta-partes',component:RegisPartesComponent},
+  {path:'administrador/tabla/todos-registros',component:TablaCalidadComponent},
+  {path:'panel/empleado/:id',component:VistaEmpleadoComponent},
+  {path:'empleado/mis-registros/:id',component:MisRegistrosComponent},
+  //{path:'headermovil',component:HeaderMovilComponent},
+  {path:'empleado/nuevo-registro/:id',component:FormularioMovilComponent},
+  {path:'administrador/alta-defectos',component:RegisDefectosComponent},
 ];
 
 @NgModule({

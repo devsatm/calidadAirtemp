@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
-import { Registrofinal } from '../interfaces/shared';
+import { DetallesRegistro, Registrofinal } from '../interfaces/shared';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +31,12 @@ export class CalidadService {
   }
   getList(empleado:string):Observable<Registrofinal[]>{
     return this.httpClient.get<Registrofinal[]>(this.ApiUrl+'list/'+empleado)
+    .pipe(
+      catchError(this.errorHandler)
+    )
+  }
+  getDetallesRegistroPorId(id:string): Observable<DetallesRegistro> {
+    return this.httpClient.get<DetallesRegistro>(this.ApiUrl + 'detalles-registrofinal/'+id)
     .pipe(
       catchError(this.errorHandler)
     )

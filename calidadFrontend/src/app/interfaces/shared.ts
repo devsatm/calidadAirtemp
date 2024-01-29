@@ -57,3 +57,11 @@ export interface Registrodefecto{
   idregistrofinal:string;
   defecto:string;
 }
+
+export interface DetallesRegistro{
+  nombre_departamento:string;
+  nombre_maquina:string;
+  subensamble:string;
+  nombre:string;
+  apellido:string;
+}

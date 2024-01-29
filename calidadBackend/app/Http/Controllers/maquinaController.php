@@ -10,7 +10,7 @@ class maquinaController extends Controller
 {
     //metodo para traer todos las maquinas
     public function getAll(){
-        $data = maquina::get();
+        $data = maquina::orderBy('created_at', 'desc')->get();
         return response()->json($data, 200);
     }
     //metodo para traer una maquina

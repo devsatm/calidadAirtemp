@@ -83,5 +83,8 @@ Route::prefix('registrofinal')->group(function () {
     Route::get('/{id}',[ registrofinalController::class, 'get']);
     Route::put('/{id}',[ registrofinalController::class, 'update']);
     Route::get('/list/{empleado}',[ registrofinalController::class, 'getList']);
+    //Route::get('/nombre-maquina/{codigomq}', [registrofinalController::class, 'getNombreMaquina']);
+    Route::get('/detalles-registrofinal/{id}', [registrofinalController::class, 'getDetallesRegistroPorId']);
+
 });
 

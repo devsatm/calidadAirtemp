@@ -34,12 +34,30 @@ img{
   color: white;
   border-color: white;
 }
+/* Estilo para el mensaje de credenciales invalidas*/
+.error-message {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ff0000;
+  color: #ffffff;
+  padding: 10px;
+  text-align: center;
+  width: 100%;
+  display: none;
+}
+
+.error-message.active {
+  display: block;
+}
+
 
 /* Estilos para dispositivos móviles */
 @media only screen and (max-width: 767px) {
   .contenedor{
     margin-top: 30%;
-    margin-block-end: 60%;
+    margin-block-end: 80%;
   }
   .formulario{
     padding: 0 10%;

@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { CalidadService } from '../services/calidad.service';
 import { Registrofinal } from '../interfaces/shared';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-mis-registros',
@@ -11,11 +12,14 @@ export class MisRegistrosComponent implements OnInit{
   registros:Registrofinal[]=[];
   filtroBusqueda:string='';
 
-  constructor(private registroFinalS:CalidadService){}
+  constructor(private registroFinalS:CalidadService, private route:ActivatedRoute){}
   ngOnInit(): void {
-    this.registroFinalS.getList('2').subscribe((data:Registrofinal[])=>{
-      this.registros=data;
-    })
+    this.route.params.subscribe(params => {
+      const id = params['id'];
+      this.registroFinalS.getList(id).subscribe((data:Registrofinal[])=>{
+        this.registros=data;
+      })
+    });
   }
   filtrarMisregistros(): any[] {
     const valorBusqueda = this.filtroBusqueda.toLowerCase();

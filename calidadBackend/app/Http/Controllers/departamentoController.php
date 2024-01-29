@@ -10,7 +10,7 @@ class departamentoController extends Controller
 {
     //metodo para traer todos los departamentos
     public function getAll(){
-        $data = departamento::get();
+        $data = departamento::orderBy('created_at', 'desc')->get();
         return response()->json($data, 200);
     }
     //metodo para traer un departamento
