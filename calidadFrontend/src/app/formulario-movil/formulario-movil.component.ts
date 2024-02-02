@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit} from '@angular/core';
 import { Registrofinal, Defecto, Registrodefecto, Departamento, Maquina, Parte } from '../interfaces/shared';
 import { CalidadService } from '../services/calidad.service';
 import { DepartamentoService } from '../services/departamento.service';
@@ -8,6 +8,8 @@ import { ParteService } from '../services/parte.service';
 import { DefectoService } from '../services/defecto.service';
 import { DefectocalidadService } from '../services/defectocalidad.service';
 import { ActivatedRoute } from '@angular/router';
+
+
 
 
 @Component({
@@ -43,6 +45,10 @@ export class FormularioMovilComponent  implements OnInit{
   defectoSeleccionado: string = '';
   //id del registro recien creado
   idCalidad:string='';
+  //variables para mostrar las vistas
+  verFormulario:boolean=true;
+  verDefectos:boolean=false;
+  verCantidad:boolean=false;
 
   constructor(private datePipe: DatePipe, private calidadS:CalidadService, private departamentoS:DepartamentoService,
               private maquinaS:MaquinaService, private parteS:ParteService, private defectoS:DefectoService, private AddDefectoS:DefectocalidadService,
@@ -69,6 +75,24 @@ export class FormularioMovilComponent  implements OnInit{
     this.route.params.subscribe(params => {
       this.idEmpleado = params['id'];
     });
+  }
+  comportamientoVista1(ver:boolean){
+    this.verFormulario = !ver;
+    this.verDefectos = ver;
+    this.verCantidad = !ver;
+  }
+  comportamientoVista2(ver:boolean){
+    this.verFormulario = !ver;
+    this.verDefectos = !ver;
+    this.verCantidad = ver;
+  }
+  comportamientoVista3(ver: boolean) {
+      this.verFormulario = ver;
+      this.verDefectos = !ver;
+      this.verCantidad = !ver;
+      this.defectosAgregados = [];
+      this.defectosAgregados2 = [];
+      this.listaDefectos = [];
   }
   actualizarNoDepto() {
     // Busca el objeto departamento correspondiente al número seleccionado
@@ -114,15 +138,19 @@ export class FormularioMovilComponent  implements OnInit{
     return recha + retra;
   }
 
-
+  pzaRechaEstatico:number=0;
+  pzaRetraEstatico:number=0;
   submit(element:Registrofinal){
-
     this.defectoS.getList(element.numerodp).subscribe((data:Defecto[])=>{
       this.listaDefectos=data;
     });
-    if (this.rechaInput === null && this.retraInput === null) {
+    if ((this.rechaInput === null && this.retraInput === null)||(this.rechaInput === null || this.retraInput === null)) {
       this.rechaInput = 0;
       this.retraInput = 0;
+    }if (this.rechaInput + this.retraInput != 0) {
+      this.verFormulario = false;
+      this.verDefectos = true;
+      this.verCantidad = false;
     }
     this.calidadS.create(
       this.crearRegis={
@@ -141,18 +169,19 @@ export class FormularioMovilComponent  implements OnInit{
       }
     ).subscribe(res=>{
       console.log('Registro exitosooo');
-      this.idCalidad=res.id
-      this.CantidadRechaRetra(res.id,res.pzarecha,res.pzaretra);
+      this.idCalidad=res.id;
+      this.pzaRechaEstatico=res.pzarecha;
+      this.pzaRetraEstatico=res.pzaretra;
       this.pzainspInput=0;
       this.totalPzas=0;
       this.rechaInput=0;
       this.retraInput=0;
-      this.calidadS.find(res.id).subscribe(response=>{
+      /*this.calidadS.find(res.id).subscribe(response=>{
         this.calidad=response;
         this.defectoS.getList(response.numerodp).subscribe((data:Defecto[])=>{
           this.listaDefectos=data;
         });
-      });
+      });*/
     });
   }
   /*aqui trabajare con los defectos*/
@@ -203,18 +232,8 @@ export class FormularioMovilComponent  implements OnInit{
     })
   }
   /*captura la cantidad que tiene de pzas rechazadas y de retrabajo*/
-  CantidadRecha:number=0;
-  CantidadRetra:number=0;
-  idRegistroCalidad:string=''
-  CantidadRechaRetra(id: string,pzarechA:number,pzaretrA:number){
-    this.idRegistroCalidad=id;
-    this.CantidadRecha=pzarechA;
-    this.CantidadRetra=pzaretrA;
-  }
-  sumaRechazados:number=0;
-  sumaRetrabajos:number=0;
-  prueba(id:string) {
-    this.AddDefectoS.getList(id).subscribe((data: Registrodefecto[]) => {
+  contarCantidad(idN:string) {
+    this.AddDefectoS.getList(idN).subscribe((data: Registrodefecto[]) => {
       // Filtrar elementos con tipo 'Rechazado'
       const rechazados = data.filter(item => item.tipo === 'Rechazado');
       // Filtrar elementos con tipo 'Retrabajo'
@@ -222,14 +241,33 @@ export class FormularioMovilComponent  implements OnInit{
 
       // Sumar la cantidad para 'Rechazado'
       const sumaRechazados = this.sumarCantidad(rechazados);
-      this.sumaRechazados=sumaRechazados;
       // Sumar la cantidad para 'Retrabajo'
       const sumaRetrabajos = this.sumarCantidad(retrabajos);
-      this.sumaRetrabajos=sumaRetrabajos;
+      const diferenciaRechazados = this.pzaRechaEstatico - sumaRechazados;
+      const diferenciaRetrabajos = this.pzaRetraEstatico - sumaRetrabajos;
+
+      if (diferenciaRechazados === 0 && diferenciaRetrabajos === 0) {
+        this.comportamientoVista3(true);
+      } else {
+        if (diferenciaRechazados > 0 || diferenciaRetrabajos > 0) {
+          //console.log(`Te faltan ${diferenciaRechazados} en rechazados.`);
+          window.alert('Te faltan piezas por agregar');
+        } else {
+          //console.log(`Te has pasado por ${Math.abs(diferenciaRechazados)} en rechazados.`);
+          window.alert('Agregaste piezas de más');
+        }
+
+        /*if (diferenciaRetrabajos > 0) {
+          console.log(`Te faltan ${diferenciaRetrabajos} en retrabajos.`);
+        } else {
+          console.log(`Te has pasado por ${Math.abs(diferenciaRetrabajos)} en retrabajos.`);
+        }*/
+      }
       // Imprimir los resultados
       //console.log('Suma de Rechazados:', sumaRechazados);
       //console.log('Suma de Retrabajos:', sumaRetrabajos);
     });
+    this.cantidadInput=0;
   }
 
   // Función para sumar la cantidad de elementos
@@ -240,13 +278,22 @@ export class FormularioMovilComponent  implements OnInit{
 
   //actualizar el valor de cantidad en la tabla
   addValor(id: string) {
-    const valorNew = {
-      cantidad: this.cantidadInput
-    };
-    // Intenta actualizar en defectosAgregados
-    this.updateCantidadInArray(id, valorNew, this.defectosAgregados);
-    // Si no se encontró en defectosAgregados, intenta actualizar en defectosAgregados2
-    this.updateCantidadInArray(id, valorNew, this.defectosAgregados2);
+    const cantidadInputNumber = Number(this.cantidadInput);
+
+    // Verifica si cantidadInput es un número entero
+    if (!Number.isNaN(cantidadInputNumber) && Number.isInteger(cantidadInputNumber)) {
+      const valorNew = {
+        cantidad: cantidadInputNumber
+      };
+
+      // Intenta actualizar en defectosAgregados
+      this.updateCantidadInArray(id, valorNew, this.defectosAgregados);
+      // Si no se encontró en defectosAgregados, intenta actualizar en defectosAgregados2
+      this.updateCantidadInArray(id, valorNew, this.defectosAgregados2);
+    } else {
+      console.error('La cantidad ingresada no es un número entero.');
+      window.alert('La cantidad ingresada no es un número entero.')
+    }
   }
 
   //actualizar el valor de cantidad en la tabla
@@ -256,7 +303,7 @@ export class FormularioMovilComponent  implements OnInit{
     if (defectoIndex !== -1) {
       // Almacena la cantidad actual antes de la actualización
       const cantidadAnterior = array[defectoIndex].cantidad;
-      console.log(cantidadAnterior);
+      //console.log(cantidadAnterior);
       // Actualiza la cantidad en el array local
       array[defectoIndex].cantidad = this.cantidadInput;
       // También puedes realizar la solicitud de actualización a la base de datos aquí si es necesario
@@ -265,12 +312,5 @@ export class FormularioMovilComponent  implements OnInit{
       });
     }
   }
-  ResetearArreglo(){
-    this.defectosAgregados = [];
-    this.defectosAgregados2 = [];
-    this.listaDefectos=[];
-    this.cantidadInput=0;
-  }
-
 
 }

@@ -1,4 +1,4 @@
-<body>
+<body *ngIf="verFormulario">
   <section class="header">
     <app-header-movil></app-header-movil>
   </section>
@@ -101,17 +101,16 @@
           <button [disabled]="!form.valid || pzainspInput === 0" class="btn btn-primary" *ngIf="valorInput === null || valorInput <= 0" type="submit" id="btn">
             Registrar
           </button>
-          <button (click)="ResetearArreglo()" [disabled]="!form.valid || pzainspInput === 0" id="btn" class="btn btn-primary" type="submit" *ngIf="valorInput != 0" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+          <button [disabled]="!form.valid || pzainspInput === 0" id="btn" class="btn btn-primary" type="submit" *ngIf="valorInput != 0" >
             Defectos
           </button>
-          <p data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="prueba('109')">CLICK</p>
         </div>
       </form>
     </section>
   </section>
 </body>
 <!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<!--<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-fullscreen">
     <div class="modal-content">
       <div class="modal-header">
@@ -133,12 +132,6 @@
         <section class="tabla-defectoRecha">
           <label for="titulo" style="font-weight: bold; color: white;">Rechazados</label>
           <table class="table table-hover">
-            <!--<thead style="font-size: 13px;">
-              <tr>
-                <th scope="col">Defecto</th>
-                <th scope="col">Acciones</th>
-              </tr>
-            </thead>-->
             <tbody style="font-size: 12px;">
               <tr *ngFor="let defecto of defectosAgregados">
                 <td>{{defecto.defecto}}</td>
@@ -152,16 +145,9 @@
             </tbody>
           </table>
         </section>
-        <!--Defectos retrabajo-->
         <section class="tabla-defectoRetra">
           <label for="titulo" style="font-weight: bold; color: white;">Retrabajo</label>
           <table class="table table-hover">
-            <!--<thead style="font-size: 13px;">
-              <tr>
-                <th scope="col">Defecto</th>
-                <th scope="col">Acciones</th>
-              </tr>
-            </thead>-->
             <tbody style="font-size: 12px;">
               <tr *ngFor="let defecto of defectosAgregados2">
                 <td>{{defecto.defecto}}</td>
@@ -177,14 +163,13 @@
         </section>
         <div class="modal-footer">
           <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Añadir cantidad</button>
-          <!--<button (click)="resetaerDefectos()" type="button" data-bs-dismiss="modal" class="btn btn-primary" [disabled]="defectosAgregados.length === 0">Registrar</button>-->
         </div>
       </div>
     </div>
   </div>
-</div>
+</div>-->
 
-<div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+<!--<div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
   <div class="modal-dialog modal-fullscreen">
     <div class="modal-content">
       <div class="modal-header">
@@ -249,7 +234,6 @@
             </tbody>
           </table>
         </section>
-        <p (click)="addValor('109')">CLICK</p>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Regresar</button>
           <button (click)="ResetearArreglo()" type="button" data-bs-dismiss="modal" class="btn btn-primary">Registrar</button>
@@ -257,4 +241,147 @@
       </div>
     </div>
   </div>
-</div>
+</div>-->
+<!--Vista para añadir los defectos-->
+<body *ngIf="verDefectos">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h1 class="modal-title fs-5" id="staticBackdropLabel">Defectos</h1>
+    </div>
+    <div class="modal-body">
+      <section class="listado">
+        <section class="selector">
+          <select class="form-select" id="defecto" [(ngModel)]="defectoSeleccionado" aria-label="Default select example">
+            <option selected disabled>Seleccionar</option>
+            <option *ngFor="let defecto of listaDefectos" [value]="defecto.tipodefecto">{{defecto.tipodefecto}}</option>
+          </select>
+        </section>
+        <section class="boton">
+          <button *ngIf="pzaRechaEstatico!=0" class="btn btn-danger" (click)="agregarDefecto('Rechazado')">Recha</button>
+          <button *ngIf="pzaRetraEstatico!=0" class="btn btn-success" (click)="agregarDefecto('Retrabajo')">Retra</button>
+        </section>
+      </section>
+      <section class="tabla-defectoRecha" *ngIf="pzaRechaEstatico!=0">
+        <label for="titulo" style="font-weight: bold; color: white;">Rechazados</label>
+        <table class="table table-hover">
+          <!--<thead style="font-size: 13px;">
+            <tr>
+              <th scope="col">Defecto</th>
+              <th scope="col">Acciones</th>
+            </tr>
+          </thead>-->
+          <tbody style="font-size: 12px;">
+            <tr *ngFor="let defecto of defectosAgregados">
+              <td>{{defecto.defecto}}</td>
+              <td>
+                <svg style="cursor: pointer;" (click)="eliminarDefecto(defecto.id)" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="#dc2626" d="m9.4 16.5l2.6-2.6l2.6 2.6l1.4-1.4l-2.6-2.6L16 9.9l-1.4-1.4l-2.6 2.6l-2.6-2.6L8 9.9l2.6 2.6L8 15.1zM7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21z"/></svg>
+              </td>
+            </tr>
+            <tr *ngIf="defectosAgregados.length === 0">
+              <td colspan="3">No hay defectos agregados</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <!--Defectos retrabajo-->
+      <section class="tabla-defectoRetra" *ngIf="pzaRetraEstatico!=0">
+        <label for="titulo" style="font-weight: bold; color: white;">Retrabajo</label>
+        <table class="table table-hover">
+          <!--<thead style="font-size: 13px;">
+            <tr>
+              <th scope="col">Defecto</th>
+              <th scope="col">Acciones</th>
+            </tr>
+          </thead>-->
+          <tbody style="font-size: 12px;">
+            <tr *ngFor="let defecto of defectosAgregados2">
+              <td>{{defecto.defecto}}</td>
+              <td>
+                <svg style="cursor: pointer;" (click)="eliminarDefecto(defecto.id)" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="#dc2626" d="m9.4 16.5l2.6-2.6l2.6 2.6l1.4-1.4l-2.6-2.6L16 9.9l-1.4-1.4l-2.6 2.6l-2.6-2.6L8 9.9l2.6 2.6L8 15.1zM7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21z"/></svg>
+              </td>
+            </tr>
+            <tr *ngIf="defectosAgregados2.length === 0">
+              <td colspan="3">No hay defectos agregados</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <div class="modal-footer">
+        <button class="btn btn-primary" (click)="comportamientoVista2(true)">Siguiente</button>
+      </div>
+    </div>
+  </div>
+</body>
+<!--Vista para añadir la cantidad de piezas-->
+<body *ngIf="verCantidad">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Cantidad de Piezas</h1>
+    </div>
+    <div class="modal-body">
+      <section class="valorInput">
+        <div class="row g-3 align-items-center">
+          <div class="col-auto">
+            <label for="piezas" class="col-form-label" style="font-weight: bold;">Piezas:</label>
+          </div>
+          <div class="col-auto">
+            <input type="number" class="form-control" id="cantidad" [(ngModel)]="cantidadInput" required name="cantidadInput">
+          </div>
+        </div>
+      </section>
+      <section class="tabla-defectoRecha" *ngIf="pzaRechaEstatico!=0">
+        <label for="titulo" style="font-weight: bold; color: white;">Rechazados: {{pzaRechaEstatico}}</label>
+        <table class="table table-hover table-responsive">
+          <thead style="font-size: 13px;">
+            <tr>
+              <th scope="col">Defecto</th>
+              <th scope="col">Pzas</th>
+              <th scope="col">Acciones</th>
+            </tr>
+          </thead>
+          <tbody style="font-size: 12px;">
+            <tr *ngFor="let defecto of defectosAgregados">
+              <td>{{defecto.defecto}}</td>
+              <td>{{defecto.cantidad}}</td>
+              <td>
+                <svg (click)="addValor(defecto.id)" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="#0284c7" d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2m-1 9h-4v4h-2v-4H9V9h4V5h2v4h4z"/></svg>
+              </td>
+            </tr>
+            <tr *ngIf="defectosAgregados.length === 0">
+              <td colspan="3">No hay defectos agregados</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <section class="tabla-defectoRetra" *ngIf="pzaRetraEstatico!=0">
+        <label for="titulo" style="font-weight: bold; color: white;">Retrabajo: {{pzaRetraEstatico}}</label>
+        <table class="table table-hover">
+          <thead style="font-size: 13px;">
+            <tr>
+              <th scope="col">Defecto</th>
+              <th scope="col">Pzas</th>
+              <th scope="col">Acciones</th>
+            </tr>
+          </thead>
+          <tbody style="font-size: 12px;">
+            <tr *ngFor="let defecto of defectosAgregados2">
+              <td>{{defecto.defecto}}</td>
+              <td>{{defecto.cantidad}}</td>
+              <td>
+                <svg (click)="addValor(defecto.id)" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="#0284c7" d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2m-1 9h-4v4h-2v-4H9V9h4V5h2v4h4z"/></svg>
+              </td>
+            </tr>
+            <tr *ngIf="defectosAgregados2.length === 0">
+              <td colspan="3">No hay defectos agregados</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="comportamientoVista1(true)">Regresar</button>
+        <button (click)="contarCantidad(idCalidad)" type="button" class="btn btn-primary">Registrar</button>
+      </div>
+    </div>
+  </div>
+
+</body>
