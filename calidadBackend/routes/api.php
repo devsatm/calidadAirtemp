@@ -75,6 +75,7 @@ Route::prefix('registrodefecto')->group(function () {
     Route::get('/{id}',[ registrodefectoController::class, 'get']);
     Route::put('/{id}',[ registrodefectoController::class, 'update']);
     Route::get('/list/{idregistrofinal}',[ registrodefectoController::class, 'getList']);
+    Route::get('/rechazados/{tipo}',[ registrodefectoController::class, 'getRechazado']);
 });
 Route::prefix('registrofinal')->group(function () {
     Route::get('/',[ registrofinalController::class, 'getAll']);

@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Registrodefecto } from '../interfaces/shared';
+import { Registrodefecto, Valor } from '../interfaces/shared';
 import { Observable, catchError, throwError } from 'rxjs';
 
 @Injectable({
@@ -30,6 +30,12 @@ export class DefectocalidadService {
   }
   getList(idregistrofinal:string):Observable<Registrodefecto[]>{
     return this.httpClient.get<Registrodefecto[]>(this.ApiUrl+'list/'+idregistrofinal)
+    .pipe(
+      catchError(this.errorHandler)
+    )
+  }
+  update(id:string, registro: Valor): Observable<Valor> {
+    return this.httpClient.put<Valor>(this.ApiUrl + id, JSON.stringify(registro), this.httpOptions)
     .pipe(
       catchError(this.errorHandler)
     )

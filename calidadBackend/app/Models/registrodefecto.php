@@ -13,5 +13,7 @@ class registrodefecto extends Model
     protected $fillable = [
       'idregistrofinal',
       'defecto',
+      'tipo',
+      'cantidad'
     ];
 }

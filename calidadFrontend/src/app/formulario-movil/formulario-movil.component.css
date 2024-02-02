@@ -27,10 +27,13 @@
   background-color: #005ba2;
   color: white;
 }
-.tabla-defecto{
-  background-color: gray;
-  padding: 0 2%;
-  margin-top: 5%;
+.tabla-defectoRecha{
+  background-color: rgba(255, 0, 0, 0.658);
+  /*padding: 0 2%;
+  margin-top: 5%;*/
+}
+.tabla-defectoRetra{
+  background-color: rgba(4, 97, 9, 0.658);
 }
 .listado{
   display: grid;
@@ -74,4 +77,49 @@
     display: grid;
     grid-template-columns: repeat(2,1fr);
   }
+  /*para la tabla de defectos*/
+  .tabla-defectoRecha{
+    margin-top: 5%;
+    max-height: 650px;
+  }
+  .tabla-defectoRetra{
+    margin-top: 5%;
+    max-height: 650px;
+  }
+  /*table, thead, tbody, th, td, tr {
+    display: block;
+  }
+
+  th {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  tr {
+    border: 1px solid #dddddd;
+    margin-bottom: 10px;
+  }
+
+  td {
+    border: none;
+    border-bottom: 1px solid #dddddd;
+    position: relative;
+    padding-left: 50%;
+  }
+
+  td:before {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    color: #005ba2;
+    font-weight: bold;
+  }
+
+  td:nth-of-type(1):before { content: "Defecto"; }
+  td:nth-of-type(2):before { content: "Pzas"; }
+  td:nth-of-type(3):before { content: "Acciones"; }*/
 }

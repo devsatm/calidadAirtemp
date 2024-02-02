@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('idregistrofinal')->nullable();
             $table->string('defecto')->nullable();
+            $table->string('tipo')->nullable();
+            $table->string('cantidad');
             $table->timestamps();
         });
     }

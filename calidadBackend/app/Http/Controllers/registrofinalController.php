@@ -44,10 +44,14 @@ class registrofinalController extends Controller
         $registrof = registrofinal::create($data); // Crear el registroo y obtener el modelo
 
         $nuevoRegistroID = $registrof->id; // Obtener el ID del registro recién creado
+        $nuevoRegistroRecha = $registrof->pzarecha;
+        $nuevoRegistroRetra = $registrof->pzaretra;
 
         return response()->json([
             'message' => "Successfully created",
             'id' => $nuevoRegistroID, // Devolver el ID de la parte
+            'pzarecha' => $nuevoRegistroRecha,
+            'pzaretra' => $nuevoRegistroRetra,
             'success' => true
         ], 200);
     }

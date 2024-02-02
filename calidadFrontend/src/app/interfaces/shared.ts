@@ -56,6 +56,11 @@ export interface Registrodefecto{
   id:string;
   idregistrofinal:string;
   defecto:string;
+  tipo:string;
+  cantidad:number;
+}
+export interface Valor{
+  cantidad:number;
 }
 
 export interface DetallesRegistro{
