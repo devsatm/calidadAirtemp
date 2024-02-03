@@ -4,6 +4,20 @@
 .buscador{
   margin-left: 5%;
 }
+.buscador .group{
+  display: grid;
+  grid-template-columns: 120% 120% 40% 40% 40%;
+  grid-gap: 5%;
+}
+.filtrar, .resetear{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/*.inicio, .final{
+  display:grid;
+  grid-template-columns:25% 100%;
+}*/
 /*estilos para la tabla de registros*/
 .tabla-contenedor{
   margin: 2% 5%;
@@ -82,6 +96,7 @@ li {
   width: 1rem;
   height: 1rem;
  }
+
 
 @media only screen and (max-width: 767px) {
   .contenedor{

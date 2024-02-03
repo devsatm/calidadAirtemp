@@ -35,6 +35,12 @@ export class CalidadService {
       catchError(this.errorHandler)
     )
   }
+  getByDateRange(start_date:String,end_date:String):Observable<Registrofinal[]>{
+    return this.httpClient.get<Registrofinal[]>(this.ApiUrl+'date-range/'+start_date+'/'+end_date)
+    .pipe(
+      catchError(this.errorHandler)
+    )
+  }
   getDetallesRegistroPorId(id:string): Observable<DetallesRegistro> {
     return this.httpClient.get<DetallesRegistro>(this.ApiUrl + 'detalles-registrofinal/'+id)
     .pipe(

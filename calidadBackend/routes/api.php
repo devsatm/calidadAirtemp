@@ -86,6 +86,6 @@ Route::prefix('registrofinal')->group(function () {
     Route::get('/list/{empleado}',[ registrofinalController::class, 'getList']);
     //Route::get('/nombre-maquina/{codigomq}', [registrofinalController::class, 'getNombreMaquina']);
     Route::get('/detalles-registrofinal/{id}', [registrofinalController::class, 'getDetallesRegistroPorId']);
-
+    Route::get('/date-range/{start_date}/{end_date}', [registrofinalController::class, 'getByDateRange']);
 });
 

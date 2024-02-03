@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Registrodefecto, Departamento, Registrofinal, DetallesRegistro} from '../interfaces/shared';
 import { CalidadService } from '../services/calidad.service';
-import { DepartamentoService } from '../services/departamento.service';
-import { MaquinaService } from '../services/maquina.service';
-import { ParteService } from '../services/parte.service';
-import { EmpleadosService } from '../services/empleados.service';
 import { DefectocalidadService } from '../services/defectocalidad.service';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-tabla-calidad',
@@ -33,13 +30,17 @@ export class TablaCalidadComponent implements OnInit{
   pzarecha:number | null=0;
   pzaretra:number | null=0;
   pzatotalrecha:number | null=0;
-  filtroBusqueda:string='';
+  //de prueba
+  fechaInicio: string = '';
+  fechaFin: string = '';
   constructor(private registrofinalS:CalidadService, private registroFinalDefectoS:DefectocalidadService){}
 
   ngOnInit(): void {
     this.registrofinalS.getAll().subscribe((data:Registrofinal[])=>{
       this.RegistroFinal=data;
     });
+    this.fechaInicio = '';
+    this.fechaFin = ''
   }
   verInfo(id:string){
     this.registrofinalS.getDetallesRegistroPorId(id).subscribe(
@@ -67,31 +68,70 @@ export class TablaCalidadComponent implements OnInit{
       this.defectos=data;
     });
   }
-  filtrarRegistros(): any[] {
-    const valorBusqueda = this.filtroBusqueda.toLowerCase();
 
-    // Asegúrate de que RegistroFinal no sea null ni undefined
-    if (this.RegistroFinal) {
-      return this.RegistroFinal.filter((registro) => {
-        // Asegúrate de que registro.empleado y registro.codigomq no sean null ni undefined
-        const empleado = registro.empleado ? registro.empleado.toString().toLowerCase() : '';
-        const semana = registro.semana ? registro.semana.toString().toLowerCase() : '';
-        const numerodp = registro.numerodp ? registro.numerodp.toString().toLowerCase() : '';
-        const codigomq = registro.codigomq ? registro.codigomq.toLowerCase() : '';
-        const numerop = registro.numerop ? registro.numerop.toLowerCase() : '';
-        const pzainspc = registro.pzainspc ? registro.pzainspc.toString() : '';
-        const pzarecha = registro.pzarecha ? registro.pzarecha.toString() : '';
-        const pzaretra = registro.pzaretra ? registro.pzaretra.toString() : '';
-        const totalrecha = registro.totalrecha ? registro.totalrecha.toString() : '';
-
-        return empleado.includes(valorBusqueda) || semana.includes(valorBusqueda) || numerodp.includes(valorBusqueda) || codigomq.includes(valorBusqueda) ||
-              numerop.includes(valorBusqueda) || pzainspc.includes(valorBusqueda) || pzarecha.includes(valorBusqueda) || pzaretra.includes(valorBusqueda) ||
-              totalrecha.includes(valorBusqueda);
-      });
-    } else {
-      return [];
-    }
+  Filtrar(inicio:String,fin:String){
+    this.registrofinalS.getByDateRange(inicio,fin).subscribe((data:Registrofinal[])=>{
+      this.RegistroFinal=data;
+    });
   }
+
+  /*exportToExcel(): void {
+    // Crear un objeto con los datos que deseas exportar
+    const dataToExport = {
+      Empleado: this.empleado,
+      Turno: this.turno,
+      Fecha: this.fecha,
+      Semana: this.semana,
+      Departamento: this.departamento,
+      NumDepartamento: this.numdepto,
+      Maquina: this.maquina,
+      CodMaquina: this.codmaq,
+      Subensamble: this.subensamble,
+      NumParte: this.numparte,
+      PzaInspeccionadas: this.pzainspec,
+      PzaRechazadas: this.pzarecha,
+      PzaRetrabajo: this.pzaretra,
+      TotalPzaRechazadas: this.pzatotalrecha,
+      Defectos: this.defectos.map(defecto => defecto.defecto).join(', ')
+    };
+
+    // Crear un libro de Excel
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet([dataToExport]);
+
+    // Guardar el archivo
+    XLSX.utils.book_append_sheet(wb, ws, 'Hoja1');
+    XLSX.writeFile(wb, 'miArchivo.xlsx');
+  }*/
+  exportToExcel(): void {
+    // Obtener los datos de la tabla
+    const data = this.RegistroFinal.map(registro => {
+      return {
+        Empleado: registro.empleado,
+        Fecha: registro.fecha,
+        NoDepto: registro.numerodp,
+        CodMaquina: registro.codigomq,
+        NoParte: registro.numerop,
+        PzInspeccionadas: registro.pzainspc,
+        PzRechazadas: registro.pzarecha,
+        PzRetrabajo: registro.pzaretra,
+        TotalPR: registro.totalrecha,
+      };
+    });
+
+    // Crear un libro de Excel
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
+
+    // Eliminar la columna 'Acciones'
+    delete ws['A10'];
+
+    // Guardar el archivo
+    XLSX.utils.book_append_sheet(wb, ws, 'Hoja1');
+    XLSX.writeFile(wb, 'Calidad.xlsx');
+  }
+
+
 
 
 }

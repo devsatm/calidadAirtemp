@@ -124,5 +124,16 @@ class registrofinalController extends Controller
             return response()->json(['message' => 'Registro no encontrado'], 404);
         }
     }
+    public function getByDateRange($start_date, $end_date){
+        $data = registrofinal::whereBetween('fecha', [$start_date, $end_date])
+            ->orderBy('id', 'desc')
+            ->get();
+
+        if ($data->count() > 0) {
+            return response()->json($data, 200);
+        } else {
+            return response()->json(['message' => 'No se encontraron registros en el rango de fechas dado','data' => []], 404);
+        }
+    }
 
 }
