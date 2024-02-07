@@ -77,17 +77,21 @@
             <input [(ngModel)]="pzainspInput" name="pzainspc" type="number" class="form-control" id="inspec" required>
           </div>
           <div class="col-md-6">
-            <form #rechaForm="ngForm">
+            <!--<form #rechaForm="ngForm">
               <label for="recha" class="form-label" style="font-weight: bold;">Pza Recha</label>
-              <input type="number" class="form-control" id="recha" [(ngModel)]="rechaInput" required name="rechaInput">
-            </form>
+              <input type="number" class="form-control" id="recha" [(ngModel)]="rechaInput" required name="rechaInput" (ngModelChange)="onRechaInputChange()">
+            </form>-->
+            <label for="recha" class="form-label" style="font-weight: bold;">Pza Recha</label>
+            <input type="number" class="form-control" id="recha" [(ngModel)]="rechaInput" required name="rechaInput" (ngModelChange)="onRechaInputChange()">
           </div>
 
           <div class="col-md-6">
-            <form #retraForm="ngForm">
+            <!--<form #retraForm="ngForm">
               <label for="retra" class="form-label" style="font-weight: bold;">Pza Retra</label>
-              <input type="number" class="form-control" id="retra" [(ngModel)]="retraInput" required name="retraInput">
-            </form>
+              <input type="number" class="form-control" id="retra" [(ngModel)]="retraInput" required name="retraInput" (ngModelChange)="onRetraInputChange()">
+            </form>-->
+            <label for="retra" class="form-label" style="font-weight: bold;">Pza Retra</label>
+            <input type="number" class="form-control" id="retra" [(ngModel)]="retraInput" required name="retraInput" (ngModelChange)="onRetraInputChange()">
           </div>
 
           <div class="col-md-6">
@@ -264,12 +268,6 @@
       <section class="tabla-defectoRecha" *ngIf="pzaRechaEstatico!=0">
         <label for="titulo" style="font-weight: bold; color: white;">Rechazados</label>
         <table class="table table-hover">
-          <!--<thead style="font-size: 13px;">
-            <tr>
-              <th scope="col">Defecto</th>
-              <th scope="col">Acciones</th>
-            </tr>
-          </thead>-->
           <tbody style="font-size: 12px;">
             <tr *ngFor="let defecto of defectosAgregados">
               <td>{{defecto.defecto}}</td>
@@ -287,12 +285,6 @@
       <section class="tabla-defectoRetra" *ngIf="pzaRetraEstatico!=0">
         <label for="titulo" style="font-weight: bold; color: white;">Retrabajo</label>
         <table class="table table-hover">
-          <!--<thead style="font-size: 13px;">
-            <tr>
-              <th scope="col">Defecto</th>
-              <th scope="col">Acciones</th>
-            </tr>
-          </thead>-->
           <tbody style="font-size: 12px;">
             <tr *ngFor="let defecto of defectosAgregados2">
               <td>{{defecto.defecto}}</td>
@@ -307,7 +299,7 @@
         </table>
       </section>
       <div class="modal-footer">
-        <button class="btn btn-primary" (click)="comportamientoVista2(true)">Siguiente</button>
+        <button class="btn btn-primary" [disabled]="(pzaRetraEstatico !== 0 && defectosAgregados2.length === 0)||(pzaRechaEstatico !== 0 && defectosAgregados.length === 0)" (click)="comportamientoVista2(true)">Siguiente</button>
       </div>
     </div>
   </div>
@@ -344,7 +336,7 @@
               <td>{{defecto.defecto}}</td>
               <td>{{defecto.cantidad}}</td>
               <td>
-                <svg (click)="addValor(defecto.id)" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="#0284c7" d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2m-1 9h-4v4h-2v-4H9V9h4V5h2v4h4z"/></svg>
+                <svg style="cursor: pointer;" (click)="addValor(defecto.id)" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="#0284c7" d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2m-1 9h-4v4h-2v-4H9V9h4V5h2v4h4z"/></svg>
               </td>
             </tr>
             <tr *ngIf="defectosAgregados.length === 0">
@@ -368,7 +360,7 @@
               <td>{{defecto.defecto}}</td>
               <td>{{defecto.cantidad}}</td>
               <td>
-                <svg (click)="addValor(defecto.id)" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="#0284c7" d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2m-1 9h-4v4h-2v-4H9V9h4V5h2v4h4z"/></svg>
+                <svg style="cursor: pointer;" (click)="addValor(defecto.id)" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="#0284c7" d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2m-1 9h-4v4h-2v-4H9V9h4V5h2v4h4z"/></svg>
               </td>
             </tr>
             <tr *ngIf="defectosAgregados2.length === 0">
@@ -377,9 +369,13 @@
           </tbody>
         </table>
       </section>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="comportamientoVista1(true)">Regresar</button>
-        <button (click)="contarCantidad(idCalidad)" type="button" class="btn btn-primary">Registrar</button>
+      <div class="modal-footer" id="Footer">
+        <section class="regresar">
+          <button type="button" class="btn btn-secondary" (click)="comportamientoVista1(true)">Regresar</button>
+        </section>
+        <section class="registrar">
+          <button [disabled]="habilitar" (click)="contarCantidad(idCalidad)" type="button" class="btn btn-primary">Registrar</button>
+        </section>
       </div>
     </div>
   </div>

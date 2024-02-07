@@ -16,4 +16,8 @@ class departamento extends Model
       'encargado',
       'tipo'
     ];
+    public function registrofinal(){
+        return $this->hasMany(Registrofinal::class, 'numerodp', 'numero');
+    }
+
 }

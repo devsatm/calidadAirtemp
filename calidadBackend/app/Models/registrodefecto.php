@@ -16,4 +16,10 @@ class registrodefecto extends Model
       'tipo',
       'cantidad'
     ];
+    public function defecto()
+    {
+        return $this->belongsTo(Defecto::class, 'codigomq', 'codigomq')
+                    ->where('numerodp', $this->numerodp)
+                    ->where('numerop', $this->numerop);
+    }
 }

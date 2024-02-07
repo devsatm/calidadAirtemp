@@ -17,4 +17,8 @@ class parte extends Model
       'cliente',
       'departamento'
     ];
+    public function registrofinal(){
+        return $this->hasMany(Registrofinal::class, 'numerop', 'numero');
+    }
+
 }

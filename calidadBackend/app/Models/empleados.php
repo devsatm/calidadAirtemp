@@ -18,4 +18,8 @@ class empleados extends Model
       'perfil',
       'estatus'
     ];
+    public function registrofinal(){
+        return $this->hasMany(Registrofinal::class, 'empleado', 'id');
+    }
+
 }

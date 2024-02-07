@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Registrodefecto, Departamento, Registrofinal, DetallesRegistro} from '../interfaces/shared';
+import { Registrodefecto, Departamento, Registrofinal, DetallesRegistro, DatosExportar} from '../interfaces/shared';
 import { CalidadService } from '../services/calidad.service';
 import { DefectocalidadService } from '../services/defectocalidad.service';
 import * as XLSX from 'xlsx';
@@ -11,7 +11,7 @@ import * as XLSX from 'xlsx';
 })
 export class TablaCalidadComponent implements OnInit{
 
-  RegistroFinal:Registrofinal[]=[];
+  RegistroFinal:DatosExportar[]=[];
   defectos:Registrodefecto[]=[];
   detallesregistro!:DetallesRegistro;
   RegistroF!:Registrofinal;
@@ -36,8 +36,9 @@ export class TablaCalidadComponent implements OnInit{
   constructor(private registrofinalS:CalidadService, private registroFinalDefectoS:DefectocalidadService){}
 
   ngOnInit(): void {
-    this.registrofinalS.getAll().subscribe((data:Registrofinal[])=>{
-      this.RegistroFinal=data;
+    this.registrofinalS.getAll().subscribe((data: DatosExportar[]) => {
+      this.RegistroFinal = data;
+      //console.log(this.RegistroFinal); // Verificar que los datos se reciben correctamente
     });
     this.fechaInicio = '';
     this.fechaFin = ''
@@ -70,52 +71,37 @@ export class TablaCalidadComponent implements OnInit{
   }
 
   Filtrar(inicio:String,fin:String){
-    this.registrofinalS.getByDateRange(inicio,fin).subscribe((data:Registrofinal[])=>{
+    this.registrofinalS.getByDateRange(inicio,fin).subscribe((data:DatosExportar[])=>{
       this.RegistroFinal=data;
     });
   }
 
-  /*exportToExcel(): void {
-    // Crear un objeto con los datos que deseas exportar
-    const dataToExport = {
-      Empleado: this.empleado,
-      Turno: this.turno,
-      Fecha: this.fecha,
-      Semana: this.semana,
-      Departamento: this.departamento,
-      NumDepartamento: this.numdepto,
-      Maquina: this.maquina,
-      CodMaquina: this.codmaq,
-      Subensamble: this.subensamble,
-      NumParte: this.numparte,
-      PzaInspeccionadas: this.pzainspec,
-      PzaRechazadas: this.pzarecha,
-      PzaRetrabajo: this.pzaretra,
-      TotalPzaRechazadas: this.pzatotalrecha,
-      Defectos: this.defectos.map(defecto => defecto.defecto).join(', ')
-    };
-
-    // Crear un libro de Excel
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet([dataToExport]);
-
-    // Guardar el archivo
-    XLSX.utils.book_append_sheet(wb, ws, 'Hoja1');
-    XLSX.writeFile(wb, 'miArchivo.xlsx');
-  }*/
   exportToExcel(): void {
     // Obtener los datos de la tabla
     const data = this.RegistroFinal.map(registro => {
+      // Verificar si hay datos de empleado
+      const nombreEmpleado = registro.empleados ? registro.empleados.nombre : '';
+      const apellidoEmpleado = registro.empleados ? registro.empleados.apellido : '';
+
+      // Obtener los nombres de los defectos
+      const defectos = registro.registrodefecto.map(defecto => defecto.defecto+ ','+defecto.tipo+':'+defecto.cantidad).join(', ');
+
       return {
-        Empleado: registro.empleado,
-        Fecha: registro.fecha,
+        Empleado: nombreEmpleado + ' ' + apellidoEmpleado,
         NoDepto: registro.numerodp,
         CodMaquina: registro.codigomq,
+        Semana: registro.semana,
+        Fecha: registro.fecha,
+        Turno: registro.turno,
+        Departamento: registro.departamento.nombre,
+        NombreMaquina: registro.maquina.nombre,
+        NombreSubensamble: registro.parte ? registro.parte.descripcion : '',
         NoParte: registro.numerop,
         PzInspeccionadas: registro.pzainspc,
         PzRechazadas: registro.pzarecha,
         PzRetrabajo: registro.pzaretra,
         TotalPR: registro.totalrecha,
+        Defectos: defectos, // Agregar los nombres de los defectos aquí
       };
     });
 
@@ -130,8 +116,13 @@ export class TablaCalidadComponent implements OnInit{
     XLSX.utils.book_append_sheet(wb, ws, 'Hoja1');
     XLSX.writeFile(wb, 'Calidad.xlsx');
   }
+  formatNumber(number: number | null): string {
+    if (number === null || number === undefined) {
+      return ''; // O cualquier otro valor predeterminado
+    }
 
-
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
 
 
 }
