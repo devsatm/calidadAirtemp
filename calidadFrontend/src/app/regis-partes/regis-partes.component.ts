@@ -46,14 +46,14 @@ export class RegisPartesComponent implements OnInit{
         cliente:element.cliente,
         departamento:element.departamento
       }
-      this.partes.push(newPrt);
+      this.partes.unshift(newPrt);
       this.crearPrt={
         id:'',
         numero:'',
         descripcion:'',
-        tipo:'',
+        tipo:element.tipo,
         cliente:'',
-        departamento:''
+        departamento:element.departamento
       }
     });
   }

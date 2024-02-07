@@ -12,6 +12,7 @@ export class LoginComponent implements OnInit{
   usuario:string='';
   contrasenia:string='';
   error:boolean=false;
+  mostrarContrasenia: boolean = false;
 
   constructor(private empleadosS:EmpleadosService,private router:Router){}
 

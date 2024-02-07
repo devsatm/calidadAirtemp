@@ -43,13 +43,13 @@ export class RegisMaquinasComponent implements OnInit{
         codproceso: element.codproceso,
         departamento: element.departamento
       }
-      this.maquinas.push(newMq);
+      this.maquinas.unshift(newMq);
       this.crearMq = {
         id: '',
         codigo: '',
         nombre: '',
         codproceso: '',
-        departamento: ''
+        departamento: element.departamento,
       }
     });
   }

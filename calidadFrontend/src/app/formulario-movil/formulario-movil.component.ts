@@ -146,7 +146,24 @@ export class FormularioMovilComponent  implements OnInit{
 
   pzaRechaEstatico:number=0;
   pzaRetraEstatico:number=0;
+  verComponentesRecha:boolean=false;
+  verComponentesRetra:boolean=false;
   submit(element:Registrofinal){
+    if (this.rechaInput !=0 && this.retraInput !=0) {
+      this.verComponentesRecha=true;
+      this.verComponentesRetra=true;
+      //console.log('VERAS LOS DOS');
+    }else{
+      if (this.rechaInput !=0 && this.retraInput ===0) {
+        this.verComponentesRecha=true;
+        this.verComponentesRetra=false;
+        //console.log('VERAS SOLO RECHA');
+      } else {
+        this.verComponentesRecha=false;
+        this.verComponentesRetra=true;
+        //console.log('VERAS SOLO RETRA');
+      }
+    }
     this.defectoS.getList(element.numerodp).subscribe((data:Defecto[])=>{
       this.listaDefectos=data;
     });
