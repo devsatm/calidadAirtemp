@@ -5,8 +5,23 @@
   <section class="contenedor">
     <section class="buscador">
       <div class="group">
-        <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><g><path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path></g></svg>
-        <input placeholder="Buscar" type="search" class="input"  [(ngModel)]="filtroBusqueda">
+        <section class="inicio d-flex align-items-center" style="font-weight: bold;">
+          <p class="mr-2">Inicio:</p>
+          <input type="date" class="input" id="Inicio" [(ngModel)]="fechaInicio">
+        </section>
+        <section class="final d-flex align-items-center" style="font-weight: bold;">
+          <p class="mr-2">Final:</p>
+          <input type="date" class="input" id="Fin" [(ngModel)]="fechaFin" >
+        </section>
+        <section class="filtrar">
+          <button (click)="Filtrar(fechaInicio,fechaFin)" class="btn" id="filtrar" type="button">Filtrar</button>
+        </section>
+        <section class="resetear">
+          <button class="btn" type="button" id="resetear" (click)="ngOnInit()">Todos</button>
+        </section>
+        <section class="exportar">
+          <button class="btn" type="button" id="exportar" (click)="exportToExcel()">Exportar</button>
+        </section>
       </div>
     </section>
     <section class="tabla-contenedor">
@@ -14,7 +29,7 @@
         <thead>
           <tr>
             <th scope="col">Empleado</th>
-            <th scope="col">Semana</th>
+            <th scope="col">Fecha</th>
             <th scope="col">No Depto</th>
             <th scope="col">Cod Máquina</th>
             <th scope="col">No Parte</th>
@@ -26,28 +41,21 @@
           </tr>
         </thead>
         <tbody class="table-group-divider">
-          <ng-container *ngIf="filtrarRegistros().length > 0; else noResultados">
-            <tr *ngFor="let registro of RegistroFinal of filtrarRegistros()">
-              <td>{{registro.empleado}}</td>
-              <td>{{registro.semana}}</td>
+            <tr *ngFor="let registro of RegistroFinal">
+              <td>{{registro.empleados.nombre}}</td>
+              <td>{{registro.fecha}}</td>
               <td>{{registro.numerodp}}</td>
               <td>{{registro.codigomq}}</td>
               <td>{{registro.numerop}}</td>
-              <td>{{registro.pzainspc}} pzas</td>
-              <td>{{registro.pzarecha}} pzas</td>
-              <td>{{registro.pzaretra}} pzas</td>
-              <td>{{registro.totalrecha}} pzas</td>
+              <td>{{ registro.pzainspc !== null ? formatNumber(registro.pzainspc) : '' }} pzas</td>
+              <td>{{ registro.pzarecha !== null ? formatNumber(registro.pzarecha) : '' }} pzas</td>
+              <td>{{ registro.pzaretra !== null ? formatNumber(registro.pzaretra) : '' }} pzas</td>
+              <td>{{ registro.totalrecha !== null ? formatNumber(registro.totalrecha) : '' }} pzas</td>
               <td>
                 <svg (click)="verInfo(registro.id)" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="ver" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 48 48"><g fill="none" stroke-linejoin="round" stroke-width="4"><rect width="28" height="34" x="13" y="10" fill="#2F88FF" stroke="#000"/>
                   <title>Toda la Información</title><path stroke="#000" stroke-linecap="round" d="M35 10V4H8C7.44772 4 7 4.44772 7 5V38H13"/><path stroke="#fff" stroke-linecap="round" d="M21 22H33"/><path stroke="#fff" stroke-linecap="round" d="M21 30H33"/></g></svg>
               </td>
             </tr>
-          </ng-container>
-          <ng-template #noResultados>
-            <tr>
-              <td colspan="5" style="color: red; font-weight: bold;">Ningún resultado</td>
-            </tr>
-          </ng-template>
         </tbody>
       </table>
     </section>
@@ -113,31 +121,32 @@
         <div class="row g-4">
           <div class="col">
             <label for="InputEmpleado" class="form-label" style="font-weight: bold;">Pza Inspeccionadas</label>
-            <input type="text" class="form-control" id="InputEmpleado" value="{{pzainspec}}" disabled>
+            <input type="text" class="form-control" id="InputEmpleado" [value]="formatNumber(pzainspec)" disabled>
           </div>
           <div class="col">
             <label for="InputTurno" class="form-label" style="font-weight: bold;">Pza Rechazadas</label>
-            <input type="text" class="form-control" id="InputTurno" value="{{pzarecha}}" disabled>
+            <input type="text" class="form-control" id="InputTurno" [value]="formatNumber(pzarecha)" disabled>
           </div>
           <div class="col">
             <label for="InputFecha" class="form-label" style="font-weight: bold;">Pza Retrabajo</label>
-            <input type="text" class="form-control" id="InputFecha" value="{{pzaretra}}" disabled>
+            <input type="text" class="form-control" id="InputFecha" [value]="formatNumber(pzaretra)" disabled>
           </div>
           <div class="col">
             <label for="InputSemana" class="form-label" style="font-weight: bold;">Total pza Rechazadas</label>
-            <input type="text" class="form-control" id="InputSemana" value="{{pzatotalrecha}}" disabled>
+            <input type="text" class="form-control" id="InputSemana" [value]="formatNumber(pzatotalrecha)" disabled>
           </div>
         </div>
         <div class="row">
           <label for="InputDefectos" class="form-label" style="font-weight: bold;">Defectos:</label>
           <ul class="form-control">
             <li *ngFor="let defecto of defectos">
-              -{{defecto.defecto}}
+              -{{defecto.defecto}},{{defecto.tipo}}:{{defecto.cantidad}}
             </li>
           </ul>
         </div>
       </div>
       <div class="modal-footer">
+        <!--<button (click)="exportToExcel()">Exportar a Excel</button>-->
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>

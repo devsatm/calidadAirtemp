@@ -9,10 +9,15 @@ Use Log;
 class registrofinalController extends Controller
 {
     //metodo para traer todos los registros de calidad
-    public function getAll(){
+    /*public function getAll(){
         $data = registrofinal::orderBy('created_at', 'desc')->get();
         return response()->json($data, 200);
+    }*/
+    public function getAll(){
+        $data = registrofinal::with(['empleados', 'departamento', 'maquina', 'parte','registrodefecto'])->orderBy('created_at', 'desc')->get();
+        return response()->json($data, 200);
     }
+
     //metodo para traer un registro de calidad
     public function get($id){
         $data = registrofinal::find($id);
@@ -44,10 +49,14 @@ class registrofinalController extends Controller
         $registrof = registrofinal::create($data); // Crear el registroo y obtener el modelo
 
         $nuevoRegistroID = $registrof->id; // Obtener el ID del registro recién creado
+        $nuevoRegistroRecha = $registrof->pzarecha;
+        $nuevoRegistroRetra = $registrof->pzaretra;
 
         return response()->json([
             'message' => "Successfully created",
             'id' => $nuevoRegistroID, // Devolver el ID de la parte
+            'pzarecha' => $nuevoRegistroRecha,
+            'pzaretra' => $nuevoRegistroRetra,
             'success' => true
         ], 200);
     }
@@ -120,5 +129,29 @@ class registrofinalController extends Controller
             return response()->json(['message' => 'Registro no encontrado'], 404);
         }
     }
+    /*public function getByDateRange($start_date, $end_date){
+        $data = registrofinal::whereBetween('fecha', [$start_date, $end_date])
+            ->orderBy('id', 'desc')
+            ->get();
+
+        if ($data->count() > 0) {
+            return response()->json($data, 200);
+        } else {
+            return response()->json(['message' => 'No se encontraron registros en el rango de fechas dado','data' => []], 404);
+        }
+    }*/
+    public function getByDateRange($start_date, $end_date){
+        $data = registrofinal::with(['empleados', 'departamento', 'maquina', 'parte', 'registrodefecto'])
+            ->whereBetween('fecha', [$start_date, $end_date])
+            ->orderBy('id', 'desc')
+            ->get();
+
+        if ($data->count() > 0) {
+            return response()->json($data, 200);
+        } else {
+            return response()->json(['message' => 'No se encontraron registros en el rango de fechas dado','data' => []], 404);
+        }
+    }
+
 
 }

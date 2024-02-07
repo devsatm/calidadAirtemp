@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit} from '@angular/core';
 import { Registrofinal, Defecto, Registrodefecto, Departamento, Maquina, Parte } from '../interfaces/shared';
 import { CalidadService } from '../services/calidad.service';
 import { DepartamentoService } from '../services/departamento.service';
@@ -8,6 +8,9 @@ import { ParteService } from '../services/parte.service';
 import { DefectoService } from '../services/defecto.service';
 import { DefectocalidadService } from '../services/defectocalidad.service';
 import { ActivatedRoute } from '@angular/router';
+
+
+
 
 @Component({
   selector: 'app-formulario-movil',
@@ -18,10 +21,12 @@ import { ActivatedRoute } from '@angular/router';
 export class FormularioMovilComponent  implements OnInit{
   idEmpleado:string='';
   /*variables para los input de las pzas*/
+  pzainspInput: number=0;
   rechaInput: number=0;
   retraInput: number=0;
   totalPzas:number=0;
   numeroSemana: number=0;
+  cantidadInput:number=0;
   //Para guardar los valores de los registros
   crearRegis!:Registrofinal;
   departamentos:Departamento[]=[];
@@ -29,7 +34,10 @@ export class FormularioMovilComponent  implements OnInit{
   partes:Parte[]=[];
   listaDefectos: Defecto[] = [];
   defectosAgregados:Registrodefecto[]=[];
-  calidad!:Registrofinal;
+  defectosAgregados2:Registrodefecto[]=[];
+  valorRechaRetra:Registrodefecto[]=[];
+  //calidad!:Registrofinal;
+  //registrofinal:Registrofinal[]=[];
   //variables que guardan los valores seleccionados
   numeroDeptoSeleccionado: number | null = null; // variable para almacenar el número de departamento seleccionado
   codigoMaquinaSeleccionado: string='';
@@ -37,6 +45,10 @@ export class FormularioMovilComponent  implements OnInit{
   defectoSeleccionado: string = '';
   //id del registro recien creado
   idCalidad:string='';
+  //variables para mostrar las vistas
+  verFormulario:boolean=true;
+  verDefectos:boolean=false;
+  verCantidad:boolean=false;
 
   constructor(private datePipe: DatePipe, private calidadS:CalidadService, private departamentoS:DepartamentoService,
               private maquinaS:MaquinaService, private parteS:ParteService, private defectoS:DefectoService, private AddDefectoS:DefectocalidadService,
@@ -52,7 +64,7 @@ export class FormularioMovilComponent  implements OnInit{
       numerodp:'',
       codigomq:'',
       numerop:'',
-      pzainspc:null,
+      pzainspc:this.pzainspInput,
       pzarecha:this.rechaInput,
       pzaretra:this.retraInput,
       totalrecha:this.totalPzas
@@ -63,6 +75,24 @@ export class FormularioMovilComponent  implements OnInit{
     this.route.params.subscribe(params => {
       this.idEmpleado = params['id'];
     });
+  }
+  comportamientoVista1(ver:boolean){
+    this.verFormulario = !ver;
+    this.verDefectos = ver;
+    this.verCantidad = !ver;
+  }
+  comportamientoVista2(ver:boolean){
+    this.verFormulario = !ver;
+    this.verDefectos = !ver;
+    this.verCantidad = ver;
+  }
+  comportamientoVista3(ver: boolean) {
+      this.verFormulario = ver;
+      this.verDefectos = !ver;
+      this.verCantidad = !ver;
+      this.defectosAgregados = [];
+      this.defectosAgregados2 = [];
+      this.listaDefectos = [];
   }
   actualizarNoDepto() {
     // Busca el objeto departamento correspondiente al número seleccionado
@@ -99,13 +129,35 @@ export class FormularioMovilComponent  implements OnInit{
     const fechaSeleccionada = new Date(event.target.value);
     this.numeroSemana = this.obtenerNumeroSemana(fechaSeleccionada);
   }
-  get valorInput(): number {
-    return this.rechaInput + this.retraInput;
+  onRechaInputChange() {
+    console.log('Nuevo valor del inputRECHA:', this.rechaInput);
   }
+  onRetraInputChange(){
+    console.log('Nuevo valor del inputRETRA:', this.retraInput);
+  }
+  get valorInput(): number {
+    // Si rechaInput es null o undefined, asigna 0; de lo contrario, utiliza su valor actual
+    const recha = this.rechaInput !== null && this.rechaInput !== undefined ? this.rechaInput : 0;
+    // Si retraInput es null o undefined, asigna 0; de lo contrario, utiliza su valor actual
+    const retra = this.retraInput !== null && this.retraInput !== undefined ? this.retraInput : 0;
+    // Realiza la suma con los valores actualizados
+    return recha + retra;
+  }
+
+  pzaRechaEstatico:number=0;
+  pzaRetraEstatico:number=0;
   submit(element:Registrofinal){
     this.defectoS.getList(element.numerodp).subscribe((data:Defecto[])=>{
       this.listaDefectos=data;
     });
+    if ((this.rechaInput === null && this.retraInput === null)||(this.rechaInput === null || this.retraInput === null)) {
+      this.rechaInput = 0;
+      this.retraInput = 0;
+    }if (this.rechaInput + this.retraInput != 0) {
+      this.verFormulario = false;
+      this.verDefectos = true;
+      this.verCantidad = false;
+    }
     this.calidadS.create(
       this.crearRegis={
         id:'',
@@ -116,54 +168,37 @@ export class FormularioMovilComponent  implements OnInit{
         numerodp:element.numerodp,
         codigomq:element.codigomq,
         numerop:element.numerop,
-        pzainspc:element.pzainspc,
+        pzainspc:this.pzainspInput,
         pzarecha:this.rechaInput,
         pzaretra:this.retraInput,
         totalrecha:this.valorInput
       }
     ).subscribe(res=>{
       console.log('Registro exitosooo');
-      this.idCalidad=res.id
-      this.crearRegis={
-        id:'',
-        empleado:'',
-        semana:null,
-        fecha:'',
-        turno:'',
-        numerodp:'',
-        codigomq:'',
-        numerop:'',
-        pzainspc:null,
-        pzarecha:this.rechaInput,
-        pzaretra:this.retraInput,
-        totalrecha:this.totalPzas
-      };
-      this.numeroSemana=0;
+      this.idCalidad=res.id;
+      this.pzaRechaEstatico=res.pzarecha;
+      this.pzaRetraEstatico=res.pzaretra;
+      this.pzainspInput=0;
       this.totalPzas=0;
       this.rechaInput=0;
       this.retraInput=0;
-      this.numeroDeptoSeleccionado=null;
-      this.codigoMaquinaSeleccionado='';
-      this.numParteSeleccionado='';
-      /*this.calidadS.find(res.id).subscribe(response=>{
-        this.calidad=response;
-        this.defectoS.getList(response.numerodp).subscribe((data:Defecto[])=>{
-          this.listaDefectos=data;
-        });
-      });*/
     });
   }
-  /*aqui trabajare con los defectos*/
-  agregarDefecto() {
+  /*codigo para el agregado de defectos*/
+  agregarDefecto(tipo:string) {
+    //console.log(tipo);
     if (this.defectoSeleccionado) {
       // Se verifica si el defecto ya existe en el arrreglo defectosAgregados
       const defectoExistente = this.defectosAgregados.some(defecto => defecto.defecto === this.defectoSeleccionado);
+      const defectoExistente2 = this.defectosAgregados2.some(defecto => defecto.defecto === this.defectoSeleccionado);
       // Si el defecto no existe se agrega
-      if (!defectoExistente) {
+      if (!defectoExistente && !defectoExistente2) {
         const defectoForm = {
           id: '',
           idregistrofinal: this.idCalidad,
           defecto: this.defectoSeleccionado,
+          tipo: tipo,
+          cantidad: 0,
         };
         //console.log(defectoForm);
         this.AddDefectoS.create(defectoForm).subscribe(res=>{
@@ -172,25 +207,111 @@ export class FormularioMovilComponent  implements OnInit{
             id:res.id,
             idregistrofinal: this.idCalidad,
             defecto: this.defectoSeleccionado,
+            tipo: tipo,
+            cantidad:0,
           }
           // Se agrega el defecto solo si no existe en defectosAgregados
-          this.defectosAgregados.push(defectoAdd);
+          if (tipo === 'Rechazado') {
+            this.defectosAgregados.push(defectoAdd);
+          }else{
+            this.defectosAgregados2.push(defectoAdd);
+          }
         });
       } else {
         console.log('El defecto ya está en la lista.');
       }
     }
+    this.habilitar=true;
   }
 
   eliminarDefecto(id: string) {
     this.AddDefectoS.delete(id).subscribe(res=>{
       this.defectosAgregados = this.defectosAgregados.filter(item => item.id !== id);
+      this.defectosAgregados2 = this.defectosAgregados2.filter(item => item.id !== id);
       console.log('defecto eliminado')
     })
   }
-  /*se resetea el arreglo que contiene el listado de los defectos*/
-  resetaerDefectos(){
-    this.listaDefectos = [];
-    this.defectosAgregados = [];
+  /*captura la cantidad que tiene de pzas rechazadas y de retrabajo*/
+  contarCantidad(idN:string) {
+    this.AddDefectoS.getList(idN).subscribe((data: Registrodefecto[]) => {
+      // Filtrar elementos con tipo 'Rechazado'
+      const rechazados = data.filter(item => item.tipo === 'Rechazado');
+      // Filtrar elementos con tipo 'Retrabajo'
+      const retrabajos = data.filter(item => item.tipo === 'Retrabajo');
+
+      // Sumar la cantidad para 'Rechazado'
+      const sumaRechazados = this.sumarCantidad(rechazados);
+      // Sumar la cantidad para 'Retrabajo'
+      const sumaRetrabajos = this.sumarCantidad(retrabajos);
+      const diferenciaRechazados = this.pzaRechaEstatico - sumaRechazados;
+      const diferenciaRetrabajos = this.pzaRetraEstatico - sumaRetrabajos;
+
+      if (diferenciaRechazados === 0 && diferenciaRetrabajos === 0) {
+        this.comportamientoVista3(true);
+      } else {
+        if (diferenciaRechazados > 0 || diferenciaRetrabajos > 0) {
+          //console.log(`Te faltan ${diferenciaRechazados} en rechazados.`);
+          window.alert('Te faltan piezas por agregar');
+        } else {
+          //console.log(`Te has pasado por ${Math.abs(diferenciaRechazados)} en rechazados.`);
+          window.alert('Agregaste piezas de más');
+        }
+      }
+    });
+    this.cantidadInput=0;
   }
+
+  // Función para sumar la cantidad de elementos
+  sumarCantidad(items: Registrodefecto[]): number {
+    return items.reduce((total, item) => total + Number(item.cantidad), 0);
+  }
+
+  //actualizar el valor de cantidad en la tabla
+  habilitar:boolean=true;
+  addValor(id: string) {
+    // Verifica si cantidadInput no es null y es un número entero
+    if (this.cantidadInput !== null && Number.isInteger(Number(this.cantidadInput))) {
+      const cantidadInputNumber = Number(this.cantidadInput);
+      const valorNew = {
+        cantidad: cantidadInputNumber
+      };
+
+      // Intenta actualizar en defectosAgregados
+      this.updateCantidadInArray(id, valorNew, this.defectosAgregados);
+      // Si no se encontró en defectosAgregados, intenta actualizar en defectosAgregados2
+      this.updateCantidadInArray(id, valorNew, this.defectosAgregados2);
+      if ((this.defectosAgregados.some(defecto => defecto.cantidad === 0)||(this.defectosAgregados2.some(defecto => defecto.cantidad === 0)))) {
+        //console.log('Por lo menos hay un 0');
+        this.habilitar=true;
+      }else{
+        //console.log('Ningun registro tiene 0')
+        this.habilitar=false;
+      }
+    } else {
+      window.alert('La cantidad ingresada no es un número entero o es null.');
+    }
+  }
+
+
+
+  //actualizar el valor de cantidad en la tabla
+  updateCantidadInArray(id: string, newValue: any, array: Registrodefecto[]) {
+    //console.log('NOSE QUE TRAE:',array);
+    const defectoIndex = array.findIndex(defecto => defecto.id === id);
+
+    if (defectoIndex !== -1) {
+      // Almacena la cantidad actual antes de la actualización
+      const cantidadAnterior = array[defectoIndex].cantidad;
+      //console.log(cantidadAnterior);
+      // Actualiza la cantidad en el array local
+      array[defectoIndex].cantidad = this.cantidadInput;
+      // También puedes realizar la solicitud de actualización a la base de datos aquí si es necesario
+      this.AddDefectoS.update(id, newValue).subscribe(res => {
+        console.log('Valor agregado');
+      });
+    }
+  }
+
+
+
 }

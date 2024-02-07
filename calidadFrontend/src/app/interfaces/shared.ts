@@ -56,6 +56,11 @@ export interface Registrodefecto{
   id:string;
   idregistrofinal:string;
   defecto:string;
+  tipo:string;
+  cantidad:number;
+}
+export interface Valor{
+  cantidad:number;
 }
 
 export interface DetallesRegistro{
@@ -64,4 +69,57 @@ export interface DetallesRegistro{
   subensamble:string;
   nombre:string;
   apellido:string;
+}
+
+export interface DatosExportar {
+  id: string;
+  empleado: string;
+  semana: number | null;
+  fecha: string;
+  turno: string;
+  numerodp: string;
+  codigomq: string;
+  numerop: string;
+  pzainspc: number | null;
+  pzarecha: number;
+  pzaretra: number;
+  totalrecha: number;
+  empleados: {
+    //id: string;
+    nombre: string;
+    apellido: string;
+    //usuario: string;
+    //contrasenia: string;
+    //perfil: string;
+    //estatus: string;
+  };
+  departamento: {
+    //id: string;
+    //numero: string;
+    nombre: string;
+    //encargado: string;
+    //tipo: string;
+  };
+  maquina: {
+    //id: string;
+    //codigo: string;
+    nombre: string;
+    //codproceso: string;
+    //departamento: string;
+  };
+  parte: {
+    //id: string;
+    //numero: string;
+    descripcion: string;
+    //tipo: string;
+    //cliente: string;
+    //departamento: string;
+  };
+  registrodefecto: {
+    //id: string;
+    //idregistrofinal: number;
+    defecto: string;
+    tipo: string;
+    cantidad: string;
+  }[];
 }

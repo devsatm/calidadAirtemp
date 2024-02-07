@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
-import { DetallesRegistro, Registrofinal } from '../interfaces/shared';
+import { DatosExportar, DetallesRegistro, Registrofinal } from '../interfaces/shared';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +17,14 @@ export class CalidadService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAll(): Observable<Registrofinal[]> {
+  /*getAll(): Observable<Registrofinal[]> {
     return this.httpClient.get<Registrofinal[]>(this.ApiUrl)
+    .pipe(
+      catchError(this.errorHandler)
+    )
+  }*/
+  getAll(): Observable<DatosExportar[]> {
+    return this.httpClient.get<DatosExportar[]>(this.ApiUrl)
     .pipe(
       catchError(this.errorHandler)
     )
@@ -31,6 +37,12 @@ export class CalidadService {
   }
   getList(empleado:string):Observable<Registrofinal[]>{
     return this.httpClient.get<Registrofinal[]>(this.ApiUrl+'list/'+empleado)
+    .pipe(
+      catchError(this.errorHandler)
+    )
+  }
+  getByDateRange(start_date:String,end_date:String):Observable<DatosExportar[]>{
+    return this.httpClient.get<DatosExportar[]>(this.ApiUrl+'date-range/'+start_date+'/'+end_date)
     .pipe(
       catchError(this.errorHandler)
     )

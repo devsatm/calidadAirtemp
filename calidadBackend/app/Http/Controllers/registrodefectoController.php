@@ -8,12 +8,12 @@ Use Log;
 
 class registrodefectoController extends Controller
 {
-    //metodo para traer todos los registros de calidad
+    //metodo para traer todos los defectos
     public function getAll(){
         $data = registrodefecto::get();
         return response()->json($data, 200);
     }
-    //metodo para traer un registro de calidad
+    //metodo para traer un defecto
     public function get($id){
         $data = registrodefecto::find($id);
         return response()->json($data, 200);
@@ -22,10 +22,16 @@ class registrodefectoController extends Controller
         $data = registrodefecto::where('idregistrofinal', $idregistrofinal)->get();
         return response()->json($data, 200);
     }
+    public function getRechazado($tipo){
+        $data = registrodefecto::where('tipo', $tipo)->get();
+        return response()->json($data, 200);
+    }
     //metodo para crear un registro
     public function create(Request $request){
         $data['idregistrofinal'] = $request['idregistrofinal'];
         $data['defecto'] = $request['defecto'];
+        $data['tipo'] = $request['tipo'];
+        $data['cantidad'] = $request['cantidad'];
         $registrod = registrodefecto::create($data); // Crear el registroo y obtener el modelo
 
         $nuevoRegistrodID = $registrod->id; // Obtener el ID del registro recién creado
@@ -38,8 +44,7 @@ class registrodefectoController extends Controller
     }
     //metodo para actualizar un registro
     public function update(Request $request,$id){
-        $data['idregistrofinal'] = $request['idregistrofinal'];
-        $data['defecto'] = $request['defecto'];
+        $data['cantidad'] = $request['cantidad'];
         registrodefecto::find($id)->update($data);
         return response()->json([
             'message' => "Successfully updated",

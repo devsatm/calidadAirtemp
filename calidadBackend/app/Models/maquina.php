@@ -16,4 +16,8 @@ class maquina extends Model
       'codproceso',
       'departamento'
     ];
+    public function registrofinal(){
+        return $this->hasMany(Registrofinal::class, 'codigomq', 'codigo');
+    }
+
 }

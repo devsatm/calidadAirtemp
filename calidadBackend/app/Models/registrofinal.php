@@ -35,6 +35,11 @@ class registrofinal extends Model
     public function parte(){
         return $this->belongsTo(Parte::class, 'numerop', 'numero');
     }
+    public function registrodefecto()
+{
+    return $this->hasMany(RegistroDefecto::class, 'idregistrofinal', 'id');
+}
+
 
 
 }

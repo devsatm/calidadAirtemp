@@ -4,6 +4,43 @@
 .buscador{
   margin-left: 5%;
 }
+.buscador .group{
+  display: grid;
+  grid-template-columns: 120% 120% 40% 40% 40%;
+  grid-gap: 5%;
+}
+.filtrar, .resetear{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/*para los botones de filtrar y exportar*/
+#filtrar{
+  color: green;
+  font-weight: bold;
+  border-color: green;
+}
+#resetear{
+  color: #005ba2;
+  font-weight: bold;
+  border-color: #005ba2;
+}
+#exportar{
+  color: black;
+  font-weight: bold;
+  border-color: yellow;
+}
+#filtrar:hover{
+  background-color: green;
+  color: white;
+}
+#resetear:hover{
+  background-color: #005ba2;
+  color: white;
+}
+#exportar:hover{
+  background-color: yellow;
+}
 /*estilos para la tabla de registros*/
 .tabla-contenedor{
   margin: 2% 5%;
@@ -82,6 +119,7 @@ li {
   width: 1rem;
   height: 1rem;
  }
+
 
 @media only screen and (max-width: 767px) {
   .contenedor{
