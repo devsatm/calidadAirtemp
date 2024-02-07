@@ -21,7 +21,6 @@ export class RegisDefectosComponent {
   departamentos:Departamento[]=[];
   filtroBusqueda:string='';
 
-
   constructor(private defectosS:DefectoService, private parteS:ParteService, private maquinaS:MaquinaService,
     private departamentoS:DepartamentoService){}
 
@@ -57,12 +56,12 @@ export class RegisDefectosComponent {
         numerop: element.numerop,
         tipodefecto: element.tipodefecto
       }
-      this.defectos.push(newDef);
+      this.defectos.unshift(newDef);
       this.crearDef = {
         id:'',
-        codigomq:'',
-        numerodp:'',
-        numerop:'',
+        codigomq:element.codigomq,
+        numerodp:element.numerodp,
+        numerop:element.numerop,
         tipodefecto:''
       };
     })

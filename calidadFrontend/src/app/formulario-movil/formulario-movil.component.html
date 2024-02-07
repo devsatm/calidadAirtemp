@@ -72,7 +72,7 @@
         </div>
         <div class="row" id="piezas">
           <div class="col-md-6">
-            <label for="inspec" class="form-label" style="font-weight: bold;">Pza Inspc</label>
+            <label for="inspec" class="form-label" style="font-weight: bold;">Pza Inspeccionadas</label>
             <!--<input [(ngModel)]="crearRegis.pzainspc" name="pzainspc" type="number" class="form-control" id="inspec" required>-->
             <input [(ngModel)]="pzainspInput" name="pzainspc" type="number" class="form-control" id="inspec" required>
           </div>
@@ -81,7 +81,7 @@
               <label for="recha" class="form-label" style="font-weight: bold;">Pza Recha</label>
               <input type="number" class="form-control" id="recha" [(ngModel)]="rechaInput" required name="rechaInput" (ngModelChange)="onRechaInputChange()">
             </form>-->
-            <label for="recha" class="form-label" style="font-weight: bold;">Pza Recha</label>
+            <label for="recha" class="form-label" style="font-weight: bold;">Pza Rechazadas</label>
             <input type="number" class="form-control" id="recha" [(ngModel)]="rechaInput" required name="rechaInput" (ngModelChange)="onRechaInputChange()">
           </div>
 
@@ -90,13 +90,13 @@
               <label for="retra" class="form-label" style="font-weight: bold;">Pza Retra</label>
               <input type="number" class="form-control" id="retra" [(ngModel)]="retraInput" required name="retraInput" (ngModelChange)="onRetraInputChange()">
             </form>-->
-            <label for="retra" class="form-label" style="font-weight: bold;">Pza Retra</label>
+            <label for="retra" class="form-label" style="font-weight: bold;">Pza Retrabajo</label>
             <input type="number" class="form-control" id="retra" [(ngModel)]="retraInput" required name="retraInput" (ngModelChange)="onRetraInputChange()">
           </div>
 
           <div class="col-md-6">
             <form #totalForm="ngForm">
-              <label for="total" class="form-label" style="font-weight: bold;">Total Recha</label>
+              <label for="total" class="form-label" style="font-weight: bold;">Total Rechazadas</label>
               <input type="number" class="form-control" id="total" required name="valorInput" [value]="valorInput" disabled>
             </form>
           </div>
@@ -261,11 +261,11 @@
           </select>
         </section>
         <section class="boton">
-          <button *ngIf="pzaRechaEstatico!=0" class="btn btn-danger" (click)="agregarDefecto('Rechazado')">Recha</button>
-          <button *ngIf="pzaRetraEstatico!=0" class="btn btn-success" (click)="agregarDefecto('Retrabajo')">Retra</button>
+          <button *ngIf="verComponentesRecha ===true" class="btn btn-danger" (click)="agregarDefecto('Rechazado')">Recha</button>
+          <button *ngIf="verComponentesRetra === true" class="btn btn-success" (click)="agregarDefecto('Retrabajo')">Retra</button>
         </section>
       </section>
-      <section class="tabla-defectoRecha" *ngIf="pzaRechaEstatico!=0">
+      <section class="tabla-defectoRecha" *ngIf="verComponentesRecha ===true">
         <label for="titulo" style="font-weight: bold; color: white;">Rechazados</label>
         <table class="table table-hover">
           <tbody style="font-size: 12px;">
@@ -282,7 +282,7 @@
         </table>
       </section>
       <!--Defectos retrabajo-->
-      <section class="tabla-defectoRetra" *ngIf="pzaRetraEstatico!=0">
+      <section class="tabla-defectoRetra" *ngIf="verComponentesRetra === true">
         <label for="titulo" style="font-weight: bold; color: white;">Retrabajo</label>
         <table class="table table-hover">
           <tbody style="font-size: 12px;">
@@ -321,7 +321,7 @@
           </div>
         </div>
       </section>
-      <section class="tabla-defectoRecha" *ngIf="pzaRechaEstatico!=0">
+      <section class="tabla-defectoRecha" *ngIf="verComponentesRecha ===true">
         <label for="titulo" style="font-weight: bold; color: white;">Rechazados: {{pzaRechaEstatico}}</label>
         <table class="table table-hover table-responsive">
           <thead style="font-size: 13px;">
@@ -345,7 +345,7 @@
           </tbody>
         </table>
       </section>
-      <section class="tabla-defectoRetra" *ngIf="pzaRetraEstatico!=0">
+      <section class="tabla-defectoRetra" *ngIf="verComponentesRetra === true">
         <label for="titulo" style="font-weight: bold; color: white;">Retrabajo: {{pzaRetraEstatico}}</label>
         <table class="table table-hover">
           <thead style="font-size: 13px;">

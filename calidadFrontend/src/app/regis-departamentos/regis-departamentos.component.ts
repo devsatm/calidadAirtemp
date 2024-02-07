@@ -40,7 +40,7 @@ export class RegisDepartamentosComponent implements OnInit{
         encargado: element.encargado,
         tipo: element.tipo
       }
-      this.departamentos.push(newDepto);
+      this.departamentos.unshift(newDepto);
       this.crearDpto = {
         id: '',
         numero: '',
