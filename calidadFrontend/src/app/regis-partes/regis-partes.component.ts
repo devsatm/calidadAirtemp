@@ -37,7 +37,7 @@ export class RegisPartesComponent implements OnInit{
   }
   submit(element:Parte){
     this.parteS.create(this.crearPrt).subscribe(res=>{
-      console.log('Parte creada');
+      //console.log('Parte creada');
       const newPrt={
         id:res.id,
         numero:element.numero,
@@ -59,7 +59,7 @@ export class RegisPartesComponent implements OnInit{
   }
   submitedit(element:Parte){
     this.parteS.update(this.idPrt,this.crearPrt).subscribe(res=>{
-      console.log('Departamento aditado');
+      //console.log('Departamento aditado');
       // Encuentra el índice del departamento en el arreglo
     const index = this.partes.findIndex(d => d.id === this.idPrt);
 

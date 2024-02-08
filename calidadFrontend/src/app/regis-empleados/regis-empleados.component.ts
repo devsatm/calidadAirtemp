@@ -33,7 +33,7 @@ export class RegisEmpleadosComponent implements OnInit{
 
   submit(element:Empleados){
     this.empleadosS.create(this.crearEmp).subscribe(res =>{
-      console.log('empleado agregado');
+      //console.log('Empleado agregado');
       const newEmp={
         id: res.id,
         nombre: element.nombre,
@@ -57,7 +57,7 @@ export class RegisEmpleadosComponent implements OnInit{
   }
   submitedit(element:Empleados){
     this.empleadosS.update(this.idEmp,this.crearEmp).subscribe(res=>{
-      console.log('Departamento aditado');
+      //console.log('Empleado aditado');
       // Encuentra el índice del departamento en el arreglo
     const index = this.empleados.findIndex(d => d.id === this.idEmp);
 

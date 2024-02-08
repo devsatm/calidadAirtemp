@@ -44,29 +44,4 @@ export class LoginComponent implements OnInit{
       );
     }
   }
-
-
-  /*submit() {
-    const datos = { usuario: this.usuario, contrasenia: this.contrasenia };
-    this.empleadosS.verificarCredenciales(datos).subscribe(
-      res => {
-        this.error=false;
-        console.log('Credenciales válidas');
-         // Acceder a id y perfil directamente desde res
-        const id = res.id;
-        const perfil = res.perfil.toLowerCase();
-        // Hacer lo que necesites con id y perfil
-        console.log('ID:', id);
-        console.log('Perfil:', perfil);
-        this.router.navigate(['panel/',perfil, id]);
-      },
-      error => {
-        console.error('Credenciales inválidas', error);
-        this.error=true;
-      }
-    );
-  }*/
-
-
-
 }
