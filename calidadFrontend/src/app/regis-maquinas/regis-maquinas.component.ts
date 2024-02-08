@@ -35,7 +35,7 @@ export class RegisMaquinasComponent implements OnInit{
   }
   submit(element:Maquina){
     this.maquinaS.create(this.crearMq).subscribe(res =>{
-      console.log('Departamento agregado');
+      //console.log('Maquinas agregado');
       const newMq={
         id: res.id,
         codigo: element.codigo,
@@ -55,7 +55,7 @@ export class RegisMaquinasComponent implements OnInit{
   }
   submitedit(element:Maquina){
     this.maquinaS.update(this.idMq,this.crearMq).subscribe(res=>{
-      console.log('Departamento aditado');
+      //console.log('Maquina aditado');
       // Encuentra el índice del departamento en el arreglo
     const index = this.maquinas.findIndex(d => d.id === this.idMq);
 

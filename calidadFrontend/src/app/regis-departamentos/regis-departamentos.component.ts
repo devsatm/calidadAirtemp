@@ -32,7 +32,7 @@ export class RegisDepartamentosComponent implements OnInit{
 
   submit(element:Departamento){
     this.departamentoS.create(this.crearDpto).subscribe(res =>{
-      console.log('Departamento agregado');
+      //console.log('Departamento agregado');
       const newDepto={
         id: res.id,
         numero: element.numero,
@@ -52,7 +52,7 @@ export class RegisDepartamentosComponent implements OnInit{
   }
   submitedit(element:Departamento){
     this.departamentoS.update(this.idDepto,this.crearDpto).subscribe(res=>{
-      console.log('Departamento aditado');
+      //console.log('Departamento aditado');
       // Encuentra el índice del departamento en el arreglo
     const index = this.departamentos.findIndex(d => d.id === this.idDepto);
 

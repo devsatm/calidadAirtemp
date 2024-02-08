@@ -36,8 +36,6 @@ export class FormularioMovilComponent  implements OnInit{
   defectosAgregados:Registrodefecto[]=[];
   defectosAgregados2:Registrodefecto[]=[];
   valorRechaRetra:Registrodefecto[]=[];
-  //calidad!:Registrofinal;
-  //registrofinal:Registrofinal[]=[];
   //variables que guardan los valores seleccionados
   numeroDeptoSeleccionado: number | null = null; // variable para almacenar el número de departamento seleccionado
   codigoMaquinaSeleccionado: string='';
@@ -129,12 +127,12 @@ export class FormularioMovilComponent  implements OnInit{
     const fechaSeleccionada = new Date(event.target.value);
     this.numeroSemana = this.obtenerNumeroSemana(fechaSeleccionada);
   }
-  onRechaInputChange() {
+  /*onRechaInputChange() {
     console.log('Nuevo valor del inputRECHA:', this.rechaInput);
-  }
-  onRetraInputChange(){
+  }*/
+  /*onRetraInputChange(){
     console.log('Nuevo valor del inputRETRA:', this.retraInput);
-  }
+  }*/
   get valorInput(): number {
     // Si rechaInput es null o undefined, asigna 0; de lo contrario, utiliza su valor actual
     const recha = this.rechaInput !== null && this.rechaInput !== undefined ? this.rechaInput : 0;
@@ -191,7 +189,7 @@ export class FormularioMovilComponent  implements OnInit{
         totalrecha:this.valorInput
       }
     ).subscribe(res=>{
-      console.log('Registro exitosooo');
+      //console.log('Registro exitosooo');
       this.idCalidad=res.id;
       this.pzaRechaEstatico=res.pzarecha;
       this.pzaRetraEstatico=res.pzaretra;
@@ -219,7 +217,7 @@ export class FormularioMovilComponent  implements OnInit{
         };
         //console.log(defectoForm);
         this.AddDefectoS.create(defectoForm).subscribe(res=>{
-          console.log('Defecto agregado');
+          //console.log('Defecto agregado');
           const defectoAdd={
             id:res.id,
             idregistrofinal: this.idCalidad,
@@ -235,7 +233,7 @@ export class FormularioMovilComponent  implements OnInit{
           }
         });
       } else {
-        console.log('El defecto ya está en la lista.');
+        //console.log('El defecto ya está en la lista.');
       }
     }
     this.habilitar=true;
@@ -245,7 +243,7 @@ export class FormularioMovilComponent  implements OnInit{
     this.AddDefectoS.delete(id).subscribe(res=>{
       this.defectosAgregados = this.defectosAgregados.filter(item => item.id !== id);
       this.defectosAgregados2 = this.defectosAgregados2.filter(item => item.id !== id);
-      console.log('defecto eliminado')
+      //console.log('defecto eliminado')
     })
   }
   /*captura la cantidad que tiene de pzas rechazadas y de retrabajo*/
@@ -324,7 +322,7 @@ export class FormularioMovilComponent  implements OnInit{
       array[defectoIndex].cantidad = this.cantidadInput;
       // También puedes realizar la solicitud de actualización a la base de datos aquí si es necesario
       this.AddDefectoS.update(id, newValue).subscribe(res => {
-        console.log('Valor agregado');
+        //console.log('Valor agregado');
       });
     }
   }
