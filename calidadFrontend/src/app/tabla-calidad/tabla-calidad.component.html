@@ -34,7 +34,7 @@
             <th scope="col">Cod Máquina</th>
             <th scope="col">No Parte</th>
             <th scope="col">P. Inspeccionadas</th>
-            <th scope="col">P. Rechazadas</th>
+            <th scope="col">P. Scrap</th>
             <th scope="col">P. Retrabajo</th>
             <th scope="col">Total P.R.</th>
             <th scope="col">Acciones</th>
@@ -124,7 +124,7 @@
             <input type="text" class="form-control" id="InputInspeccionadas" [value]="formatNumber(pzainspec)" disabled>
           </div>
           <div class="col">
-            <label for="InputRechazadas" class="form-label" style="font-weight: bold;">Pza Rechazadas</label>
+            <label for="InputRechazadas" class="form-label" style="font-weight: bold;">Pza Scrap</label>
             <input type="text" class="form-control" id="InputRechazadas" [value]="formatNumber(pzarecha)" disabled>
           </div>
           <div class="col">
@@ -146,7 +146,6 @@
         </div>
       </div>
       <div class="modal-footer">
-        <!--<button (click)="exportToExcel()">Exportar a Excel</button>-->
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>

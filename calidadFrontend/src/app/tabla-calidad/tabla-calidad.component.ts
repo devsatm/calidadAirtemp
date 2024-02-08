@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Registrodefecto, Departamento, Registrofinal, DetallesRegistro, DatosExportar} from '../interfaces/shared';
+import { Registrodefecto, Departamento, Registrofinal, DetallesRegistro, DatosExportar, DefectData} from '../interfaces/shared';
 import { CalidadService } from '../services/calidad.service';
 import { DefectocalidadService } from '../services/defectocalidad.service';
 import * as XLSX from 'xlsx';
@@ -75,18 +75,15 @@ export class TablaCalidadComponent implements OnInit{
       this.RegistroFinal=data;
     });
   }
-
   exportToExcel(): void {
-    // Obtener los datos de la tabla
-    const data = this.RegistroFinal.map(registro => {
+    // Obtener los datos generales de la tabla
+    const generalData = this.RegistroFinal.map(registro => {
       // Verificar si hay datos de empleado
       const nombreEmpleado = registro.empleados ? registro.empleados.nombre : '';
       const apellidoEmpleado = registro.empleados ? registro.empleados.apellido : '';
 
-      // Obtener los nombres de los defectos
-      const defectos = registro.registrodefecto.map(defecto => defecto.defecto+ ','+defecto.tipo+':'+defecto.cantidad).join(', ');
-
       return {
+        Folio:registro.id,
         Empleado: nombreEmpleado + ' ' + apellidoEmpleado,
         NoDepto: registro.numerodp,
         CodMaquina: registro.codigomq,
@@ -98,24 +95,40 @@ export class TablaCalidadComponent implements OnInit{
         NombreSubensamble: registro.parte ? registro.parte.descripcion : '',
         NoParte: registro.numerop,
         PzInspeccionadas: registro.pzainspc,
-        PzRechazadas: registro.pzarecha,
+        PzScrap: registro.pzarecha,
         PzRetrabajo: registro.pzaretra,
         TotalPR: registro.totalrecha,
-        Defectos: defectos, // Agregar los nombres de los defectos aquí
       };
     });
 
+    // Obtener los datos de los defectos
+    const defectData: DefectData[] = this.RegistroFinal.reduce((acc: DefectData[], registro) => {
+      registro.registrodefecto.forEach(defecto => {
+        acc.push({
+          Folio: registro.id,
+          Defecto: defecto.defecto,
+          Tipo: defecto.tipo,
+          Cantidad: defecto.cantidad,
+        });
+      });
+      return acc;
+    }, []);
+
     // Crear un libro de Excel
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
 
-    // Eliminar la columna 'Acciones'
-    delete ws['A10'];
+    // Hoja 1: Datos Generales
+    const generalWs: XLSX.WorkSheet = XLSX.utils.json_to_sheet(generalData);
+    XLSX.utils.book_append_sheet(wb, generalWs, 'Calidad');
+
+    // Hoja 2: Defectos
+    const defectWs: XLSX.WorkSheet = XLSX.utils.json_to_sheet(defectData);
+    XLSX.utils.book_append_sheet(wb, defectWs, 'Defectos');
 
     // Guardar el archivo
-    XLSX.utils.book_append_sheet(wb, ws, 'Hoja1');
-    XLSX.writeFile(wb, 'Calidad.xlsx');
+    XLSX.writeFile(wb, 'Reporte_Calidad.xlsx');
   }
+
   formatNumber(number: number | null): string {
     if (number === null || number === undefined) {
       return ''; // O cualquier otro valor predeterminado

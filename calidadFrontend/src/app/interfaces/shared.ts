@@ -117,9 +117,15 @@ export interface DatosExportar {
   };
   registrodefecto: {
     //id: string;
-    //idregistrofinal: number;
+    idregistrofinal: number;
     defecto: string;
     tipo: string;
     cantidad: string;
   }[];
+}
+export interface DefectData {
+  Folio: string;
+  Defecto: string;
+  Tipo: string;
+  Cantidad: string;
 }
