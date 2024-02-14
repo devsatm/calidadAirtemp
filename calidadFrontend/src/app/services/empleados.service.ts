@@ -8,7 +8,8 @@ import { Observable, catchError, throwError } from 'rxjs';
 })
 export class EmpleadosService {
 
-  private readonly ApiUrl:string="http://127.0.0.1:8000/api/empleados/";
+  //private readonly ApiUrl:string="http://127.0.0.1:8000/api/empleados/";
+  private readonly ApiUrl:string="http://127.0.0.1:80/calidadBackend/public/api/empleados";
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
@@ -24,7 +25,7 @@ export class EmpleadosService {
     )
   }
   find(id:string): Observable<Empleados> {
-    return this.httpClient.get<Empleados>(this.ApiUrl + id)
+    return this.httpClient.get<Empleados>(this.ApiUrl+'/' + id)
     .pipe(
       catchError(this.errorHandler)
     )
@@ -38,18 +39,18 @@ export class EmpleadosService {
   }
 
   verificarCredenciales(empleados: any): Observable<Empleados> {
-    return this.httpClient.post<Empleados>(this.ApiUrl + 'verificar-credenciales', empleados, this.httpOptions);
+    return this.httpClient.post<Empleados>(this.ApiUrl + '/verificar-credenciales', empleados, this.httpOptions);
   }
 
   update(id:string, empleados: Empleados): Observable<Empleados> {
-    return this.httpClient.put<Empleados>(this.ApiUrl + id, JSON.stringify(empleados), this.httpOptions)
+    return this.httpClient.put<Empleados>(this.ApiUrl +'/' + id, JSON.stringify(empleados), this.httpOptions)
     .pipe(
       catchError(this.errorHandler)
     )
   }
 
   delete(id: string){
-    return this.httpClient.delete<Empleados>(this.ApiUrl + id, this.httpOptions)
+    return this.httpClient.delete<Empleados>(this.ApiUrl+'/' + id, this.httpOptions)
     .pipe(
       catchError(this.errorHandler)
     )
