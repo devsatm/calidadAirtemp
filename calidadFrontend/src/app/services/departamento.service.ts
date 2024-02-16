@@ -8,7 +8,8 @@ import { Departamento } from '../interfaces/shared';
 })
 export class DepartamentoService {
 
-  private readonly ApiUrl:string="http://127.0.0.1:8000/api/departamento/";
+  //private readonly ApiUrl:string="http://127.0.0.1:8000/api/departamento/";
+  private readonly ApiUrl:string="http://10.1.0.186:8088/calidadBackend/public/api/departamento";
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
@@ -24,13 +25,13 @@ export class DepartamentoService {
     )
   }
   find(id:string): Observable<Departamento> {
-    return this.httpClient.get<Departamento>(this.ApiUrl + id)
+    return this.httpClient.get<Departamento>(this.ApiUrl +'/' + id)
     .pipe(
       catchError(this.errorHandler)
     )
   }
   getList(numero:string):Observable<Departamento>{
-    return this.httpClient.get<Departamento>(this.ApiUrl+'numero/'+numero)
+    return this.httpClient.get<Departamento>(this.ApiUrl+'/numero/'+numero)
     .pipe(
       catchError(this.errorHandler)
     )
@@ -44,14 +45,14 @@ export class DepartamentoService {
   }
 
   update(id:string, departamento: Departamento): Observable<Departamento> {
-    return this.httpClient.put<Departamento>(this.ApiUrl + id, JSON.stringify(departamento), this.httpOptions)
+    return this.httpClient.put<Departamento>(this.ApiUrl+'/' + id, JSON.stringify(departamento), this.httpOptions)
     .pipe(
       catchError(this.errorHandler)
     )
   }
 
   delete(id: string){
-    return this.httpClient.delete<Departamento>(this.ApiUrl + id, this.httpOptions)
+    return this.httpClient.delete<Departamento>(this.ApiUrl+'/' + id, this.httpOptions)
     .pipe(
       catchError(this.errorHandler)
     )

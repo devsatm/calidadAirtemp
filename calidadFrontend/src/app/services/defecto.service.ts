@@ -8,7 +8,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 })
 export class DefectoService {
 
-  private readonly ApiUrl:string="http://127.0.0.1:8000/api/defecto/";
+  private readonly ApiUrl:string="http://10.1.0.186:8088/calidadBackend/public/api/defecto";
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
@@ -24,13 +24,13 @@ export class DefectoService {
     )
   }
   getList(id:string): Observable<Defecto[]>{
-    return this.httpClient.get<Defecto[]>(this.ApiUrl+'list/'+id)
+    return this.httpClient.get<Defecto[]>(this.ApiUrl+'/list/'+id)
     .pipe(
       catchError(this.errorHandler)
     )
   }
   find(id:string): Observable<Defecto> {
-    return this.httpClient.get<Defecto>(this.ApiUrl + id)
+    return this.httpClient.get<Defecto>(this.ApiUrl+'/'+ id)
     .pipe(
       catchError(this.errorHandler)
     )
@@ -44,14 +44,14 @@ export class DefectoService {
   }
 
   update(id:string, defecto: Defecto): Observable<Defecto> {
-    return this.httpClient.put<Defecto>(this.ApiUrl + id, JSON.stringify(defecto), this.httpOptions)
+    return this.httpClient.put<Defecto>(this.ApiUrl +'/'+ id, JSON.stringify(defecto), this.httpOptions)
     .pipe(
       catchError(this.errorHandler)
     )
   }
 
   delete(id: string){
-    return this.httpClient.delete<Defecto>(this.ApiUrl + id, this.httpOptions)
+    return this.httpClient.delete<Defecto>(this.ApiUrl+'/' + id, this.httpOptions)
     .pipe(
       catchError(this.errorHandler)
     )

@@ -120,12 +120,12 @@
           </select>
         </section>
         <section class="boton">
-          <button *ngIf="verComponentesRecha ===true" class="btn btn-danger" (click)="agregarDefecto('Rechazado')">Recha</button>
-          <button *ngIf="verComponentesRetra === true" class="btn btn-success" (click)="agregarDefecto('Retrabajo')">Retra</button>
+          <button *ngIf="verComponentesRecha ===true" class="btn btn-danger" (click)="agregarDefecto('Rechazado')">Scrap</button>
+          <button *ngIf="verComponentesRetra === true" class="btn btn-success" (click)="agregarDefecto('Retrabajo')">Retrabajo</button>
         </section>
       </section>
       <section class="tabla-defectoRecha" *ngIf="verComponentesRecha ===true">
-        <label for="titulo" style="font-weight: bold; color: white;">Rechazados</label>
+        <label for="titulo" style="font-weight: bold; color: white;">Scrap</label>
         <table class="table table-hover">
           <tbody style="font-size: 12px;">
             <tr *ngFor="let defecto of defectosAgregados">
@@ -181,7 +181,7 @@
         </div>
       </section>
       <section class="tabla-defectoRecha" *ngIf="verComponentesRecha ===true">
-        <label for="titulo" style="font-weight: bold; color: white;">Rechazados: {{pzaRechaEstatico}}</label>
+        <label for="titulo" style="font-weight: bold; color: white;">Scrap: {{pzaRechaEstatico}}</label>
         <table class="table table-hover table-responsive">
           <thead style="font-size: 13px;">
             <tr>

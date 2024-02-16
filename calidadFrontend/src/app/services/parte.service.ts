@@ -7,7 +7,7 @@ import { Observable, catchError, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class ParteService {
-  private readonly ApiUrl:string="http://127.0.0.1:8000/api/parte/";
+  private readonly ApiUrl:string="http://10.1.0.186:8088/calidadBackend/public/api/parte";
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
@@ -22,19 +22,19 @@ export class ParteService {
     )
   }
   getList(id:number | null): Observable<Parte[]>{
-    return this.httpClient.get<Parte[]>(this.ApiUrl+'list/'+id)
+    return this.httpClient.get<Parte[]>(this.ApiUrl+'/list/'+id)
     .pipe(
       catchError(this.errorHandler)
     )
   }
   getByNumero(numero:string):Observable<Parte>{
-    return this.httpClient.get<Parte>(this.ApiUrl+'numero/'+numero)
+    return this.httpClient.get<Parte>(this.ApiUrl+'/numero/'+numero)
     .pipe(
       catchError(this.errorHandler)
     )
   }
   find(id:string): Observable<Parte> {
-    return this.httpClient.get<Parte>(this.ApiUrl + id)
+    return this.httpClient.get<Parte>(this.ApiUrl+'/'+ id)
     .pipe(
       catchError(this.errorHandler)
     )
