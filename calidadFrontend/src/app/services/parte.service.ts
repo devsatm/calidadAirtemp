@@ -7,7 +7,7 @@ import { Observable, catchError, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class ParteService {
-  private readonly ApiUrl:string="http://10.1.0.186:8088/calidadBackend/public/api/parte";
+  private readonly ApiUrl:string="http://calidad.airtemp.mx:8088/calidadBackend/public/api/parte";
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
