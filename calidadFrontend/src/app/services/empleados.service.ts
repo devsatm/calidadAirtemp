@@ -9,7 +9,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 export class EmpleadosService {
 
   //private readonly ApiUrl:string="http://127.0.0.1:8000/api/empleados/";
-  private readonly ApiUrl:string="http://127.0.0.1:80/calidadBackend/public/api/empleados";
+  private readonly ApiUrl:string="http://calidad.airtemp.mx:8088/calidadBackend/public/api/empleados";
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'

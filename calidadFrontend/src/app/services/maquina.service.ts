@@ -8,7 +8,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 })
 export class MaquinaService {
 
-  private readonly ApiUrl:string="http://127.0.0.1:8000/api/maquina/";
+  private readonly ApiUrl:string="http://10.1.0.186:8088/calidadBackend/public/api/maquina";
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
@@ -24,19 +24,19 @@ export class MaquinaService {
     )
   }
   getList(id:number | null): Observable<Maquina[]>{
-    return this.httpClient.get<Maquina[]>(this.ApiUrl+'list/'+id)
+    return this.httpClient.get<Maquina[]>(this.ApiUrl+'/list/'+id)
     .pipe(
       catchError(this.errorHandler)
     )
   }
   getByCodigo(codigo:string):Observable<Maquina>{
-    return this.httpClient.get<Maquina>(this.ApiUrl+'codigo/'+codigo)
+    return this.httpClient.get<Maquina>(this.ApiUrl+'/codigo/'+codigo)
     .pipe(
       catchError(this.errorHandler)
     )
   }
   find(id:string): Observable<Maquina> {
-    return this.httpClient.get<Maquina>(this.ApiUrl + id)
+    return this.httpClient.get<Maquina>(this.ApiUrl+'/'+ id)
     .pipe(
       catchError(this.errorHandler)
     )
@@ -50,14 +50,14 @@ export class MaquinaService {
   }
 
   update(id:string, maquina: Maquina): Observable<Maquina> {
-    return this.httpClient.put<Maquina>(this.ApiUrl + id, JSON.stringify(maquina), this.httpOptions)
+    return this.httpClient.put<Maquina>(this.ApiUrl+'/'+ id, JSON.stringify(maquina), this.httpOptions)
     .pipe(
       catchError(this.errorHandler)
     )
   }
 
   delete(id: string){
-    return this.httpClient.delete<Maquina>(this.ApiUrl + id, this.httpOptions)
+    return this.httpClient.delete<Maquina>(this.ApiUrl+'/'+ id, this.httpOptions)
     .pipe(
       catchError(this.errorHandler)
     )
