@@ -9,7 +9,7 @@ import { Departamento } from '../interfaces/shared';
 export class DepartamentoService {
 
   //private readonly ApiUrl:string="http://127.0.0.1:8000/api/departamento/";
-  private readonly ApiUrl:string="http://10.1.0.186:8088/calidadBackend/public/api/departamento";
+  private readonly ApiUrl:string="http://calidad.airtemp.mx:8088/calidadBackend/public/api/departamento";
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'

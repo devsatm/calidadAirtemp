@@ -8,7 +8,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 })
 export class MaquinaService {
 
-  private readonly ApiUrl:string="http://10.1.0.186:8088/calidadBackend/public/api/maquina";
+  private readonly ApiUrl:string="http://calidad.airtemp.mx:8088/calidadBackend/public/api/maquina";
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'

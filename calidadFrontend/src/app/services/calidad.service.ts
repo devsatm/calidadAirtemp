@@ -8,7 +8,7 @@ import { DatosExportar, DetallesRegistro, Registrofinal } from '../interfaces/sh
 })
 export class CalidadService {
 
-  private readonly ApiUrl:string="http://10.1.0.186:8088/calidadBackend/public/api/registrofinal";
+  private readonly ApiUrl:string="http://calidad.airtemp.mx:8088/calidadBackend/public/api/registrofinal";
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
