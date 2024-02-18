@@ -95,9 +95,27 @@ th {
   height: 1rem;
  }
 
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 600px) {
+  .contenedor .nuevo{
+    padding: 13px 0px 0px 0px;
+  }
+  td, th{
+    font-size: 12px;
+  }
+  #btn{
+    font-size: 12px;
+  }
+  .modal-body{
+    font-size: 14px;
+  }
+  .group {
+    max-width: 150px;
+    margin-left: 15%;
+  }
+}
+@media only screen and (max-width: 850px) {
   .contenedor{
-    margin-top: 30%;
+    margin-top: 15%;
   }
   td, th{
     font-size: 12px;

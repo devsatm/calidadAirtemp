@@ -48,6 +48,10 @@
 /* Estilos para dispositivos móviles */
 @media only screen and (max-width: 767px) {
   .contenedor{
-    margin-top: 35%;
+    margin-top: 30%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
   }
+
 }

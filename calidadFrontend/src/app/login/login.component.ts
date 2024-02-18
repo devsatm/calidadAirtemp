@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit{
 
   }
   submit() {
-    if (this.usuario === '@CalidadAirtemp' && this.contrasenia === 'AdminCalidad') {
+    if (this.usuario === '@CalidadATM' && this.contrasenia === 'AdminCalidad') {
       // Usuario y contraseña predeterminados, navegar a la página del administrador
       this.router.navigate(['Panel/Administrador']);
     } else {

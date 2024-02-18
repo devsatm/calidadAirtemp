@@ -9,6 +9,7 @@
 
 .navbar-toggler{
   background-color: #c7c5c5;
+  width: 7%;
 }
 
 .offcanvas-header{
@@ -34,4 +35,31 @@
 }
 h5{
   cursor: pointer;
+}
+@media (max-width: 850px) {
+  .container-fluid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  img{
+    width: 60%;
+  }
+  .navbar-toggler{
+    width: 25%;
+    margin-left: 70%;
+  }
+}
+
+@media (max-width: 600px) {
+  .container-fluid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  img{
+    width: 70%;
+  }
+  .navbar-toggler{
+    width: 30%;
+    margin-left: 65%;
+  }
 }
