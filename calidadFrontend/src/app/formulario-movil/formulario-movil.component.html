@@ -4,99 +4,91 @@
   </section>
   <section class="contenedor">
     <section class="formulario">
-      <form class="row" (ngSubmit)="submit(form.value)" #form="ngForm">
-        <div class="row g-3">
+      <form (ngSubmit)="submit(form.value)" #form="ngForm">
+        <div class="row">
           <div class="col">
-            <label for="Turno" class="form-label" style="font-weight: bold;">Turno</label>
-            <div class="input-group">
-              <select [(ngModel)]="crearRegis.turno" name="turno" class="form-select" id="Turno" aria-label="Default select example" required>
-                <option selected disabled>Seleccionar</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-              </select>
-            </div>
+            <label for="turno" class="form-label" style="font-weight: bold;">Turno</label>
+            <select [(ngModel)]="crearRegis.turno" name="turno" class="form-select form-select-sm" id="turno" aria-label="Default select example" required>
+              <option selected disabled>Seleccionar</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+            </select>
           </div>
           <div class="col">
-            <label for="Fecha" class="form-label" style="font-weight: bold;">Fecha</label>
-            <input [(ngModel)]="crearRegis.fecha" name="fecha" type="date" class="form-control" id="Fecha" required (change)="actualizarNumeroSemana($event)">
+            <label for="fecha" class="form-label" style="font-weight: bold;">Fecha</label>
+            <input [(ngModel)]="crearRegis.fecha" name="fecha" type="date" class="form-control form-control-sm" id="fecha" required (change)="actualizarNumeroSemana($event)">
           </div>
           <div class="col">
-            <label for="Semana" class="form-label" style="font-weight: bold;">Semana</label>
-            <input type="text" class="form-control" id="Semana" disabled [value]="numeroSemana">
+            <label for="semana" class="form-label" style="font-weight: bold;">Semana</label>
+            <input type="text" class="form-control form-control-sm" id="semana" [value]="numeroSemana" disabled>
           </div>
         </div>
         <div class="row">
-          <div class="col">
-            <label for="Departamento" class="form-label" style="font-weight: bold;">Departamento</label>
+          <div class="col-md-6">
+            <label for="departamento" class="form-label" style="font-weight: bold;">Departamento</label>
             <div class="input-group">
-              <select [(ngModel)]="crearRegis.numerodp" name="numerodp" (change)="actualizarNoDepto()" class="form-select" id="Departamento" aria-label="Default select example" required>
+              <select [(ngModel)]="crearRegis.numerodp" name="numerodp" (change)="actualizarNoDepto()" class="form-select" id="departamento" aria-label="Default select example" required>
                 <option selected disabled>Seleccionar</option>
                 <option *ngFor="let departamento of departamentos" [value]="departamento.numero">{{departamento.nombre}}</option>
               </select>
             </div>
           </div>
-          <div class="col">
-            <label for="NoDepto" class="form-label" style="font-weight: bold;">No Depto</label>
-            <input type="text" class="form-control" id="NoDepto" [value]="numeroDeptoSeleccionado" disabled>
+          <div class="col-md-6" id="movil-grid">
+            <label for="numerodp" class="form-label" style="font-weight: bold;">Número</label>
+            <input type="text" class="form-control form-control-sm" id="numerodp" [value]="numeroDeptoSeleccionado" disabled>
           </div>
         </div>
         <div class="row">
-          <div class="col">
-            <label for="Maquina" class="form-label" style="font-weight: bold;">Máquina</label>
-            <select [(ngModel)]="crearRegis.codigomq" name="codigomq" (change)="actualizarCodMq()" class="form-select" id="Maquina" aria-label="Default select example" required>
+          <div class="col-md-6">
+            <label for="maquina" class="form-label" style="font-weight: bold;">Máquina</label>
+            <select [(ngModel)]="crearRegis.codigomq" name="codigomq" (change)="actualizarCodMq()" class="form-select" id="maquina" aria-label="Default select example" required>
               <option selected disabled>Seleccionar</option>
               <option *ngFor="let maquina of maquinas" [value]="maquina.codigo">{{maquina.nombre}}</option>
             </select>
           </div>
-          <div class="col">
-            <label for="CodMq" class="form-label" style="font-weight: bold;">Código Mq</label>
-            <div class="input-group">
-              <input type="text" class="form-control" id="CodMq" [value]="codigoMaquinaSeleccionado" disabled>
-            </div>
+          <div class="col-md-6" id="movil-grid">
+            <label for="codigomq" class="form-label" style="font-weight: bold;">Código</label>
+            <input type="email" class="form-control form-control-sm" id="codigomq" [value]="codigoMaquinaSeleccionado" disabled>
           </div>
         </div>
         <div class="row">
-          <div class="col">
-            <label for="Subensamble" class="form-label" style="font-weight: bold;">Subensamble</label>
-            <select [(ngModel)]="crearRegis.numerop" name="numerop" (change)="actualizarNumPt()" class="form-select" id="Subensamble" aria-label="Default select example" required>
+          <div class="col-md-6">
+            <label for="subensamble" class="form-label" style="font-weight: bold;">Subensamble</label>
+            <select [(ngModel)]="crearRegis.numerop" name="numerop" (change)="actualizarNumPt()" class="form-select" id="subensamble" aria-label="Default select example" required>
               <option selected disabled>Seleccionar</option>
               <option *ngFor="let parte of partes" [value]="parte.numero">{{parte.descripcion}}</option>
             </select>
           </div>
-          <div class="col">
-            <label for="NoParte" class="form-label" style="font-weight: bold;">No Parte</label>
-            <div class="input-group">
-              <input type="text" class="form-control" [value]="numParteSeleccionado" id="NoParte" disabled>
-            </div>
+          <div class="col-md-6" id="movil-grid">
+            <label for="numerop" class="form-label" style="font-weight: bold;">Número</label>
+            <input type="text" class="form-control form-control-sm" id="numerop" [value]="numParteSeleccionado" disabled>
           </div>
         </div>
-        <div class="row" id="piezas">
+        <div class="row" id="cantidades">
           <div class="col-md-6">
-            <label for="inspec" class="form-label" style="font-weight: bold;">Pza Inspeccionadas</label>
-            <input [(ngModel)]="pzainspInput" name="pzainspc" type="number" class="form-control" id="inspec" required>
+            <label for="pzaInsp" class="form-label" style="font-weight: bold;">Pza Inspeccionadas</label>
+            <input [(ngModel)]="pzainspInput" name="pzaInsp" type="number" class="form-control form-control-sm" id="pzaInsp" required>
+          </div>
+          <div class="col-md-6" >
+            <label for="pzaScrap" class="form-label" style="font-weight: bold;">Pza Scrap</label>
+            <input type="number" class="form-control form-control-sm" id="pzaScrap" [(ngModel)]="rechaInput" required name="pzaScrap">
+          </div>
+        </div>
+        <div class="row" id="cantidades">
+          <div class="col-md-6">
+            <label for="pzaRetra" class="form-label" style="font-weight: bold;">Pza Retrabajo</label>
+            <input type="number" class="form-control form-control-sm" id="pzaRetra" [(ngModel)]="retraInput" required name="pzaRetra">
           </div>
           <div class="col-md-6">
-            <label for="recha" class="form-label" style="font-weight: bold;">Pza Scrap</label>
-            <input type="number" class="form-control" id="recha" [(ngModel)]="rechaInput" required name="rechaInput">
-          </div>
-
-          <div class="col-md-6">
-            <label for="retra" class="form-label" style="font-weight: bold;">Pza Retrabajo</label>
-            <input type="number" class="form-control" id="retra" [(ngModel)]="retraInput" required name="retraInput">
-          </div>
-
-          <div class="col-md-6">
-            <form #totalForm="ngForm">
-              <label for="total" class="form-label" style="font-weight: bold;">Total Rechazadas</label>
-              <input type="number" class="form-control" id="total" required name="valorInput" [value]="valorInput" disabled>
-            </form>
+            <label for="total" class="form-label" style="font-weight: bold;">Total Rechazadas</label>
+            <input type="number" class="form-control" name="total" id="total" required name="valorInput" [value]="valorInput" disabled>
           </div>
         </div>
         <div class="row" id="botones">
-          <button [disabled]="!form.valid || pzainspInput === 0" class="btn btn-primary" *ngIf="valorInput === null || valorInput <= 0" type="submit" id="btn">
+          <button [disabled]="!form.valid || pzainspInput === 0" class="btn btn-primary" *ngIf="valorInput === null || valorInput <= 0" type="submit" id="btn" style="font-size: 15px;">
             Registrar
           </button>
-          <button [disabled]="!form.valid || pzainspInput === 0" id="btn" class="btn btn-primary" type="submit" *ngIf="valorInput != 0" >
+          <button [disabled]="!form.valid || pzainspInput === 0" id="btn" class="btn btn-primary" type="submit" *ngIf="valorInput != 0" style="font-size: 15px;">
             Defectos
           </button>
         </div>
@@ -120,8 +112,8 @@
           </select>
         </section>
         <section class="boton">
-          <button *ngIf="verComponentesRecha ===true" class="btn btn-danger" (click)="agregarDefecto('Rechazado')">Scrap</button>
-          <button *ngIf="verComponentesRetra === true" class="btn btn-success" (click)="agregarDefecto('Retrabajo')">Retrabajo</button>
+          <button *ngIf="verComponentesRecha ===true" class="btn btn-danger" (click)="agregarDefecto('Rechazado')" style="font-size: 12px;">Scrap</button>
+          <button *ngIf="verComponentesRetra === true" class="btn btn-success" (click)="agregarDefecto('Retrabajo')" style="font-size: 12px;">Retrabajo</button>
         </section>
       </section>
       <section class="tabla-defectoRecha" *ngIf="verComponentesRecha ===true">
@@ -131,7 +123,10 @@
             <tr *ngFor="let defecto of defectosAgregados">
               <td>{{defecto.defecto}}</td>
               <td>
-                <svg style="cursor: pointer;" (click)="eliminarDefecto(defecto.id)" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="#dc2626" d="m9.4 16.5l2.6-2.6l2.6 2.6l1.4-1.4l-2.6-2.6L16 9.9l-1.4-1.4l-2.6 2.6l-2.6-2.6L8 9.9l2.6 2.6L8 15.1zM7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21z"/></svg>
+                <!--<svg style="cursor: pointer;" (click)="eliminarDefecto(defecto.id)" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="#dc2626" d="m9.4 16.5l2.6-2.6l2.6 2.6l1.4-1.4l-2.6-2.6L16 9.9l-1.4-1.4l-2.6 2.6l-2.6-2.6L8 9.9l2.6 2.6L8 15.1zM7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21z"/></svg>-->
+                <button class="btn btn-danger" (click)="eliminarDefecto(defecto.id)" style="font-size: 12px;">
+                  eliminar
+                </button>
               </td>
             </tr>
             <tr *ngIf="defectosAgregados.length === 0">
@@ -148,7 +143,10 @@
             <tr *ngFor="let defecto of defectosAgregados2">
               <td>{{defecto.defecto}}</td>
               <td>
-                <svg style="cursor: pointer;" (click)="eliminarDefecto(defecto.id)" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="#dc2626" d="m9.4 16.5l2.6-2.6l2.6 2.6l1.4-1.4l-2.6-2.6L16 9.9l-1.4-1.4l-2.6 2.6l-2.6-2.6L8 9.9l2.6 2.6L8 15.1zM7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21z"/></svg>
+                <!--<svg style="cursor: pointer;" (click)="eliminarDefecto(defecto.id)" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="#dc2626" d="m9.4 16.5l2.6-2.6l2.6 2.6l1.4-1.4l-2.6-2.6L16 9.9l-1.4-1.4l-2.6 2.6l-2.6-2.6L8 9.9l2.6 2.6L8 15.1zM7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21z"/></svg>-->
+                <button class="btn btn-danger" (click)="eliminarDefecto(defecto.id)" style="font-size: 12px;">
+                  eliminar
+                </button>
               </td>
             </tr>
             <tr *ngIf="defectosAgregados2.length === 0">
@@ -195,7 +193,10 @@
               <td>{{defecto.defecto}}</td>
               <td>{{defecto.cantidad}}</td>
               <td>
-                <svg style="cursor: pointer;" (click)="addValor(defecto.id)" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="#0284c7" d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2m-1 9h-4v4h-2v-4H9V9h4V5h2v4h4z"/></svg>
+                <!--<svg style="cursor: pointer;" (click)="addValor(defecto.id)" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="#0284c7" d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2m-1 9h-4v4h-2v-4H9V9h4V5h2v4h4z"/></svg>-->
+                <button class="btn btn-primary"(click)="addValor(defecto.id)" style="font-size: 15px;">
+                  asignar
+                </button>
               </td>
             </tr>
             <tr *ngIf="defectosAgregados.length === 0">
@@ -219,7 +220,10 @@
               <td>{{defecto.defecto}}</td>
               <td>{{defecto.cantidad}}</td>
               <td>
-                <svg style="cursor: pointer;" (click)="addValor(defecto.id)" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="#0284c7" d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2m-1 9h-4v4h-2v-4H9V9h4V5h2v4h4z"/></svg>
+                <!--<svg style="cursor: pointer;" (click)="addValor(defecto.id)" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="#0284c7" d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2m-1 9h-4v4h-2v-4H9V9h4V5h2v4h4z"/></svg>-->
+                <button class="btn btn-primary" (click)="addValor(defecto.id)" style="font-size: 12px;">
+                  asignar
+                </button>
               </td>
             </tr>
             <tr *ngIf="defectosAgregados2.length === 0">
@@ -230,10 +234,10 @@
       </section>
       <div class="modal-footer" id="Footer">
         <section class="regresar">
-          <button type="button" class="btn btn-secondary" (click)="comportamientoVista1(true)">Regresar</button>
+          <button type="button" class="btn btn-secondary" (click)="comportamientoVista1(true)" style="font-size: 15px;">Regresar</button>
         </section>
         <section class="registrar">
-          <button [disabled]="habilitar" (click)="contarCantidad(idCalidad)" type="button" class="btn btn-primary">Registrar</button>
+          <button [disabled]="habilitar" (click)="contarCantidad(idCalidad)" type="button" class="btn btn-primary" style="font-size: 15px;">Registrar</button>
         </section>
       </div>
     </div>

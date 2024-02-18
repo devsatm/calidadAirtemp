@@ -54,7 +54,7 @@ img{
 
 
 /* Estilos para dispositivos móviles */
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 600px) {
   .contenedor{
     margin-top: 30%;
     margin-block-end: 80%;
@@ -68,3 +68,19 @@ img{
     width: 80%;
   }
 }
+/* Estilos para Tabletas */
+@media only screen and (max-width: 850px) {
+  .contenedor{
+    margin-top: 25%;
+    margin-block-end: 100%;
+  }
+  .formulario{
+    padding: 0 10%;
+    margin-left: 0;
+  }
+  img{
+    height: 80%;
+    width: 80%;
+  }
+}
+

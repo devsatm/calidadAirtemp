@@ -34,16 +34,29 @@
 h5{
   cursor: pointer;
 }
+@media (max-width: 850px) {
+  .container-fluid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  img{
+    width: 60%;
+  }
+  .navbar-toggler{
+    width: 35%;
+    margin-left: 55%;
+  }
+}
 @media (max-width: 600px) {
   .container-fluid{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
   }
   img{
-    width: 100%;
+    width: 70%;
   }
   .navbar-toggler{
-    width: 50%;
+    width: 40%;
     margin-left: 50%;
   }
 }
