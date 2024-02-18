@@ -19,7 +19,6 @@ import { FormularioMovilComponent } from './formulario-movil/formulario-movil.co
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RegisDefectosComponent } from './regis-defectos/regis-defectos.component';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +40,6 @@ import { RegisDefectosComponent } from './regis-defectos/regis-defectos.componen
   imports: [
     BrowserModule,
     AppRoutingModule,
-    //NgbModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule
