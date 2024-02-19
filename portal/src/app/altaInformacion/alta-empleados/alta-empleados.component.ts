@@ -51,15 +51,33 @@ export class AltaEmpleadosComponent implements OnInit{
       });*/
     });
   }
-  obtener(id:string){
-    this.idEmpleado=id;
-    this.empleadoS.find(id).subscribe((data:Empleados)=>{
-      this.empleado=data;
-      console.log(this.empleado);
+  obtener(id: string) {
+    this.idEmpleado = id;
+    this.empleadoS.find(id).subscribe((data: Empleados) => {
+      this.empleado = data;
+      //console.log(this.empleado);
+
+      // Asignar los valores del empleado al formulario
+      this.formEmpleados.patchValue({
+        nombre: this.empleado.nombre,
+        apellido: this.empleado.apellido,
+        usuario: this.empleado.usuario,
+        contrasenia: this.empleado.contrasenia,
+        perfil: this.empleado.perfil,
+        estatus: this.empleado.estatus
+      });
     });
   }
-  edit(){
 
+  edit(formulario:FormGroup){
+    //console.log('Nuevos datos:', formulario.value);
+    this.empleadoS.update(this.idEmpleado,formulario.value).subscribe(res=>{
+      console.log('empleado editado');
+      const index = this.empleados.findIndex(d => d.id === this.idEmpleado);
+      if (index !== -1) {
+        this.empleados[index] = { ...formulario.value, id: this.idEmpleado };
+      }
+    });
   }
 
   //filtro para el buscador

@@ -15,32 +15,36 @@ import { FormularioRegistroComponent } from './Empleado/formulario-registro/form
 import { VerMisRegistrosComponent } from './Empleado/ver-mis-registros/ver-mis-registros.component';
 import { LoginComponent } from './login/login.component';
 import { HeaderAdminComponent } from './Administrador/header-admin/header-admin.component';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { HeaderEmpleadoComponent } from './Empleado/header-empleado/header-empleado.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    AltaEmpleadosComponent,
-    AltaDepartamentosComponent,
-    AltaMaquinasComponent,
-    AltaPartesComponent,
-    AltaDefectosComponent,
-    PanelAdminComponent,
-    AltaInformacionComponent,
-    PanelEmpleadoComponent,
-    FormularioRegistroComponent,
-    VerMisRegistrosComponent,
-    LoginComponent,
-    HeaderAdminComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    HttpClientModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        AltaEmpleadosComponent,
+        AltaDepartamentosComponent,
+        AltaMaquinasComponent,
+        AltaPartesComponent,
+        AltaDefectosComponent,
+        PanelAdminComponent,
+        AltaInformacionComponent,
+        PanelEmpleadoComponent,
+        FormularioRegistroComponent,
+        VerMisRegistrosComponent,
+        LoginComponent,
+        HeaderAdminComponent,
+
+    ],
+    providers: [],
+    bootstrap: [AppComponent],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        FormsModule,
+        HeaderEmpleadoComponent
+    ]
 })
 export class AppModule { }
