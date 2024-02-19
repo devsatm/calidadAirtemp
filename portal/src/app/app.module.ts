@@ -14,6 +14,9 @@ import { PanelEmpleadoComponent } from './Empleado/panel-empleado/panel-empleado
 import { FormularioRegistroComponent } from './Empleado/formulario-registro/formulario-registro.component';
 import { VerMisRegistrosComponent } from './Empleado/ver-mis-registros/ver-mis-registros.component';
 import { LoginComponent } from './login/login.component';
+import { HeaderAdminComponent } from './Administrador/header-admin/header-admin.component';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -28,11 +31,14 @@ import { LoginComponent } from './login/login.component';
     PanelEmpleadoComponent,
     FormularioRegistroComponent,
     VerMisRegistrosComponent,
-    LoginComponent
+    LoginComponent,
+    HeaderAdminComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
