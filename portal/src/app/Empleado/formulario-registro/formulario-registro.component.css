@@ -1,7 +1,7 @@
 .container-md{
   margin-top: 9%;
   background-color: rgba(185, 185, 185, 0.308);
-  border-radius: 20px;
+  border-radius: 15px;
 }
 
 .turno select,.fecha input, .semana input{
@@ -14,7 +14,7 @@
 }
 
 form{
-  padding: 3% 10%;
+  padding: 3% 5%;
 }
 
 /* para móviles */

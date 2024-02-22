@@ -27,6 +27,9 @@ export class HeaderEmpleadoComponent implements OnInit{
   navegarMenu(id:string){
     this.router.navigate(['panel/empleado/',id]);
   }
+  salir(){
+    this.router.navigate(['login'])
+  }
 
 
 }

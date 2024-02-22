@@ -18,6 +18,7 @@ import { HeaderAdminComponent } from './Administrador/header-admin/header-admin.
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HeaderEmpleadoComponent } from './Empleado/header-empleado/header-empleado.component';
+import { AgregarDefectosComponent } from "./Empleado/formulario-registro/agregar-defectos/agregar-defectos.component";
 
 @NgModule({
     declarations: [
@@ -34,7 +35,6 @@ import { HeaderEmpleadoComponent } from './Empleado/header-empleado/header-emple
         VerMisRegistrosComponent,
         LoginComponent,
         HeaderAdminComponent,
-
     ],
     providers: [],
     bootstrap: [AppComponent],
@@ -44,7 +44,8 @@ import { HeaderEmpleadoComponent } from './Empleado/header-empleado/header-emple
         ReactiveFormsModule,
         HttpClientModule,
         FormsModule,
-        HeaderEmpleadoComponent
+        HeaderEmpleadoComponent,
+        AgregarDefectosComponent,
     ]
 })
 export class AppModule { }

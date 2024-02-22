@@ -1,0 +1,129 @@
+<body *ngIf="verSeleccionar">
+  <nav class="navbar fixed-top">
+    <div class="container-fluid">
+      <img class="navbar-brand" src="assets/img-logo/Letras_Airtemp.png" alt="Airtemp">
+    </div>
+  </nav>
+  <section class="body">
+    <div class="input" style="display: flex; align-items: center;">
+      <select class="form-select form-select-sm" id="defecto" (change)="saberTipo($event)">
+        <option selected disabled>Seleccionar</option>
+        <option *ngFor="let defecto of defectos" [value]="defecto.tipodefecto" >{{defecto.tipodefecto}}</option>
+      </select>
+      <div class="botones">
+        <button class="btn btn-danger btn-sm"  *ngIf="datos.pzarecha !== 0" (click)="agregarDefecto('Scrap')" id="scrap">Scrap</button>
+        <button class="btn btn-success btn-sm" *ngIf="datos.pzaretra !== 0" (click)="agregarDefecto('Retrabajo')">Retrabajo</button>
+      </div>
+    </div>
+    <div class="contenedortabla">
+      <span style="font-weight: bold; font-size: 12px;" *ngIf="datos.pzarecha !== 0">Scrap:{{datos.pzarecha}}</span>
+      <table class="table table-sm" *ngIf="datos.pzarecha !== 0" style="font-size: 12px;">
+        <thead>
+          <tr >
+            <th scope="col" style="background-color: rgba(255, 0, 0, 0.74); color: white;">Defecto</th>
+            <th scope="col" style="background-color: rgba(255, 0, 0, 0.74);color: white;">Acción</th>
+          </tr>
+        </thead>
+        <tbody style="font-size: 12px;">
+          <tr *ngFor="let defectosc of defectoScrap">
+            <td>{{defectosc.defecto}}</td>
+            <td><button class="btn btn-danger btn-sm" id="btneliminar" (click)="eliminarDefecto(defectosc.id)">eliminar</button></td>
+          </tr>
+          <tr *ngIf="defectoScrap.length === 0">
+            <td colspan="3">No hay defectos agregados</td>
+          </tr>
+        </tbody>
+      </table>
+      <span style="font-weight: bold; font-size: 12px;" *ngIf="datos.pzaretra !== 0">Retrabajo:{{datos.pzaretra}}</span>
+      <table class="table table-sm" *ngIf="datos.pzaretra !== 0" style="font-size: 12px;">
+        <thead>
+          <tr >
+            <th scope="col" style="background-color: rgba(14, 128, 65, 0.74); color: white;">Defecto</th>
+            <th scope="col" style="background-color: rgba(14, 128, 65, 0.74);color: white;">Acción</th>
+          </tr>
+        </thead>
+        <tbody style="font-size: 12px;">
+          <tr *ngFor="let defectort of defectoRetrabajo">
+            <td>{{defectort.defecto}}</td>
+            <td><button class="btn btn-danger btn-sm" (click)="eliminarDefecto(defectort.id)">Eliminar</button></td>
+          </tr>
+          <tr *ngIf="defectoRetrabajo.length === 0">
+            <td colspan="3">No hay defectos agregados</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row">
+      <button class="btn btn-primary btn-sm" (click)="cambiarVista(true)" [disabled]="(datos.pzarecha !==0 && defectoScrap.length===0)||(datos.pzaretra !==0 && defectoRetrabajo.length===0)">Siguiente</button>
+      <!--<div>
+        <p>ID: {{idRecuperado}}</p>
+        <p>Rechazados: {{ datos.pzarecha }}</p>
+        <p>Retrabajo: {{ datos.pzaretra }}</p>
+        <p>Suma total: {{ datos.sumaInput }}</p>
+      </div>-->
+    </div>
+  </section>
+</body>
+<!--AQUI ESTA EL CONTENEDOR PARA ASIGNAR EL VALOR-->
+<body *ngIf="verAsignarValor">
+  <nav class="navbar fixed-top">
+    <div class="container-fluid">
+      <img class="navbar-brand" src="assets/img-logo/Letras_Airtemp.png" alt="Airtemp">
+    </div>
+  </nav>
+  <section class="body">
+    <section class="input" style="display: flex; align-items: center;">
+      <span style="font-weight: bold;">Piezas:</span>
+      <input type="number" class="form-control form-control-sm" id="cantidad" (change)="valorInput($event)" name="cantidadInput">
+    </section>
+    <div class="contenedortabla">
+      <span style="font-weight: bold; font-size: 12px;" *ngIf="datos.pzarecha !== 0">Scrap:{{datos.pzarecha}}</span>
+      <table class="table table-sm" *ngIf="datos.pzarecha !== 0" style="font-size: 12px;">
+        <thead>
+          <tr >
+            <th scope="col" style="background-color: rgba(255, 0, 0, 0.74); color: white;">Defecto</th>
+            <th scope="col" style="background-color: rgba(255, 0, 0, 0.74); color: white;">Valor</th>
+            <th scope="col" style="background-color: rgba(255, 0, 0, 0.74);color: white;">Acción</th>
+          </tr>
+        </thead>
+        <tbody style="font-size: 12px;">
+          <tr *ngFor="let defectosc of defectoScrap">
+            <td>{{defectosc.defecto}}</td>
+            <td>{{defectosc.cantidad}}</td>
+            <td><button class="btn btn-primary btn-sm" (click)="asignarValor(defectosc.id)">asignar</button></td>
+            <td>
+          </tr>
+          <tr *ngIf="defectoScrap.length === 0">
+            <td colspan="3">No hay defectos agregados</td>
+          </tr>
+        </tbody>
+      </table>
+      <span style="font-weight: bold; font-size: 12px;" *ngIf="datos.pzaretra !== 0">Retrabajo:{{datos.pzaretra}}</span>
+      <table class="table table-sm" style="font-size: 12px;" *ngIf="datos.pzaretra !== 0">
+        <thead>
+          <tr >
+            <th scope="col" style="background-color: rgba(14, 128, 65, 0.74); color: white;">Defecto</th>
+            <th scope="col" style="background-color: rgba(14, 128, 65, 0.74); color: white;">Valor</th>
+            <th scope="col" style="background-color: rgba(14, 128, 65, 0.74);color: white;">Acción</th>
+          </tr>
+        </thead>
+        <tbody style="font-size: 12px;">
+          <tr *ngFor="let defectort of defectoRetrabajo">
+            <td>{{defectort.defecto}}</td>
+            <td>{{defectort.cantidad}}</td>
+            <td><button class="btn btn-primary btn-sm" (click)="asignarValor(defectort.id)">asignar</button></td>
+            <td>
+          </tr>
+          <tr *ngIf="defectoRetrabajo.length === 0">
+            <td colspan="3">No hay defectos agregados</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row">
+      <button class="btn btn-secondary btn-sm" (click)="cambiarVista(false)">regresar</button>
+      <button class="btn btn-primary btn-sm" [disabled]="!habilitarRegistrar" (click)="enviarRegistro()">Registrar</button>
+    </div>
+  </section>
+</body>
+
