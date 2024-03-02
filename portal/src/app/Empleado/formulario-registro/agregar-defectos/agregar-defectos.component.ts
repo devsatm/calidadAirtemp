@@ -37,50 +37,53 @@ export class AgregarDefectosComponent implements OnInit{
     const defectoSeleccionado = event?.target?.value;
     if (defectoSeleccionado) {
       this.defecto=defectoSeleccionado;
-      console.log(this.defecto);
+      //console.log(this.defecto);
     }
   }
   agregarDefecto(tipo: string) {
-    console.log('tipo:', tipo);
     const nuevoDefecto = {
-      id: '',
-      idregistrofinal:this.idRecuperado,
-      defecto: this.defecto,
-      tipo: tipo,
-      cantidad: 0,
+        id: '',
+        idregistrofinal: this.idRecuperado,
+        defecto: this.defecto,
+        tipo: tipo,
+        cantidad: 0,
     };
 
-    // Verificar si el defecto ya existe en alguno de los arreglos
-    const defectoExistenteScrap = this.defectoScrap.some(defecto => defecto.defecto === this.defecto);
-    const defectoExistenteRetrabajo = this.defectoRetrabajo.some(defecto => defecto.defecto === this.defecto);
-
-    // Si no existe en ninguno de los arreglos, agregar el defecto
-    if (this.defecto !== '') {
-      if (!defectoExistenteScrap && !defectoExistenteRetrabajo) {
-        this.registroDefectoS.create(nuevoDefecto).subscribe(res=>{
-          console.log('defecto agregado en la BD');
-          const pushDefecto={
-            id: res.id,
-            idregistrofinal:this.idRecuperado,
-            defecto: this.defecto,
-            tipo: tipo,
-            cantidad: 0,
-          }
-          if (tipo === 'Scrap') {
-            this.defectoScrap.push(pushDefecto);
-          } else {
-            this.defectoRetrabajo.push(pushDefecto);
-          }
-        });
-      } else {
-        //console.log('El defecto ya existe en alguno de los arreglos.');
-        window.alert('El defecto ya existe')
-      }
+    if (tipo === 'Scrap') {
+        const defectoExistenteScrap = this.defectoScrap.some(defecto => defecto.defecto === this.defecto);
+        if (!defectoExistenteScrap) {
+            this.registroDefectoS.create(nuevoDefecto).subscribe(res => {
+                const pushDefecto = {
+                    id: res.id,
+                    idregistrofinal: this.idRecuperado,
+                    defecto: this.defecto,
+                    tipo: tipo,
+                    cantidad: 0,
+                };
+                this.defectoScrap.push(pushDefecto);
+            });
+        } else {
+            window.alert('El defecto ya existe en el Scrap');
+        }
     } else {
-      //console.log('Selecciona un defecto')
-      window.alert('Selecciona un defecto');
+        const defectoExistenteRetrabajo = this.defectoRetrabajo.some(defecto => defecto.defecto === this.defecto);
+        if (!defectoExistenteRetrabajo) {
+            this.registroDefectoS.create(nuevoDefecto).subscribe(res => {
+                const pushDefecto = {
+                    id: res.id,
+                    idregistrofinal: this.idRecuperado,
+                    defecto: this.defecto,
+                    tipo: tipo,
+                    cantidad: 0,
+                };
+                this.defectoRetrabajo.push(pushDefecto);
+            });
+        } else {
+            window.alert('El defecto ya existe en el Retrabajo');
+        }
     }
-  }
+}
+
   cambiarVista(estado:boolean){
     this.verSeleccionar=!estado;
     this.verAsignarValor=estado;
@@ -91,7 +94,7 @@ export class AgregarDefectosComponent implements OnInit{
     const valorIngresado = event?.target?.value;
     if (valorIngresado) {
       this.valorAgregar=valorIngresado;
-      console.log('valor agregado',this.valorAgregar);
+      //console.log('valor agregado',this.valorAgregar);
     }
   }
   eliminarDefecto(id:string){
@@ -107,7 +110,7 @@ export class AgregarDefectosComponent implements OnInit{
         cantidad: cantidadInputNumber
       };
       this.registroDefectoS.update(id, valor).subscribe(res => {
-        console.log('editado correctamente');
+        //console.log('editado correctamente');
         // Actualizar el arreglo defectoScrap si el defecto se encuentra en ese arreglo
         const defectoScrapIndex = this.defectoScrap.findIndex(defecto => defecto.id === id);
         if (defectoScrapIndex !== -1) {
@@ -138,8 +141,8 @@ export class AgregarDefectosComponent implements OnInit{
     for (const defecto of this.defectoRetrabajo) {
       sumaRetrabajo += defecto.cantidad;
     }
-    console.log('Suma de Scrap:', sumaScrap);
-    console.log('Suma de Retrabajo:',sumaRetrabajo);
+    //console.log('Suma de Scrap:', sumaScrap);
+    //console.log('Suma de Retrabajo:',sumaRetrabajo);
     if ((this.datos.pzarecha === sumaScrap)&&(this.datos.pzaretra === sumaRetrabajo) && (!this.defectoScrap.some(defecto => defecto.cantidad === 0))&&(!this.defectoRetrabajo.some(defecto => defecto.cantidad === 0))) {
       this.habilitarRegistrar=true;
     } else {

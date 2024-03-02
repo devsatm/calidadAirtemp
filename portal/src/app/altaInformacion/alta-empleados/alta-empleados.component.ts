@@ -92,5 +92,8 @@ export class AltaEmpleadosComponent implements OnInit{
              empleado.estatus.toLowerCase().includes(valorBusqueda);
     });
   }
+  resetearFormulario(){
+    this.formEmpleados.reset();
+  }
 
 }

@@ -8,7 +8,8 @@ import { DatosExportar, DetallesRegistro, Registrofinal } from '../shared/interf
 })
 export class RegistrofinalService {
 
-  private readonly ApiUrl:string="http://calidad.airtemp.mx:8088/calidadBackend/public/api/registrofinal";
+  //private readonly ApiUrl:string="http://calidad.airtemp.mx:8088/calidadBackend/public/api/registrofinal";
+  private readonly ApiUrl:string="http://127.0.0.1:8000/api/registrofinal";
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'

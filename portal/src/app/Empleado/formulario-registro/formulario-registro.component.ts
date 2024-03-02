@@ -151,9 +151,9 @@ export class FormularioRegistroComponent implements OnInit{
       pzaretra:this.formRegistro.value.pzaretra,
       totalrecha:this.sumaInput
     }
-    console.log(this.calidadATM);
+    //console.log(this.calidadATM);
     this.registroFinalServices.create(this.calidadATM).subscribe(res=>{
-      console.log('registro agregado',res.id);
+      //console.log('registro agregado',res.id);
       this.idRegistro=res.id;
       this.formRegistro.patchValue({
         'pzainspc':'',
@@ -162,7 +162,7 @@ export class FormularioRegistroComponent implements OnInit{
         'totalrecha':'',
       });
     });
-    console.log('obtuve, rechazados:',this.formRegistro.value.pzarecha,',retrabajo:',this.formRegistro.value.pzaretra,'y suma total:',this.sumaInput);
+    //console.log('obtuve, rechazados:',this.formRegistro.value.pzarecha,',retrabajo:',this.formRegistro.value.pzaretra,'y suma total:',this.sumaInput);
     this.datosParaComponenteHijo={
       pzarecha: this.formRegistro.value.pzarecha,
       pzaretra: this.formRegistro.value.pzaretra,
@@ -176,7 +176,7 @@ export class FormularioRegistroComponent implements OnInit{
   }
   manejarRegistro(valor: boolean) {
     // Aquí puedes manejar el valor booleano que recibes del componente hijo como desees
-    console.log('Se hizo clic en el botón "Registrar" con el valor:', valor);
+    //console.log('Se hizo clic en el botón "Registrar" con el valor:', valor);
     this.verFormulario=valor;
     this.verDefectos=!valor;
   }

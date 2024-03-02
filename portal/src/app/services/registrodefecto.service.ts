@@ -8,7 +8,8 @@ import { Observable, catchError, throwError } from 'rxjs';
 })
 export class RegistrodefectoService {
 
-  private readonly ApiUrl:string="http://127.0.0.1:8000/api/registrodefecto/";
+  //private readonly ApiUrl:string="http://calidad.airtemp.mx:8088/calidadBackend/public/api/registrodefecto";
+  private readonly ApiUrl:string="http://127.0.0.1:8000/api/registrodefecto";
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
@@ -24,19 +25,19 @@ export class RegistrodefectoService {
     )
   }
   delete(id: string){
-    return this.httpClient.delete<Registrodefecto>(this.ApiUrl+ id, this.httpOptions)
+    return this.httpClient.delete<Registrodefecto>(this.ApiUrl+'/' + id, this.httpOptions)
     .pipe(
       catchError(this.errorHandler)
     )
   }
   getList(idregistrofinal:string):Observable<Registrodefecto[]>{
-    return this.httpClient.get<Registrodefecto[]>(this.ApiUrl+'list/'+idregistrofinal)
+    return this.httpClient.get<Registrodefecto[]>(this.ApiUrl+'/list/'+idregistrofinal)
     .pipe(
       catchError(this.errorHandler)
     )
   }
   update(id:string, registro: Valor): Observable<Valor> {
-    return this.httpClient.put<Valor>(this.ApiUrl + id, JSON.stringify(registro), this.httpOptions)
+    return this.httpClient.put<Valor>(this.ApiUrl+'/' + id, JSON.stringify(registro), this.httpOptions)
     .pipe(
       catchError(this.errorHandler)
     )

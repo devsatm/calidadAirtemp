@@ -95,9 +95,10 @@ th {
   height: 1rem;
  }
 
- @media only screen and (min-width: 401px) and (max-width: 600px) {
+ @media only screen and (max-width: 500px) {
   .contenedor .nuevo{
-    padding: 13px 0px 0px 0px;
+    padding: 20px 0px 0px 0px;
+    margin-top: 20px;
   }
   td, th{
     font-size: 12px;
@@ -112,6 +113,63 @@ th {
     max-width: 150px;
     margin-left: 15%;
   }
+  /*estilos para la vista movil de la tabla*/
+  .tabla-contenedor{
+    margin-top: 5%;
+    max-height: 650px;
+    margin-block-end: 5%;
+  }
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+
+  th {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  tr {
+    border: 1px solid #dddddd;
+    margin-bottom: 10px;
+  }
+
+  td {
+    border: none;
+    border-bottom: 1px solid #dddddd;
+    position: relative;
+    padding-left: 50%;
+  }
+
+  td:before {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    color: #005ba2;
+    font-weight: bold;
+  }
+  .container-fluid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  img{
+    width: 70%;
+  }
+  .navbar-toggler{
+    width: 30%;
+    margin-left: 65%;
+  }
+
+  td:nth-of-type(1):before { content: "Nombre"; }
+  td:nth-of-type(2):before { content: "Apellido"; }
+  td:nth-of-type(3):before { content: "Usuario"; }
+  td:nth-of-type(4):before { content: "Contraseña"; }
+  td:nth-of-type(5):before { content: "Perfil"; }
+  td:nth-of-type(6):before { content: "Estatus"; }
+  td:nth-of-type(7):before { content: "Acciones"; }
 }
 @media only screen and (max-width: 850px) {
   .contenedor{
