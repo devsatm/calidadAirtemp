@@ -8,8 +8,8 @@ import { Observable, catchError, throwError } from 'rxjs';
 })
 export class RegistrodefectoService {
 
-  //private readonly ApiUrl:string="http://calidad.airtemp.mx:8088/calidadBackend/public/api/registrodefecto";
-  private readonly ApiUrl:string="http://127.0.0.1:8000/api/registrodefecto";
+  private readonly ApiUrl:string="http://calidad.airtemp.mx:8088/calidadBackend/public/api/registrodefecto";
+  //private readonly ApiUrl:string="http://127.0.0.1:8000/api/registrodefecto";
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'

@@ -23,8 +23,8 @@ export class DefectoService {
       catchError(this.errorHandler)
     )
   }
-  getList(id:string): Observable<Defecto[]>{
-    return this.httpClient.get<Defecto[]>(this.ApiUrl+'/list/'+id)
+  getList(numerodp:number,codigomq:string,numerop:string): Observable<Defecto[]>{
+    return this.httpClient.get<Defecto[]>(this.ApiUrl+'/list/'+numerodp+'/'+codigomq+'/'+numerop)
     .pipe(
       catchError(this.errorHandler)
     )

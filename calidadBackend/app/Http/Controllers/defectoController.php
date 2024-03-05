@@ -18,11 +18,19 @@ class defectoController extends Controller
         $data = defecto::find($id);
         return response()->json($data, 200);
     }
-    //metodo para traer los defectos que pertenezcan a un departamento
-    public function getList($id){
-        $data = defecto::where('numerodp', $id)->get();
+    //metodo que trae los defectos por numeor de codigo de maquina y numero de parte
+    public function getList($id, $codigomq, $numerop){
+        $data = defecto::where('numerodp', $id)
+                       ->where('codigomq', $codigomq)
+                       ->where('numerop', $numerop)
+                       ->get();
         return response()->json($data, 200);
     }
+    //metodo para traer los defectos que pertenezcan a un departamento
+    /*public function getList($id){
+        $data = defecto::where('numerodp', $id)->get();
+        return response()->json($data, 200);
+    }*/
     //metodo para crear un defecto
     public function create(Request $request){
         $data['codigomq'] = $request['codigomq'];

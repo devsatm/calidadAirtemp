@@ -48,14 +48,14 @@ export class ParteService {
     )
   }
   update(id:string, parte: Parte): Observable<Parte> {
-    return this.httpClient.put<Parte>(this.ApiUrl + id, JSON.stringify(parte), this.httpOptions)
+    return this.httpClient.put<Parte>(this.ApiUrl+'/' + id, JSON.stringify(parte), this.httpOptions)
     .pipe(
       catchError(this.errorHandler)
     )
   }
 
   delete(id: string){
-    return this.httpClient.delete<Parte>(this.ApiUrl + id, this.httpOptions)
+    return this.httpClient.delete<Parte>(this.ApiUrl +'/' + id, this.httpOptions)
     .pipe(
       catchError(this.errorHandler)
     )

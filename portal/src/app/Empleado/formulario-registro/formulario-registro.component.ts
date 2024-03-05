@@ -167,7 +167,9 @@ export class FormularioRegistroComponent implements OnInit{
       pzarecha: this.formRegistro.value.pzarecha,
       pzaretra: this.formRegistro.value.pzaretra,
       sumaInput: this.sumaInput,
-      numerodp: this.formRegistro.value.numerodp
+      numerodp: this.formRegistro.value.numerodp,
+      codigomq: this.formRegistro.value.codigomq,
+      numerop: this.formRegistro.value.numerop
     }
     if (this.sumaInput !== 0) {
       this.verFormulario=false;

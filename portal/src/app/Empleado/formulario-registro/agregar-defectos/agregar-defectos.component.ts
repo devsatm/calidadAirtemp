@@ -29,7 +29,7 @@ export class AgregarDefectosComponent implements OnInit{
   constructor(private defectoS:DefectoService, private registroDefectoS:RegistrodefectoService){}
 
   ngOnInit(): void {
-    this.defectoS.getList(this.datos.numerodp).subscribe((data:Defecto[])=>{
+    this.defectoS.getList(this.datos.numerodp,this.datos.codigomq,this.datos.numerop).subscribe((data:Defecto[])=>{
       this.defectos=data;
     });
   }
