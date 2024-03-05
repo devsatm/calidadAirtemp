@@ -1,0 +1,171 @@
+<body>
+  <section class="header">
+    <app-header-admin></app-header-admin>
+  </section>
+  <section class="contenedor">
+    <section class="nuevo">
+      <button type="button" id="btn" class="btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="resetearFormulario()">Nuevo Empleado</button>
+      <div class="group">
+        <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><g><path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path></g></svg>
+        <input placeholder="Buscar" type="search" class="input" [(ngModel)]="filtroBusqueda">
+      </div>
+    </section>
+    <section class="tabla-contenedor">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Usuario</th>
+            <th scope="col">Contraseña</th>
+            <th scope="col">Perfil</th>
+            <th scope="col">Estatus</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+          <ng-container *ngIf="filtrarEmpleados().length > 0; else noResultados">
+            <tr *ngFor="let empleado of empleados of filtrarEmpleados()">
+              <td>{{empleado.nombre}}</td>
+              <td>{{empleado.apellido}}</td>
+              <td>{{empleado.usuario}}</td>
+              <td>{{empleado.contrasenia}}</td>
+              <td>{{empleado.perfil}}</td>
+              <td>{{empleado.estatus}}</td>
+              <td>
+                  <button (click)="obtener(empleado.id)" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">Editar</button>
+              </td>
+            </tr>
+          </ng-container>
+          <ng-template #noResultados>
+            <tr>
+              <td colspan="7" style="color: red; font-weight: bold;">Ningún resultado</td>
+            </tr>
+          </ng-template>
+        </tbody>
+      </table>
+    </section>
+  </section>
+</body>
+<!--MODAL PARA EL FORMULARIO REGISTRO DE EMPLEADOS-->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Registro de empleados</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="row" [formGroup]="formEmpleados" (ngSubmit)="submit()">
+          <div class="col-md-6">
+            <label for="Nombre" class="form-label" style="font-weight: bold;">Nombre</label>
+            <input formControlName="nombre" name="nombre" type="text" class="form-control" id="Nombre">
+            <div class="alert alert-danger mt-2" role="alert" [hidden]="formEmpleados.get('nombre')?.valid || formEmpleados.get('nombre')?.pristine">
+              El nombre es obligatorio
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="Apellido" class="form-label" style="font-weight: bold;">Apellido</label>
+            <input formControlName="apellido"  name="apellido" type="text" class="form-control" id="Apellido">
+            <div class="alert alert-danger mt-2" role="alert" [hidden]="formEmpleados.get('apellido')?.valid || formEmpleados.get('apellido')?.pristine">
+              El apellido es obligatorio
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="Usuario" class="form-label" style="font-weight: bold;">Usuario</label>
+            <div class="input-group">
+              <input formControlName="usuario" name="usuario" type="text" class="form-control" id="Usuario">
+            </div>
+            <div class="alert alert-danger mt-2" role="alert" [hidden]="formEmpleados.get('usuario')?.valid || formEmpleados.get('usuario')?.pristine">
+              El usuario es obligatorio
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="Contrasenia" class="form-label" style="font-weight: bold;">Contraseña</label>
+            <div class="input-group">
+              <input formControlName="contrasenia" name="contrasenia" type="text" class="form-control" id="Contrasenia" >
+            </div>
+            <div class="alert alert-danger mt-2" role="alert" [hidden]="formEmpleados.get('contrasenia')?.valid || formEmpleados.get('contrasenia')?.pristine">
+              La contraseña es obligatorio
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="Perfil" class="form-label" style="font-weight: bold;">Perfil</label>
+            <div class="input-group">
+              <select formControlName="perfil" name="perfil" class="form-select" id="Perfil">
+                <option value="Empleado" selected>Empleado</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="validationDefaultEstatus" class="form-label" style="font-weight: bold;">Estatus</label>
+            <div class="input-group">
+              <select formControlName="estatus" name="estatus" class="form-select" id="Estatus">
+                <option value="Activo" selected>Activo</option>
+                <option value="Inactivo">Inactivo</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12">
+            <button class="btn btn-primary" type="submit" [disabled]="!formEmpleados.valid">Agregar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!--MODAL PARA EDITAR LA INFORMACIÓN DE LOS EMPLEADOS-->
+<div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel2" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Datos del empleado</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="row" [formGroup]="formEmpleados" (ngSubmit)="edit(formEmpleados)">
+          <div class="col-md-6">
+            <label for="Nombre" class="form-label" style="font-weight: bold;">Nombre</label>
+            <input formControlName="nombre" name="nombre" type="text" class="form-control" id="Nombre">
+          </div>
+          <div class="col-md-6">
+            <label for="Apellido" class="form-label" style="font-weight: bold;">Apellido</label>
+            <input formControlName="apellido"  name="apellido" type="text" class="form-control" id="Apellido" >
+          </div>
+          <div class="col-md-6">
+            <label for="Usuario" class="form-label" style="font-weight: bold;">Usuario</label>
+            <div class="input-group">
+              <input formControlName="usuario" name="usuario" type="text" class="form-control" id="Usuario">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="Contrasenia" class="form-label" style="font-weight: bold;">Contraseña</label>
+            <div class="input-group">
+              <input formControlName="contrasenia" name="contrasenia" type="text" class="form-control" id="Contrasenia">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="Perfil" class="form-label" style="font-weight: bold;">Perfil</label>
+            <div class="input-group">
+              <select formControlName="perfil"  name="perfil" class="form-select" id="Perfil" aria-label="Default select example">
+                <option value="Empleado">Empleado</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="validationDefaultEstatus" class="form-label" style="font-weight: bold;">Estatus</label>
+            <div class="input-group">
+              <select formControlName="estatus" name="estatus" class="form-select" id="Estatus" aria-label="Default select example">
+                <option value="Activo">Activo</option>
+                <option value="Inactivo">Inactivo</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12">
+            <button class="btn btn-warning" type="submit" [disabled]="!formEmpleados.valid" data-bs-dismiss="modal">Editar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

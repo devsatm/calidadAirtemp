@@ -1,0 +1,187 @@
+.contenedor{
+  margin-top: 9%;
+}
+
+#btn{
+  background-color: #989898;
+  color: white;
+  font-weight: bold;
+}
+#btn:hover{
+  background-color: #34adfc;
+}
+
+.nuevo{
+  margin-left: 5%;
+  display: grid;
+  grid-template-columns: max-content 1fr;
+}
+/*estilos para la tabla de registros*/
+.tabla-contenedor{
+  margin: 2% 5%;
+  overflow-x: auto;
+  max-height: 400px;
+}
+table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  border-collapse: collapse;
+}
+th {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  background-color: #0074cb; /* Cambia el color de fondo según tus preferencias */
+  z-index: 1;
+  color: white;
+}
+.editar{
+  cursor: pointer;
+}
+/*estilos para el modal*/
+.modal-header{
+  background-color: #0074cb;
+  color: white;
+  font-weight: bold;
+}
+.col-12{
+  margin-top: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/*estilos para el buscador*/
+.group {
+  display: flex;
+  line-height: 28px;
+  align-items: center;
+  position: relative;
+  max-width: 190px;
+  margin-left: 75%;
+ }
+
+ .input {
+  width: 100%;
+  height: 40px;
+  line-height: 28px;
+  padding: 0 1rem;
+  padding-left: 2.5rem;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  outline: none;
+  background-color: #dcdcdc;
+  color: #0d0c22;
+  transition: .3s ease;
+ }
+
+ .input::placeholder {
+  color: #7c7c7c;
+ }
+
+ .input:focus, input:hover {
+  outline: none;
+  border-color:#7bc9fe;
+  background-color: #fff;
+  box-shadow: 0 0 0 4px #7bc9fe;
+ }
+
+ .icon {
+  position: absolute;
+  left: 1rem;
+  fill: #9e9ea7;
+  width: 1rem;
+  height: 1rem;
+ }
+
+@media only screen and (max-width: 600px) {
+  .contenedor .nuevo{
+    padding: 13px 0px 0px 0px;
+  }
+  td, th{
+    font-size: 12px;
+  }
+  #btn{
+    font-size: 12px;
+  }
+  .modal-body{
+    font-size: 14px;
+  }
+  .group {
+    max-width: 150px;
+    margin-left: 15%;
+  }
+  /*estilos para la vista movil de la tabla*/
+  .tabla-contenedor{
+    margin-top: 5%;
+    max-height: 650px;
+  }
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+
+  th {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  tr {
+    border: 1px solid #dddddd;
+    margin-bottom: 10px;
+  }
+
+  td {
+    border: none;
+    border-bottom: 1px solid #dddddd;
+    position: relative;
+    padding-left: 50%;
+  }
+
+  td:before {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    color: #005ba2;
+    font-weight: bold;
+  }
+  .container-fluid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  img{
+    width: 70%;
+  }
+  .navbar-toggler{
+    width: 30%;
+    margin-left: 65%;
+  }
+
+  td:nth-of-type(1):before { content: "Código Producto/Operación"; }
+  td:nth-of-type(2):before { content: "Descripción del Material"; }
+  td:nth-of-type(3):before { content: "Tipo"; }
+  td:nth-of-type(4):before { content: "Cliente"; }
+  td:nth-of-type(5):before { content: "No Departamento"; }
+  td:nth-of-type(6):before { content: "Acciones"; }
+}
+@media only screen and (max-width: 850px) {
+  .contenedor{
+    margin-top: 15%;
+  }
+  td, th{
+    font-size: 12px;
+  }
+  #btn{
+    font-size: 12px;
+  }
+  .modal-body{
+    font-size: 14px;
+  }
+  .group {
+    max-width: 150px;
+    margin-left: 15%;
+  }
+}

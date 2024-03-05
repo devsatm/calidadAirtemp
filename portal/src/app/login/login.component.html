@@ -1,0 +1,36 @@
+<body>
+  <section class="contenedor">
+    <section class="icono">
+      <img src="assets/img-logo/Letras_Airtemp.png">
+    </section>
+    <section class="formulario">
+      <div class="error-message" [ngClass]="{'active': error}">
+        Credenciales inválidas o inactivas
+      </div>
+      <form class="row g-3" (ngSubmit)="submit()">
+        <div class="col-md-6">
+          <label for="Username" class="form-label" style="font-weight: bold; font-size: 25px; color: white;">Usuario</label>
+          <div class="input-group">
+            <input [(ngModel)]="usuario" name="usuario" type="text" class="form-control" id="Username" required>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label for="Password" class="form-label" style="font-weight: bold; font-size: 25px; color: white;">Contraseña</label>
+          <div class="input-group">
+            <input [(ngModel)]="contrasenia" name="contrasenia" type="{{ mostrarContrasenia ? 'text' : 'password' }}" class="form-control" id="Password" required>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label>
+            <input type="checkbox" [(ngModel)]="mostrarContrasenia" name="mostrarcontraseña"> Mostrar contraseña
+          </label>
+        </div>
+        <div class="col-12">
+          <button class="btn" type="submit">Ingresar</button>
+        </div>
+      </form>
+
+    </section>
+  </section>
+</body>
+

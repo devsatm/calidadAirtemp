@@ -1,0 +1,80 @@
+.navbar{
+  background-color: #005ba2;
+}
+.navbar-brand{
+  height: 15%;
+  width: 15%;
+}
+.body{
+  margin-top: 8%;
+}
+.input{
+  padding: 1% 20%;
+}
+
+.input select, .input input{
+  border: 2px solid #005ca28f;
+  width: 50%;
+}
+.contenedortabla{
+  padding: 0 20%;
+}
+.botones{
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  grid-gap: 8%;
+  margin-left: 5%;
+}
+.row{
+  width: 49%;
+  padding: 1% 21%;
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  grid-gap: 15%;
+}
+
+/* para móviles */
+@media only screen and (max-width: 500px) {
+  .navbar-brand{
+    height: 30%;
+    width: 30%;
+  }
+  .body{
+    margin-top: 16%;
+  }
+  .input{
+    padding: 2% 5%;
+  }
+  .input select, .input .input{
+    border: 2px solid #005ca28f;
+    width: 50%;
+  }
+  .contenedortabla{
+    padding: 0 5%;
+  }
+  .row{
+    width: 40%;
+    padding: 1% 8%;
+  }
+}
+
+/* para tabletas */
+@media only screen and (min-width: 501px) and (max-width: 950px) {
+  .navbar-brand{
+    height: 30%;
+    width: 30%;
+  }
+  .body{
+    margin-top: 13%;
+  }
+  .input{
+    padding: 2% 5%;
+  }
+  .contenedortabla{
+    padding: 0 5%;
+  }
+  .row{
+    width: 25%;
+    padding: 1% 6%;
+  }
+}
